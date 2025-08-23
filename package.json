@@ -2,42 +2,54 @@
   "name": "flutter-fly",
   "displayName": "Flutter Fly: Wireless Debug & Run",
   "description": "The ultimate Flutter development companion for VSCode. Connect devices wirelessly, build APKs/AABs, run Flutter apps, and manage your entire Flutter workflow from one beautiful interface.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "jamalihassan0307",
   "repository": "https://github.com/jamalihassan0307/flutter-fly",
   "homepage": "https://github.com/jamalihassan0307/flutter-fly",
   "engines": {
-    "vscode": "^1.85.0"
+    "vscode": "^1.103.0"
   },
   "icon": "media/icon.png",
   "galleryBanner": {
     "color": "#02569B",
     "theme": "dark"
   },
+  "badges": [
+    {
+      "url": "https://img.shields.io/badge/Flutter-3.0+-02569B?style=flat-square&logo=flutter&logoColor=white",
+      "description": "Flutter 3.0+"
+    },
+    {
+      "url": "https://img.shields.io/badge/VSCode-1.103.0+-373277?style=flat-square&logo=visualstudiocode&logoColor=white",
+      "description": "VSCode 1.103.0+"
+    }
+  ],
   "categories": [
     "Other",
     "Debuggers",
-    "Mobile",
     "Programming Languages",
-    "Snippets"
+    "Snippets",
+    "Extension Packs",
+    "Formatters",
+    "Linters"
   ],
   "keywords": [
     "flutter",
     "dart",
     "android",
     "ios",
-    "mobile",
-    "development",
-    "wireless",
+    "mobile-development",
+    "wireless-debugging",
     "debugging",
     "apk",
     "aab",
-    "build",
-    "run",
-    "hot reload",
-    "device management",
+    "build-tools",
+    "hot-reload",
+    "device-management",
     "emulator",
-    "simulator"
+    "simulator",
+    "flutter-doctor",
+    "flutter-build"
   ],
   "main": "./out/main.js",
   "test": "jest",
@@ -46,10 +58,22 @@
     "vscode:prepublish": "npm run setup && npm run compile",
     "setup": "npm install",
     "compile": "tsc",
-    "publish": "npx vsce publish -p $VSCE_DEPLOY_TOKEN",
-    "pp": "npx vsce package && npx vsce publish",
-    "test": "jest --coverage",
-    "test:watch": "jest --watchAll",
+    "build": "npm run clean && npm run compile && npm run package",
+    "build:clean": "npm run clean && npm run compile",
+    "build:package": "npm run compile && npm run package",
+    "clean": "rimraf out dist",
+    "package": "vsce package",
+    "package:patch": "npm version patch && npm run package",
+    "package:minor": "npm version minor && npm run package",
+    "package:major": "npm version major && npm run package",
+    "publish": "npm run build && vsce publish",
+    "publish:patch": "npm run package:patch && vsce publish",
+    "publish:minor": "npm run package:minor && vsce publish",
+    "publish:major": "npm run package:major && vsce publish",
+    "release": "npm run build && npm run publish",
+    "release:patch": "release-it patch",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major",
     "_____________________________________________________": "UTILITY SCRIPTS",
     "prepare": "husky install",
     "commit": "npm run cm",
@@ -58,10 +82,7 @@
     "cma": "git add . && cz",
     "ri": "npm run release",
     "rici": "release-it --ci",
-    "release": "release-it",
-    "release:patch": "release-it patch",
-    "release:minor": "release-it minor",
-    "release:major": "release-it major"
+    "release-it": "release-it"
   },
   "husky": {
     "hooks": {
@@ -88,11 +109,13 @@
     "@commitlint/cli": "^16.3.0",
     "@favoloso/conventional-changelog-emoji": "^0.10.0",
     "@release-it/bumper": "^4.0.0",
+    "@secretlint/node": "^11.0.2",
     "@types/jest": "^24.9.1",
     "@types/node": "^8.10.66",
     "@types/vscode": "^1.103.0",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
+    "@vscode/vsce": "^2.15.0",
     "acorn": ">=5.7.4",
     "commitizen": "^4.2.4",
     "commitlint-config-gitmoji": "^2.2.5",
@@ -109,6 +132,7 @@
     "jest": "^29.2.2",
     "minimist": ">=1.2.6",
     "release-it": "^15.11.0",
+    "rimraf": "^5.0.0",
     "ts-jest": "^29.0.3",
     "tslint": "^5.20.1",
     "typescript": "4.3",
@@ -304,6 +328,56 @@
         "command": "flutterFly.disableFirebaseDebug",
         "title": "Flutter Fly:🔥 Disable Firebase events debug mode",
         "category": "Flutter Fly"
+      },
+      {
+        "command": "flutterFly.openFlutterPanel",
+        "title": "🚀 Open Flutter Fly Panel",
+        "category": "Flutter Fly"
+      },
+      {
+        "command": "flutterFly.connectWirelessDevice",
+        "title": "📱 Connect Wireless Device",
+        "category": "Flutter Fly"
+      },
+      {
+        "command": "flutterFly.showConnectedDevices",
+        "title": "📋 Show Connected Devices",
+        "category": "Flutter Fly"
+      },
+      {
+        "command": "flutterFly.runFlutterApp",
+        "title": "▶️ Run Flutter App",
+        "category": "Flutter Fly"
+      },
+      {
+        "command": "flutterFly.buildFlutterApp",
+        "title": "🔨 Build Flutter App",
+        "category": "Flutter Fly"
+      },
+      {
+        "command": "flutterFly.flutterDoctor",
+        "title": "👨‍⚕️ Flutter Doctor",
+        "category": "Flutter Fly"
+      },
+      {
+        "command": "flutterFly.getPackages",
+        "title": "📦 Get Packages",
+        "category": "Flutter Fly"
+      },
+      {
+        "command": "flutterFly.hotReload",
+        "title": "🔄 Hot Reload",
+        "category": "Flutter Fly"
+      },
+      {
+        "command": "flutterFly.hotRestart",
+        "title": "🔄 Hot Restart",
+        "category": "Flutter Fly"
+      },
+      {
+        "command": "flutterFly.stopApp",
+        "title": "⏹️ Stop App",
+        "category": "Flutter Fly"
       }
     ],
     "menus": {
@@ -357,7 +431,11 @@
         },
         "flutterFly.defaultBuildMode": {
           "type": "string",
-          "enum": ["debug", "profile", "release"],
+          "enum": [
+            "debug",
+            "profile",
+            "release"
+          ],
           "default": "debug",
           "description": "Default build mode for APK/AAB builds"
         }

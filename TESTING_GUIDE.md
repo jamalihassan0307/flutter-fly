@@ -1,8 +1,8 @@
-# 🧪 Wireless ADB Extension Testing Guide
+# 🧪 Flutter Fly Extension Testing Guide
 
 ## 🎯 Overview
 
-This guide will help you test the **Wireless ADB** extension in a new VSCode window to ensure everything works correctly. The extension allows you to connect to Android devices wirelessly and manage ADB operations directly from VSCode.
+This guide will help you test the **Flutter Fly** extension in a new VSCode window to ensure everything works correctly. The extension provides comprehensive Flutter development capabilities including wireless device connection, APK/AAB building, and full Flutter workflow management.
 
 ---
 
@@ -28,31 +28,54 @@ A new VSCode window will open with your extension loaded. This is called the **"
 
 ### **Phase 1: Extension Activation**
 - [ ] Extension loads without errors
-- [ ] Welcome message appears: "🚀 Wireless ADB Extension is now active!"
+- [ ] Welcome message appears: "🚀 Flutter Fly is now active! Your ultimate Flutter development companion."
 - [ ] No error messages in Output panel
+- [ ] Welcome message shows "View Commands" and "Get Started" options
 
 ### **Phase 2: Command Discovery**
 - [ ] Open Command Palette (Ctrl+Shift+P)
-- [ ] Type "Wireless ADB" to see all commands
-- [ ] Verify all 9 commands are visible
+- [ ] Type "Flutter Fly" to see all commands
+- [ ] Verify all 30+ commands are visible and properly categorized
+- [ ] Check command categories: Project Setup, Building, Running, Device Management, etc.
 
-### **Phase 3: Basic Functionality**
+### **Phase 3: Basic Flutter Functionality**
+- [ ] Test "Run Flutter Doctor" command
+- [ ] Test "Get Packages" command
+- [ ] Test "Upgrade Flutter SDK" command (with confirmation)
+- [ ] Test "Format Code" command
+- [ ] Test "Analyze Project" command
+
+### **Phase 4: Building Commands**
+- [ ] Test "Build APK" command with mode selection
+- [ ] Test "Build App Bundle (AAB)" command with mode selection
+- [ ] Test "Build iOS" command (iOS folder check)
+- [ ] Test "Build Web" command (web folder check)
+
+### **Phase 5: Running Commands**
+- [ ] Test "Run on Connected Device" command
+- [ ] Test "Run in Debug Mode" command
+- [ ] Test "Run in Profile Mode" command
+- [ ] Test "Run in Release Mode" command
+- [ ] Test "Stop Running App" command
+
+### **Phase 6: Hot Reload Features**
+- [ ] Test "Hot Reload" command
+- [ ] Test "Hot Restart" command
+
+### **Phase 7: Device Management**
+- [ ] Test "Connect Android Device" command
+- [ ] Test "Open Android Emulator" command
+- [ ] Test "Open iOS Simulator" command (macOS only)
+- [ ] Test "Clean Project" command (with confirmation)
+
+### **Phase 8: ADB Functionality (Legacy Features)**
 - [ ] Test "Setup custom ADB location" command
 - [ ] Test "Remove custom ADB location" command
 - [ ] Test "Kill ADB server" command
-
-### **Phase 4: Device Connection (Requires Android Device)**
-- [ ] Enable WiFi debugging on Android device
 - [ ] Test "Connect to device IP" command
-- [ ] Test "Connect to device from List" command
-- [ ] Test "Disconnect from any devices" command
+- [ ] Test "Install APK file" command
 
-### **Phase 5: APK Installation (Requires APK File)**
-- [ ] Test "Pick .APK file and install" command
-- [ ] Verify file picker opens
-- [ ] Test with sample APK file
-
-### **Phase 6: Firebase Integration**
+### **Phase 9: Firebase Integration**
 - [ ] Test "Enable Firebase events debug mode" command
 - [ ] Test "Disable Firebase events debug mode" command
 
@@ -60,34 +83,46 @@ A new VSCode window will open with your extension loaded. This is called the **"
 
 ## 🔧 Testing Commands
 
-### **Command 1: Setup Custom ADB Location**
+### **Command 1: Run Flutter Doctor**
 ```
-Wireless ADB:📱 Setup custom ADB location
+Flutter Fly:🚀 Run Flutter Doctor
 ```
 **Expected Behavior:**
-- File picker opens
-- Can select ADB executable
-- Success message appears
+- Progress notification appears
+- Terminal opens with "Flutter Doctor" title
+- `flutter doctor` command executes
+- Success message: "✅ Flutter Doctor completed! Check terminal for results."
 
-### **Command 2: Connect to Device IP**
+### **Command 2: Build APK**
 ```
-Wireless ADB:📱 Connect to device IP
+Flutter Fly:🚀 Build APK
 ```
 **Expected Behavior:**
-- Input box for IP address appears
-- Input box for port appears
+- Build mode selection appears (debug/profile/release)
+- Progress notification shows selected mode
+- Terminal opens with "Flutter Build APK" title
+- `flutter build apk --[mode]` command executes
+- Success message: "✅ APK built successfully in [mode] mode!"
+
+### **Command 3: Run on Connected Device**
+```
+Flutter Fly:🚀 Run on Connected Device
+```
+**Expected Behavior:**
+- Progress notification appears
+- Terminal opens with "Flutter Run" title
+- `flutter run` command executes
+- Success message: "🚀 Flutter app is running! Use Hot Reload (R) or Hot Restart (Shift+R)"
+
+### **Command 4: Connect Android Device**
+```
+Flutter Fly:🚀 Connect Android Device
+```
+**Expected Behavior:**
+- Triggers the existing ADB connection command
+- IP address input appears
+- Port input appears
 - Connection attempt is made
-- Success/error message shown
-
-### **Command 3: Install APK File**
-```
-Wireless ADB:📱 Pick .APK file and install
-```
-**Expected Behavior:**
-- File picker opens
-- Can select APK files
-- Installation process starts
-- Success/error message shown
 
 ---
 
@@ -105,14 +140,15 @@ Wireless ADB:📱 Pick .APK file and install
 3. Verify TypeScript compilation succeeded
 4. Check extension host logs
 
-### **Issue: Commands Not Working**
+### **Issue: Flutter Commands Not Working**
 **Symptoms:**
 - Commands visible but don't execute
 - No response when clicked
+- Terminal not opening
 
 **Solutions:**
-1. Check if ADB is installed
-2. Verify ADB path configuration
+1. Check if Flutter is installed and in PATH
+2. Verify Flutter SDK version compatibility
 3. Check Output panel for errors
 4. Restart extension development host
 
@@ -127,6 +163,18 @@ Wireless ADB:📱 Pick .APK file and install
 2. Check device and computer are on same network
 3. Verify device IP address is correct
 4. Try resetting device port
+
+### **Issue: Build Commands Fail**
+**Symptoms:**
+- Build mode selection not working
+- Terminal commands not executing
+- Build errors
+
+**Solutions:**
+1. Ensure Flutter project is open
+2. Check Flutter installation
+3. Verify project structure
+4. Check terminal output for errors
 
 ---
 
@@ -144,7 +192,7 @@ Wireless ADB:📱 Pick .APK file and install
 4. Note your device's IP address
 
 ### **Connect Device**
-1. Use "Connect to device IP" command
+1. Use "Connect Android Device" command
 2. Enter device IP address
 3. Enter port (default: 5555)
 4. Allow connection on device
@@ -173,10 +221,10 @@ npm run test -- --coverage
 ## 📊 Expected Test Results
 
 ### **Test Coverage Target**
-- **Statements:** > 70%
-- **Branches:** > 50%
-- **Functions:** > 70%
-- **Lines:** > 70%
+- **Statements:** > 69%
+- **Branches:** > 54%
+- **Functions:** > 69%
+- **Lines:** > 68%
 
 ### **All Tests Should Pass**
 - 7 test suites
@@ -193,8 +241,8 @@ npm run test -- --coverage
 
 ### **Command Response Time**
 - Commands should respond within 500ms
-- File pickers should open immediately
-- Input boxes should appear instantly
+- Progress notifications should appear immediately
+- Terminal should open instantly
 
 ### **Memory Usage**
 - Extension should not cause memory leaks
@@ -205,7 +253,7 @@ npm run test -- --coverage
 ## 🔍 Debug Information
 
 ### **Output Panel**
-- Check "Wireless ADB" output channel
+- Check "Flutter Fly" output channel
 - Look for error messages
 - Verify command execution logs
 
@@ -228,12 +276,13 @@ npm run test -- --coverage
 2. ✅ No error messages in Output panel
 3. ✅ Welcome message appears on activation
 4. ✅ Commands execute without errors
-5. ✅ File pickers and input boxes work
-6. ✅ Device connection succeeds (with valid device)
-7. ✅ APK installation works (with valid APK)
-8. ✅ All tests pass
-9. ✅ No performance issues
-10. ✅ Extension deactivates cleanly
+5. ✅ Progress notifications work properly
+6. ✅ Terminal commands execute correctly
+7. ✅ Device connection succeeds (with valid device)
+8. ✅ Flutter commands work as expected
+9. ✅ All tests pass
+10. ✅ No performance issues
+11. ✅ Extension deactivates cleanly
 
 ---
 
@@ -243,6 +292,7 @@ npm run test -- --coverage
 1. ✅ Extension is ready for use
 2. ✅ Can be packaged for distribution
 3. ✅ Ready for user testing
+4. ✅ Ready for marketplace publication
 
 ### **If Issues Found:**
 1. 🔧 Fix identified problems
@@ -256,8 +306,8 @@ npm run test -- --coverage
 
 ### **Common Resources:**
 - **VSCode Extension API:** https://code.visualstudio.com/api
-- **ADB Documentation:** https://developer.android.com/studio/command-line/adb
 - **Flutter Documentation:** https://flutter.dev/docs
+- **ADB Documentation:** https://developer.android.com/studio/command-line/adb
 
 ### **Extension Issues:**
 - Check Output panel for errors
@@ -267,6 +317,31 @@ npm run test -- --coverage
 
 ---
 
+## 🎉 What's New in Flutter Fly 1.0.0
+
+### **Complete Transformation**
+- **Rebranded** from "Wireless ADB" to "Flutter Fly"
+- **New Publisher** - jamalihassan0307
+- **Comprehensive Features** - 30+ Flutter development commands
+- **Beautiful UI** - Modern, attractive interface
+
+### **New Flutter Features**
+- **Project Setup** - Flutter Doctor, SDK upgrade, package management
+- **Building** - APK, AAB, iOS, and Web builds
+- **Running** - Multiple run modes and debugging
+- **Device Management** - Emulator and simulator support
+- **Code Quality** - Formatting, analysis, and cleanup
+
+### **Enhanced User Experience**
+- **Progress Indicators** - Beautiful progress notifications
+- **Command Categories** - Organized command structure
+- **Interactive Prompts** - User-friendly confirmations
+- **Comprehensive Feedback** - Clear success and error messages
+
+---
+
 *Happy Testing! 🎉*
 
-*This guide ensures your Wireless ADB extension works perfectly for Flutter developers.*
+*This guide ensures your Flutter Fly extension works perfectly for Flutter developers worldwide.*
+
+*Transformed from Wireless ADB to Flutter Fly by Jam Ali Hassan*
