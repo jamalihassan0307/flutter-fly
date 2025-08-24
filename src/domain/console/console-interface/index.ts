@@ -4,7 +4,8 @@ import { IConsoleInterface } from './iconsole-interface'
 export class ConsoleInterface implements IConsoleInterface {
   execConsoleSync(command: string, options: ExecSyncOptions = null): Buffer {
     console.log('Executed ', command)
-    return execSync(command, options)
+    const result = execSync(command, options)
+    return Buffer.isBuffer(result) ? result : Buffer.from(result.toString())
   }
   execConsoleStringSync(
     command: string,

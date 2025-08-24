@@ -4,6 +4,29 @@ All notable changes to the "Flutter Fly" extension will be documented in this fi
 
 Check [Keep a Changelog](http://keepachanglog.com/) for recommendations on how to structure this file.
 
+## [1.0.2] - 2025-08-23
+
+### ✨ Enhanced
+- **Improved Sidebar Experience**: Enhanced sidebar with multiple action buttons for better user experience
+- **Comprehensive Logging**: Added detailed console logging for all Flutter Fly operations and button clicks
+- **Better Error Handling**: Enhanced error handling with detailed logging for debugging
+
+### 🎨 UI/UX Improvements
+- **Attractive Sidebar**: Redesigned sidebar with multiple quick action buttons (Connect Device, Show Devices, Flutter Doctor, Get Packages, Clean Project)
+- **Better Visual Hierarchy**: Improved button layout and organization in the sidebar
+- **Enhanced User Guidance**: More descriptive content and better button labeling
+
+### 🔧 Technical Improvements
+- **Controller Initialization**: Fixed controller initialization to ensure all commands are properly registered
+- **Async Support**: Added proper async/await support for controller initialization
+- **Logging System**: Comprehensive logging system for tracking user interactions and debugging issues
+
+### 🐛 Bug Fixes
+- **Command Registration**: Fixed issue where Flutter Fly panel commands were not being registered properly
+- **Controller Lifecycle**: Improved controller lifecycle management and initialization
+
+---
+
 ## [1.0.1] - 2025-01-23
 
 ### 🚀 Added

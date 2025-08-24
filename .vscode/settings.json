@@ -1,34 +1,15 @@
 {
+    "typescript.preferences.includePackageJsonAutoImports": "off",
+    "typescript.suggest.autoImports": false,
+    "typescript.preferences.importModuleSpecifier": "relative",
     "files.exclude": {
-        "**/logs": false,
-        "**/*.log": false,
-        "**/npm-debug.log*": false,
-        "**/yarn-debug.log*": false,
-        "**/yarn-error.log*": false,
-        "**/pids": false,
-        "**/*.pid": false,
-        "**/*.seed": false,
-        "**/*.pid.lock": false,
-        "**/lib-cov": false,
-        "**/coverage": false,
-        "**/.nyc_output": false,
-        "**/.grunt": false,
-        "**/bower_components": false,
-        "**/.lock-wscript": false,
-        "build/Release": false,
-        "**/node_modules/": false,
-        "**/jspm_packages/": false,
-        "**/typings/": false,
-        "**/.npm": false,
-        "**/.eslintcache": false,
-        "**/.node_repl_history": false,
-        "**/*.tgz": false,
-        "**/.yarn-integrity": false,
-        "**/.env": false,
-        "**/.next": false,
-        "out/": false,
-        "**/*/out/": false,
-        "**/out/": false,
-        "**/adb-interface-vscode-0.2.1.vsix": false
+        "**/out": true,
+        "**/node_modules": true,
+        "**/*.vsix": true
+    },
+    "search.exclude": {
+        "**/out": true,
+        "**/node_modules": true
     }
 }
+

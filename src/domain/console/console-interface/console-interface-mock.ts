@@ -37,19 +37,19 @@ export class ConsoleInterfaceMock implements IConsoleInterface {
   }
 
   execConsoleSync(command: string): Buffer {
-    let result = Buffer.from('')
+    let result: Buffer = Buffer.from('')
 
     if (this._callback) {
-      result = this._callback(command)
+      result = this._callback(command) as Buffer
     } else {
       if (
         this._returnStack &&
         this._returnStack.length == 1 &&
         this.returnInfinity
       ) {
-        result = this._returnStack[this._returnStack.length - 1]
+        result = this._returnStack[this._returnStack.length - 1] as Buffer
       } else {
-        result = this._returnStack.shift()
+        result = this._returnStack.shift() as Buffer
       }
     }
 

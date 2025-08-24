@@ -2,7 +2,7 @@
   "name": "flutter-fly",
   "displayName": "Flutter Fly: Wireless Debug & Run",
   "description": "The ultimate Flutter development companion for VSCode. Connect devices wirelessly, build APKs/AABs, run Flutter apps, and manage your entire Flutter workflow from one beautiful interface.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "publisher": "jamalihassan0307",
   "repository": "https://github.com/jamalihassan0307/flutter-fly",
   "homepage": "https://github.com/jamalihassan0307/flutter-fly",
@@ -14,16 +14,6 @@
     "color": "#02569B",
     "theme": "dark"
   },
-  "badges": [
-    {
-      "url": "https://img.shields.io/badge/Flutter-3.0+-02569B?style=flat-square&logo=flutter&logoColor=white",
-      "description": "Flutter 3.0+"
-    },
-    {
-      "url": "https://img.shields.io/badge/VSCode-1.103.0+-373277?style=flat-square&logo=visualstudiocode&logoColor=white",
-      "description": "VSCode 1.103.0+"
-    }
-  ],
   "categories": [
     "Other",
     "Debuggers",
@@ -52,45 +42,14 @@
     "flutter-build"
   ],
   "main": "./out/main.js",
-  "test": "jest",
   "scripts": {
-    "watch": "tsc -watch",
     "vscode:prepublish": "npm run setup && npm run compile",
     "setup": "npm install",
-    "compile": "tsc",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
     "build": "npm run clean && npm run compile && npm run package",
-    "build:clean": "npm run clean && npm run compile",
-    "build:package": "npm run compile && npm run package",
     "clean": "rimraf out dist",
-    "package": "vsce package",
-    "package:patch": "npm version patch && npm run package",
-    "package:minor": "npm version minor && npm run package",
-    "package:major": "npm version major && npm run package",
-    "publish": "npm run build && vsce publish",
-    "publish:patch": "npm run package:patch && vsce publish",
-    "publish:minor": "npm run package:minor && vsce publish",
-    "publish:major": "npm run package:major && vsce publish",
-    "release": "npm run build && npm run publish",
-    "release:patch": "release-it patch",
-    "release:minor": "release-it minor",
-    "release:major": "release-it major",
-    "_____________________________________________________": "UTILITY SCRIPTS",
-    "prepare": "husky install",
-    "commit": "npm run cm",
-    "cm": "cz",
-    "changelog": "npx conventional-changelog-cli -p cz-emoji-config -i CHANGELOG.md -s -r 0",
-    "cma": "git add . && cz",
-    "ri": "npm run release",
-    "rici": "release-it --ci",
-    "release-it": "release-it"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
-  "favolosoEmoji": {
-    "showEmojiPerCommit": true
+    "package": "vsce package"
   },
   "publishConfig": {
     "access": "public"
@@ -106,40 +65,18 @@
     "local-devices": "^3.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^16.3.0",
-    "@favoloso/conventional-changelog-emoji": "^0.10.0",
-    "@release-it/bumper": "^4.0.0",
-    "@secretlint/node": "^11.0.2",
-    "@types/jest": "^24.9.1",
-    "@types/node": "^8.10.66",
+    "@types/node": "^20.0.0",
     "@types/vscode": "^1.103.0",
-    "@typescript-eslint/eslint-plugin": "^5.40.1",
-    "@typescript-eslint/parser": "^5.40.1",
-    "@vscode/vsce": "^2.15.0",
-    "acorn": ">=5.7.4",
-    "commitizen": "^4.2.4",
-    "commitlint-config-gitmoji": "^2.2.5",
-    "concurrently": "^7.1.0",
-    "conventional-changelog-cli": "^3.0.0",
-    "conventional-changelog-custom-config": "^0.3.1",
-    "conventional-changelog-cz-emoji-config": "^1.0.1",
-    "cross-env": "^7.0.3",
-    "cz-customizable": "^6.3.0",
-    "cz-emoji": "^1.3.2-canary.2",
-    "diff": ">=3.5.0",
-    "eslint": "^8.26.0",
-    "husky": "^7.0.0",
-    "jest": "^29.2.2",
-    "minimist": ">=1.2.6",
-    "release-it": "^15.11.0",
+    "@vscode/vsce": "^2.32.0",
     "rimraf": "^5.0.0",
-    "ts-jest": "^29.0.3",
-    "tslint": "^5.20.1",
-    "typescript": "4.3",
-    "vscode-test": "^1.5.2",
-    "yargs-parser": ">=13.1.2"
+    "typescript": "^5.0.0"
   },
   "activationEvents": [
+    "onCommand:flutterFly.openFlutterPanel",
+    "onCommand:flutterFly.connectWirelessDevice",
+    "onCommand:flutterFly.showConnectedDevices",
+    "onCommand:flutterFly.runFlutterApp",
+    "onCommand:flutterFly.buildFlutterApp",
     "onCommand:flutterFly.runFlutterDoctor",
     "onCommand:flutterFly.upgradeFlutterSDK",
     "onCommand:flutterFly.getPackages",
@@ -173,7 +110,62 @@
     "onCommand:flutterFly.installAPKFile"
   ],
   "contributes": {
+    "contexts": [
+      {
+        "id": "workspaceHasFlutterProject",
+        "description": "True when the workspace contains a Flutter project",
+        "default": false
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "flutter-fly-sidebar",
+          "title": "Flutter Fly",
+          "icon": "media/icon.png"
+        }
+      ]
+    },
+    "views": {
+      "flutter-fly-sidebar": [
+        {
+          "id": "flutter-fly-panel",
+          "name": "Flutter Fly Panel"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "flutter-fly-panel",
+        "contents": "🚀 **Welcome to Flutter Fly!**\n\nYour ultimate Flutter development companion for wireless debugging, building, and running Flutter apps.\n\nUse **Ctrl+Shift+P** and search for **\"Flutter Fly\"** to access all commands."
+      }
+    ],
     "commands": [
+      {
+        "command": "flutterFly.openFlutterPanel",
+        "title": "🚀 Open Flutter Fly Panel",
+        "category": "Flutter Fly"
+      },
+      {
+        "command": "flutterFly.connectWirelessDevice",
+        "title": "📱 Connect Wireless Device",
+        "category": "Flutter Fly"
+      },
+      {
+        "command": "flutterFly.showConnectedDevices",
+        "title": "📋 Show Connected Devices",
+        "category": "Flutter Fly"
+      },
+      {
+        "command": "flutterFly.runFlutterApp",
+        "title": "▶️ Run Flutter App",
+        "category": "Flutter Fly"
+      },
+      {
+        "command": "flutterFly.buildFlutterApp",
+        "title": "🔨 Build Flutter App",
+        "category": "Flutter Fly"
+      },
       {
         "command": "flutterFly.runFlutterDoctor",
         "title": "Flutter Fly:🚀 Run Flutter Doctor",
@@ -328,91 +320,44 @@
         "command": "flutterFly.disableFirebaseDebug",
         "title": "Flutter Fly:🔥 Disable Firebase events debug mode",
         "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.openFlutterPanel",
-        "title": "🚀 Open Flutter Fly Panel",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.connectWirelessDevice",
-        "title": "📱 Connect Wireless Device",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.showConnectedDevices",
-        "title": "📋 Show Connected Devices",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.runFlutterApp",
-        "title": "▶️ Run Flutter App",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.buildFlutterApp",
-        "title": "🔨 Build Flutter App",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.flutterDoctor",
-        "title": "👨‍⚕️ Flutter Doctor",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.getPackages",
-        "title": "📦 Get Packages",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.hotReload",
-        "title": "🔄 Hot Reload",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.hotRestart",
-        "title": "🔄 Hot Restart",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.stopApp",
-        "title": "⏹️ Stop App",
-        "category": "Flutter Fly"
       }
     ],
     "menus": {
       "commandPalette": [
         {
-          "command": "flutterFly.runFlutterDoctor",
+          "command": "flutterFly.openFlutterPanel",
           "when": "workspaceHasFlutterProject"
         },
         {
-          "command": "flutterFly.upgradeFlutterSDK",
+          "command": "flutterFly.connectWirelessDevice",
           "when": "workspaceHasFlutterProject"
         },
         {
-          "command": "flutterFly.getPackages",
+          "command": "flutterFly.showConnectedDevices",
           "when": "workspaceHasFlutterProject"
         },
         {
-          "command": "flutterFly.buildAPK",
+          "command": "flutterFly.killserver",
           "when": "workspaceHasFlutterProject"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "flutterFly.openFlutterPanel",
+          "when": "view == flutter-fly-panel",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "flutterFly.connectWirelessDevice",
+          "when": "view == flutter-fly-panel",
+          "group": "inline"
         },
         {
-          "command": "flutterFly.buildAppBundle",
-          "when": "workspaceHasFlutterProject"
-        },
-        {
-          "command": "flutterFly.runOnConnectedDevice",
-          "when": "workspaceHasFlutterProject"
-        },
-        {
-          "command": "flutterFly.hotReload",
-          "when": "workspaceHasFlutterProject"
-        },
-        {
-          "command": "flutterFly.hotRestart",
-          "when": "workspaceHasFlutterProject"
+          "command": "flutterFly.showConnectedDevices",
+          "when": "view == flutter-fly-panel",
+          "group": "inline"
         }
       ]
     },

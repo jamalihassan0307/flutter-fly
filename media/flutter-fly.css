@@ -505,3 +505,37 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #024a7a;
 }
+
+/* Social Links */
+.social-links {
+    margin-top: 1.5rem;
+}
+
+.social-links .btn {
+    margin: 0 0.5rem;
+    transition: var(--transition);
+    border: 2px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+}
+
+.social-links .btn:hover {
+    background: rgba(255,255,255,0.2);
+    border-color: rgba(255,255,255,0.5);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.developer-info {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    display: inline-block;
+    backdrop-filter: blur(10px);
+}
+
+.developer-info strong {
+    color: #FFD700;
+    font-weight: 600;
+}

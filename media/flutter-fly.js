@@ -19,15 +19,27 @@ class FlutterFlyWebview {
 
         // Quick action buttons
         document.getElementById('flutterDoctorBtn').addEventListener('click', () => {
-            this.executeFlutterCommand('flutterDoctor');
+            this.executeFlutterCommand('runFlutterDoctor');
         });
 
         document.getElementById('getPackagesBtn').addEventListener('click', () => {
             this.executeFlutterCommand('getPackages');
         });
 
+        document.getElementById('upgradePackagesBtn').addEventListener('click', () => {
+            this.executeFlutterCommand('upgradePackages');
+        });
+
         document.getElementById('cleanProjectBtn').addEventListener('click', () => {
             this.executeFlutterCommand('cleanProject');
+        });
+
+        document.getElementById('analyzeProjectBtn').addEventListener('click', () => {
+            this.executeFlutterCommand('analyzeProject');
+        });
+
+        document.getElementById('formatCodeBtn').addEventListener('click', () => {
+            this.executeFlutterCommand('formatCode');
         });
 
         // Clear terminal button
