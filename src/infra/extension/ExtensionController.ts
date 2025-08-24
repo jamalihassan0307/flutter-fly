@@ -10,7 +10,8 @@ export class ExtController implements IExtController {
 
   constructor(context: ExtensionContext) {
     this.context = context
-    this.onInit(context)
+    // Don't call onInit automatically - let the derived class call it when ready
+    // this.onInit(context)
   }
 
   /** onInit();

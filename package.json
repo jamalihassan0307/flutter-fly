@@ -7,7 +7,7 @@
   "repository": "https://github.com/jamalihassan0307/flutter-fly",
   "homepage": "https://github.com/jamalihassan0307/flutter-fly",
   "engines": {
-    "vscode": "^1.103.0"
+    "vscode": "^1.85.0"
   },
   "icon": "media/icon.png",
   "galleryBanner": {
@@ -66,7 +66,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
-    "@types/vscode": "^1.103.0",
+    "@types/vscode": "^1.85.0",
     "@vscode/vsce": "^2.32.0",
     "rimraf": "^5.0.0",
     "typescript": "^5.0.0"
@@ -75,39 +75,14 @@
     "onCommand:flutterFly.openFlutterPanel",
     "onCommand:flutterFly.connectWirelessDevice",
     "onCommand:flutterFly.showConnectedDevices",
-    "onCommand:flutterFly.runFlutterApp",
-    "onCommand:flutterFly.buildFlutterApp",
     "onCommand:flutterFly.runFlutterDoctor",
-    "onCommand:flutterFly.upgradeFlutterSDK",
     "onCommand:flutterFly.getPackages",
     "onCommand:flutterFly.buildAPK",
     "onCommand:flutterFly.buildAppBundle",
-    "onCommand:flutterFly.buildIOS",
-    "onCommand:flutterFly.buildWeb",
-    "onCommand:flutterFly.runOnConnectedDevice",
-    "onCommand:flutterFly.runInDebugMode",
-    "onCommand:flutterFly.runInProfileMode",
-    "onCommand:flutterFly.runInReleaseMode",
-    "onCommand:flutterFly.stopRunningApp",
-    "onCommand:flutterFly.hotReload",
-    "onCommand:flutterFly.hotRestart",
-    "onCommand:flutterFly.connectAndroidDevice",
-    "onCommand:flutterFly.openAndroidEmulator",
-    "onCommand:flutterFly.openIOSSimulator",
     "onCommand:flutterFly.cleanProject",
-    "onCommand:flutterFly.injectResources",
-    "onCommand:flutterFly.formatCode",
-    "onCommand:flutterFly.analyzeProject",
-    "onCommand:flutterFly.setCustomADBPath",
-    "onCommand:flutterFly.resetCustomADBPath",
-    "onCommand:flutterFly.adbResetPorts",
-    "onCommand:flutterFly.connectToDeviceFromList",
-    "onCommand:flutterFly.adbwificonnect",
     "onCommand:flutterFly.killserver",
-    "onCommand:flutterFly.disconnectEverthing",
     "onCommand:flutterFly.enableFirebaseDebug",
-    "onCommand:flutterFly.disableFirebaseDebug",
-    "onCommand:flutterFly.installAPKFile"
+    "onCommand:flutterFly.disableFirebaseDebug"
   ],
   "contributes": {
     "contexts": [
@@ -137,7 +112,34 @@
     "viewsWelcome": [
       {
         "view": "flutter-fly-panel",
-        "contents": "🚀 **Welcome to Flutter Fly!**\n\nYour ultimate Flutter development companion for wireless debugging, building, and running Flutter apps.\n\nUse **Ctrl+Shift+P** and search for **\"Flutter Fly\"** to access all commands."
+        "contents": "🚀 **Welcome to Flutter Fly!**\n\nYour ultimate Flutter development companion for wireless debugging, building, and running Flutter apps.\n\n**Quick Actions:**",
+        "buttons": [
+          {
+            "title": "🎯 Open Main Panel",
+            "command": "flutterFly.openFlutterPanel"
+          },
+          {
+            "title": "📱 Connect Device",
+            "command": "flutterFly.connectWirelessDevice"
+          },
+          {
+            "title": "🔍 Show Devices",
+            "command": "flutterFly.showConnectedDevices"
+          },
+          {
+            "title": "⚡ Flutter Doctor",
+            "command": "flutterFly.runFlutterDoctor"
+          },
+          {
+            "title": "📦 Get Packages",
+            "command": "flutterFly.getPackages"
+          },
+          {
+            "title": "🧹 Clean Project",
+            "command": "flutterFly.cleanProject"
+          }
+        ],
+        "when": "workspaceHasFlutterProject"
       }
     ],
     "commands": [
@@ -153,172 +155,47 @@
       },
       {
         "command": "flutterFly.showConnectedDevices",
-        "title": "📋 Show Connected Devices",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.runFlutterApp",
-        "title": "▶️ Run Flutter App",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.buildFlutterApp",
-        "title": "🔨 Build Flutter App",
+        "title": "🔍 Show Connected Devices",
         "category": "Flutter Fly"
       },
       {
         "command": "flutterFly.runFlutterDoctor",
-        "title": "Flutter Fly:🚀 Run Flutter Doctor",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.upgradeFlutterSDK",
-        "title": "Flutter Fly:🚀 Upgrade Flutter SDK",
+        "title": "⚡ Flutter Doctor",
         "category": "Flutter Fly"
       },
       {
         "command": "flutterFly.getPackages",
-        "title": "Flutter Fly:🚀 Get Packages",
+        "title": "📦 Get Packages",
         "category": "Flutter Fly"
       },
       {
         "command": "flutterFly.buildAPK",
-        "title": "Flutter Fly:🚀 Build APK",
+        "title": "🏗️ Build APK",
         "category": "Flutter Fly"
       },
       {
         "command": "flutterFly.buildAppBundle",
-        "title": "Flutter Fly:🚀 Build App Bundle (AAB)",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.buildIOS",
-        "title": "Flutter Fly:🚀 Build iOS",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.buildWeb",
-        "title": "Flutter Fly:🚀 Build Web",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.runOnConnectedDevice",
-        "title": "Flutter Fly:🚀 Run on Connected Device",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.runInDebugMode",
-        "title": "Flutter Fly:🚀 Run in Debug Mode",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.runInProfileMode",
-        "title": "Flutter Fly:🚀 Run in Profile Mode",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.runInReleaseMode",
-        "title": "Flutter Fly:🚀 Run in Release Mode",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.stopRunningApp",
-        "title": "Flutter Fly:🚀 Stop Running App",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.hotReload",
-        "title": "Flutter Fly:🚀 Hot Reload",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.hotRestart",
-        "title": "Flutter Fly:🚀 Hot Restart",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.connectAndroidDevice",
-        "title": "Flutter Fly:🚀 Connect Android Device",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.openAndroidEmulator",
-        "title": "Flutter Fly:🚀 Open Android Emulator",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.openIOSSimulator",
-        "title": "Flutter Fly:🚀 Open iOS Simulator",
+        "title": "📱 Build App Bundle (AAB)",
         "category": "Flutter Fly"
       },
       {
         "command": "flutterFly.cleanProject",
-        "title": "Flutter Fly:🚀 Clean Project",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.injectResources",
-        "title": "Flutter Fly:🚀 Inject Resources",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.formatCode",
-        "title": "Flutter Fly:🚀 Format Code",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.analyzeProject",
-        "title": "Flutter Fly:🚀 Analyze Project",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.setCustomADBPath",
-        "title": "Flutter Fly:📱 Setup custom ADB location",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.resetCustomADBPath",
-        "title": "Flutter Fly:📱 Remove custom ADB location",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.adbResetPorts",
-        "title": "Flutter Fly:📱 Reset connected devices port",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.connectToDeviceFromList",
-        "title": "Flutter Fly:📱 Connect to device from List",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.adbwificonnect",
-        "title": "Flutter Fly:📱 Connect to device IP",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.disconnectEverthing",
-        "title": "Flutter Fly:📱 Disconnect from any devices",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.installAPKFile",
-        "title": "Flutter Fly:📱 Pick .APK file and install",
+        "title": "🧹 Clean Project",
         "category": "Flutter Fly"
       },
       {
         "command": "flutterFly.killserver",
-        "title": "Flutter Fly:⚠️ Kill ADB server",
+        "title": "⚠️ Kill ADB Server",
         "category": "Flutter Fly"
       },
       {
         "command": "flutterFly.enableFirebaseDebug",
-        "title": "Flutter Fly:🔥 Enable Firebase events debug mode",
+        "title": "🔥 Enable Firebase Debug",
         "category": "Flutter Fly"
       },
       {
         "command": "flutterFly.disableFirebaseDebug",
-        "title": "Flutter Fly:🔥 Disable Firebase events debug mode",
+        "title": "🔥 Disable Firebase Debug",
         "category": "Flutter Fly"
       }
     ],

@@ -21,23 +21,8 @@ export class ADBCommandsController extends ADBBaseController {
     this.appStateKeys = appStateKeys
   }
   async onInit() {
-    this.registerCommand('flutterFly.adbwificonnect', () =>
-      this.connectToDevice()
-    )
-      .registerCommand('flutterFly.adbResetPorts', () =>
-        this.resetDevicesPort()
-      )
-      .registerCommand('flutterFly.disconnectEverthing', () =>
-        this.disconnectAnyDevice()
-      )
-      .registerCommand('flutterFly.connectToDeviceFromList', () =>
-        this.connectToDeviceFromList()
-      )
-      .registerCommand('flutterFly.killserver', () => this.killADBServer())
-
-      .registerCommand('flutterFly.installAPKFile', () =>
-        this.pickAPKAndInstall()
-      )
+    // Only register essential ADB commands
+    this.registerCommand('flutterFly.killserver', () => this.killADBServer())
   }
 
   async genericErrorReturn(e: Error) {

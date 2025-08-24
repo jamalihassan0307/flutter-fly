@@ -19,40 +19,47 @@ export async function activate(context: vscode.ExtensionContext) {
     console.log('🚀 Flutter Fly Extension Activated!')
     
     // Check if this is a Flutter project
-    checkForFlutterProject().then(hasFlutterProject => {
-        vscode.commands.executeCommand('setContext', 'workspaceHasFlutterProject', hasFlutterProject)
-    })
+    const hasFlutterProject = await checkForFlutterProject()
+    vscode.commands.executeCommand('setContext', 'workspaceHasFlutterProject', hasFlutterProject)
     
     // Register all controllers used by plugin
     const netHelper = new NetHelpers()
     
     try {
-        // Flutter Development Controllers
-        const flutterCommandsController = new FlutterCommandsController(context)
-        await flutterCommandsController.onInit()
+        // Initialize controllers in sequence to avoid conflicts
+        console.log('🔧 Initializing Flutter Fly controllers...')
         
-        // New Flutter Panel Controller
+        // 1. Flutter Panel Controller (registers panel commands)
         const flutterPanelController = new FlutterPanelController(context)
         await flutterPanelController.onInit()
+        console.log('✅ Flutter Panel Controller initialized')
         
-        // ADB and Device Management Controllers
+        // 2. Flutter Commands Controller (registers Flutter commands)
+        const flutterCommandsController = new FlutterCommandsController(context)
+        await flutterCommandsController.onInit()
+        console.log('✅ Flutter Commands Controller initialized')
+        
+        // 3. ADB and Device Management Controllers
         const firebaseController = new FirebaseController(
             context,
             new FirebaseManagerChannel(new ConsoleInterface(), context.globalState)
         )
         await firebaseController.onInit()
+        console.log('✅ Firebase Controller initialized')
         
         const adbCmdController = new ADBCommandsController(
             context,
             new ADBConnection(new ConsoleInterface(), context.globalState, netHelper)
         )
         await adbCmdController.onInit()
+        console.log('✅ ADB Commands Controller initialized')
         
         const adbPathController = new ADBPathController(
             context,
             new ADBPathManager(context.globalState)
         )
         await adbPathController.onInit()
+        console.log('✅ ADB Path Controller initialized')
         
         console.log('✅ All Flutter Fly controllers registered successfully')
         

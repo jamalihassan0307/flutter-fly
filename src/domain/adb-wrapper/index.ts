@@ -32,7 +32,7 @@ export class ADBConnection extends ConsoleInterfaceChannel {
 
   /**
    *  connect to a given ip address
-   * @param ipAddress "192.168.1.100"
+   * @param ipAddress "192.168.100.25"
    */
   public async ConnectToDevice(
     ipAddress: string,
