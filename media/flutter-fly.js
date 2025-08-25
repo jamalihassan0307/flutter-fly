@@ -1,49 +1,118 @@
 // Flutter Fly Webview JavaScript
+console.log('🔄 Flutter Fly JS loading...');
+
 class FlutterFlyWebview {
     constructor() {
+        console.log('🔄 Flutter Fly Webview constructor called');
         this.isExecuting = false; // Prevent duplicate execution
         this.initializeEventListeners();
         this.initializeToast();
+        console.log('✅ Flutter Fly Webview initialized');
     }
 
     initializeEventListeners() {
-        // Connect device button
-        document.getElementById('connectBtn').addEventListener('click', () => {
-            if (!this.isExecuting) {
-                this.connectDevice();
+        console.log('🔄 Initializing event listeners...');
+        
+        try {
+            // Connect device button
+            const connectBtn = document.getElementById('connectBtn');
+            if (connectBtn) {
+                console.log('✅ Found connectBtn element');
+                connectBtn.addEventListener('click', () => {
+                    console.log('🔄 Connect button clicked');
+                    if (!this.isExecuting) {
+                        this.connectDevice();
+                    }
+                });
+            } else {
+                console.error('❌ connectBtn element not found!');
             }
-        });
-
-        // Refresh devices button
-        document.getElementById('refreshDevicesBtn').addEventListener('click', () => {
-            if (!this.isExecuting) {
-                this.refreshDevices();
+    
+            // Refresh devices button
+            const refreshBtn = document.getElementById('refreshDevicesBtn');
+            if (refreshBtn) {
+                console.log('✅ Found refreshDevicesBtn element');
+                refreshBtn.addEventListener('click', () => {
+                    console.log('🔄 Refresh button clicked');
+                    if (!this.isExecuting) {
+                        this.refreshDevices();
+                    }
+                });
+            } else {
+                console.error('❌ refreshDevicesBtn element not found!');
             }
-        });
-
-        // Quick action buttons now have onclick handlers in HTML
-
-        // Status message handling
-        document.getElementById('clearStatusBtn').addEventListener('click', () => {
-            this.clearStatusMessages();
-        });
-
-        // Enter key support for connection form
-        document.getElementById('deviceIP').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                if (!this.isExecuting) {
-                    this.connectDevice();
+    
+            // Add click handlers for all command buttons
+            const commandButtons = document.querySelectorAll('button[onclick*="flutterFly.executeFlutterCommand"]');
+            console.log(`Found ${commandButtons.length} command buttons`);
+            
+            // Override the onclick handlers to ensure they work
+            commandButtons.forEach(button => {
+                const onclickAttr = button.getAttribute('onclick');
+                if (onclickAttr) {
+                    // Extract command ID from the onclick attribute
+                    const match = onclickAttr.match(/flutterFly\.executeFlutterCommand\('([^']+)'\)/);
+                    if (match && match[1]) {
+                        const commandId = match[1];
+                        console.log(`Adding event listener for command: ${commandId}`);
+                        
+                        // Remove the onclick attribute and add an event listener instead
+                        button.removeAttribute('onclick');
+                        button.addEventListener('click', () => {
+                            console.log(`Button clicked for command: ${commandId}`);
+                            this.executeFlutterCommand(commandId);
+                        });
+                    }
                 }
+            });
+    
+            // Status message handling
+            const clearStatusBtn = document.getElementById('clearStatusBtn');
+            if (clearStatusBtn) {
+                console.log('✅ Found clearStatusBtn element');
+                clearStatusBtn.addEventListener('click', () => {
+                    console.log('🔄 Clear status button clicked');
+                    this.clearStatusMessages();
+                });
+            } else {
+                console.error('❌ clearStatusBtn element not found!');
             }
-        });
-
-        document.getElementById('devicePort').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                if (!this.isExecuting) {
-                    this.connectDevice();
-                }
+    
+            // Enter key support for connection form
+            const deviceIPInput = document.getElementById('deviceIP');
+            if (deviceIPInput) {
+                console.log('✅ Found deviceIP element');
+                deviceIPInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        console.log('🔄 Enter key pressed in IP field');
+                        if (!this.isExecuting) {
+                            this.connectDevice();
+                        }
+                    }
+                });
+            } else {
+                console.error('❌ deviceIP element not found!');
             }
-        });
+    
+            const devicePortInput = document.getElementById('devicePort');
+            if (devicePortInput) {
+                console.log('✅ Found devicePort element');
+                devicePortInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        console.log('🔄 Enter key pressed in port field');
+                        if (!this.isExecuting) {
+                            this.connectDevice();
+                        }
+                    }
+                });
+            } else {
+                console.error('❌ devicePort element not found!');
+            }
+            
+            console.log('✅ All event listeners initialized');
+        } catch (error) {
+            console.error('❌ Error initializing event listeners:', error);
+        }
     }
 
     connectDevice() {
@@ -121,13 +190,43 @@ class FlutterFlyWebview {
         
         this.isExecuting = true;
         console.log('Executing Flutter command:', commandId);
+        
+        // Show command execution in UI
+        this.addStatusMessage(`⚡ Executing Flutter command: ${commandId}`, 'info');
+        
+        // Send command to extension
         this.sendMessage('runFlutterCommand', { commandId });
-        this.addStatusMessage(`Executing Flutter command: ${commandId}`, 'info');
+        
+        // Find all buttons that match this command
+        // First try buttons with data-command attribute
+        let buttons = Array.from(document.querySelectorAll(`button[data-command="${commandId}"]`));
+        
+        // If no buttons found, try with the old onclick method
+        if (buttons.length === 0) {
+            buttons = Array.from(document.querySelectorAll('button')).filter(btn => {
+                const onclick = btn.getAttribute('onclick');
+                return onclick && onclick.includes(`executeFlutterCommand('${commandId}')`);
+            });
+        }
+        
+        console.log(`Found ${buttons.length} buttons for command: ${commandId}`);
+        
+        // Show visual feedback for buttons
+        buttons.forEach(button => {
+            const originalText = button.innerHTML;
+            button.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${button.innerText}`;
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }, 3000);
+        });
         
         // Reset execution flag after a delay
         setTimeout(() => {
             this.isExecuting = false;
-        }, 2000);
+        }, 3000);
     }
 
     updateDevicesList(devices) {
@@ -216,15 +315,28 @@ class FlutterFlyWebview {
     }
 
     sendMessage(command, data) {
+        console.log(`🔄 Sending message to extension: ${command}`, data);
+        
         // This will be handled by the VSCode extension
-        if (window.vscode) {
-            window.vscode.postMessage({
-                command: command,
-                ...data
-            });
-        } else {
-            // Fallback for testing
-            console.log('VSCode message:', { command, ...data });
+        try {
+            if (window.vscode) {
+                console.log('✅ window.vscode is available, sending message');
+                window.vscode.postMessage({
+                    command: command,
+                    ...data
+                });
+                console.log('✅ Message sent successfully');
+            } else {
+                console.error('❌ window.vscode is not available!');
+                // Fallback for testing
+                console.log('VSCode message (FALLBACK):', { command, ...data });
+                
+                // Show a message in the UI that we're in fallback mode
+                this.addStatusMessage('⚠️ Running in fallback mode - VSCode API not available', 'warning');
+            }
+        } catch (error) {
+            console.error('❌ Error sending message to extension:', error);
+            this.addStatusMessage(`❌ Failed to send message: ${error.message}`, 'error');
         }
     }
 
@@ -247,16 +359,29 @@ class FlutterFlyWebview {
 
     // Handle messages from the extension
     handleMessage(message) {
-        switch (message.command) {
-            case 'updateDevices':
-                this.updateDevicesList(message.devices);
-                break;
-            case 'addStatusMessage':
-                this.addStatusMessage(message.message, message.type);
-                break;
-            case 'showToast':
-                this.showToast(message.message, message.type);
-                break;
+        console.log('📨 Received message from extension:', message);
+        
+        try {
+            switch (message.command) {
+                case 'updateDevices':
+                    console.log('🔄 Updating device list with', message.devices?.length || 0, 'devices');
+                    this.updateDevicesList(message.devices);
+                    break;
+                case 'addStatusMessage':
+                    console.log('📝 Adding status message:', message.message);
+                    this.addStatusMessage(message.message, message.type);
+                    break;
+                case 'showToast':
+                    console.log('🍞 Showing toast:', message.message);
+                    this.showToast(message.message, message.type);
+                    break;
+                default:
+                    console.warn('⚠️ Unknown message command:', message.command);
+                    break;
+            }
+        } catch (error) {
+            console.error('❌ Error handling message from extension:', error);
+            this.addStatusMessage(`❌ Error handling message: ${error.message}`, 'error');
         }
     }
 }

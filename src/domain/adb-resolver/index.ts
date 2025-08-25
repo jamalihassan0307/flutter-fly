@@ -80,11 +80,24 @@ export class ADBResolver {
   }
 
   public async sendADBCommand(command: string): Promise<Buffer> {
-    const adbPath = await this.getDefaultADBPath()
-    console.log('Executing', command)
-    return this.consoleInterface.execConsoleSync(command, {
-      cwd: adbPath
-    })
+    try {
+      // First try to execute the command directly (if ADB is in PATH)
+      console.log('Executing', command)
+      return this.consoleInterface.execConsoleSync(command)
+    } catch (error) {
+      try {
+        // If direct execution fails, try with the configured ADB path
+        const adbPath = await this.getDefaultADBPath()
+        console.log('Executing with path', command, 'in', adbPath)
+        return this.consoleInterface.execConsoleSync(command, {
+          cwd: adbPath
+        })
+      } catch (pathError) {
+        // If both methods fail, show a helpful error message
+        console.error('ADB command failed:', pathError)
+        throw new ADBNotFoundError('ADB not found. Please install Android SDK or set a custom ADB path in settings.')
+      }
+    }
   }
 }
 
