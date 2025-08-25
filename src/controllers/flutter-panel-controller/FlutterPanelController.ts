@@ -10,89 +10,11 @@ interface Device {
   type: 'device' | 'emulator';
 }
 
-interface FlutterCommand {
-  id: string;
-  name: string;
-  description: string;
-  command: string;
-  category: string;
-}
+// FlutterCommand interface removed - using direct command mapping
 
 export class FlutterPanelController extends ADBBaseController {
   private currentPanel: vscode.WebviewPanel | undefined;
   private connectedDevices: Device[] = [];
-  private flutterCommands: FlutterCommand[] = [
-    {
-      id: 'flutterDoctor',
-      name: 'Flutter Doctor',
-      description: 'Check Flutter installation and dependencies',
-      command: 'flutter doctor',
-      category: 'Health Check'
-    },
-    {
-      id: 'getPackages',
-      name: 'Get Packages',
-      description: 'Download and update Flutter packages',
-      command: 'flutter pub get',
-      category: 'Dependencies'
-    },
-    {
-      id: 'runApp',
-      name: 'Run App',
-      description: 'Run Flutter app on connected device',
-      command: 'flutter run',
-      category: 'Development'
-    },
-    {
-      id: 'buildAPK',
-      name: 'Build APK',
-      description: 'Build Android APK file',
-      command: 'flutter build apk',
-      category: 'Building'
-    },
-    {
-      id: 'buildAAB',
-      name: 'Build AAB',
-      description: 'Build Android App Bundle',
-      command: 'flutter build appbundle',
-      category: 'Building'
-    },
-    {
-      id: 'hotReload',
-      name: 'Hot Reload',
-      description: 'Hot reload the running app',
-      command: 'r',
-      category: 'Development'
-    },
-    {
-      id: 'hotRestart',
-      name: 'Hot Restart',
-      description: 'Hot restart the running app',
-      command: 'R',
-      category: 'Development'
-    },
-    {
-      id: 'stopApp',
-      name: 'Stop App',
-      description: 'Stop the running Flutter app',
-      command: 'q',
-      category: 'Development'
-    },
-    {
-      id: 'cleanProject',
-      name: 'Clean Project',
-      description: 'Clean Flutter project build files',
-      command: 'flutter clean',
-      category: 'Maintenance'
-    },
-    {
-      id: 'analyzeProject',
-      name: 'Analyze Project',
-      description: 'Analyze Flutter project for issues',
-      command: 'flutter analyze',
-      category: 'Quality'
-    }
-  ];
 
   constructor(context: vscode.ExtensionContext) {
     super(context);
@@ -101,29 +23,19 @@ export class FlutterPanelController extends ADBBaseController {
   async onInit() {
     console.log('🚀 FlutterPanelController: Initializing commands...')
     
-    // Register all panel commands
+    // Only register essential commands - remove all others
     this.registerCommand('flutterFly.openFlutterPanel', () => this.openFlutterPanel())
       .registerCommand('flutterFly.connectWirelessDevice', () => this.connectWirelessDevice())
       .registerCommand('flutterFly.showConnectedDevices', () => this.showConnectedDevices())
-      .registerCommand('flutterFly.runFlutterApp', () => this.runFlutterApp())
-      .registerCommand('flutterFly.buildFlutterApp', () => this.buildFlutterApp())
       .registerCommand('flutterFly.runFlutterDoctor', () => this.flutterDoctor())
       .registerCommand('flutterFly.getPackages', () => this.getPackages())
+      .registerCommand('flutterFly.upgradePackages', () => this.upgradePackages())
       .registerCommand('flutterFly.cleanProject', () => this.cleanProject())
-      .registerCommand('flutterFly.analyzeProject', () => this.analyzeProject())
-      .registerCommand('flutterFly.formatCode', () => this.formatCode())
+      .registerCommand('flutterFly.runFlutterApp', () => this.runFlutterApp())
       .registerCommand('flutterFly.buildAPK', () => this.buildAPK())
       .registerCommand('flutterFly.buildAppBundle', () => this.buildAAB())
-      .registerCommand('flutterFly.buildIOS', () => this.buildIOS())
-      .registerCommand('flutterFly.buildWeb', () => this.buildWeb())
-      .registerCommand('flutterFly.hotReload', () => this.hotReload())
-      .registerCommand('flutterFly.hotRestart', () => this.hotRestart())
-      .registerCommand('flutterFly.stopApp', () => this.stopApp())
-      .registerCommand('flutterFly.upgradePackages', () => this.upgradePackages())
-      .registerCommand('flutterFly.injectResources', () => this.injectResources())
-      .registerCommand('flutterFly.upgradeFlutterSDK', () => this.upgradeFlutterSDK())
     
-    console.log('✅ FlutterPanelController: All commands registered successfully')
+    console.log('✅ FlutterPanelController: Essential commands registered successfully')
   }
 
   private async openFlutterPanel() {
@@ -298,12 +210,6 @@ export class FlutterPanelController extends ADBBaseController {
                                 <button class="btn btn-outline-info btn-sm" id="cleanProjectBtn">
                                     <i class="fas fa-broom"></i> Clean Project
                                 </button>
-                                <button class="btn btn-outline-info btn-sm" id="analyzeProjectBtn">
-                                    <i class="fas fa-search"></i> Analyze Project
-                                </button>
-                                <button class="btn btn-outline-info btn-sm" id="formatCodeBtn">
-                                    <i class="fas fa-magic"></i> Format Code
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -319,23 +225,23 @@ export class FlutterPanelController extends ADBBaseController {
                                 </div>
                                 <div class="card-body">
                                     <div class="row" id="flutterCommandsGrid">
-                                        <!-- Development Commands -->
+                                        <!-- Essential Flutter Commands -->
                                         <div class="col-md-6 mb-3">
                                             <div class="card command-card h-100">
                                                 <div class="card-body">
-                                                    <h6><i class="fas fa-rocket text-primary"></i> Development</h6>
+                                                    <h6><i class="fas fa-rocket text-primary"></i> Essential Commands</h6>
                                                     <div class="d-grid gap-2">
                                                         <button class="btn btn-outline-primary btn-sm" onclick="flutterFly.executeFlutterCommand('runApp')">
                                                             <i class="fas fa-play"></i> Run App
                                                         </button>
-                                                        <button class="btn btn-outline-primary btn-sm" onclick="flutterFly.executeFlutterCommand('hotReload')">
-                                                            <i class="fas fa-sync"></i> Hot Reload
+                                                        <button class="btn btn-outline-primary btn-sm" onclick="flutterFly.executeFlutterCommand('runFlutterDoctor')">
+                                                            <i class="fas fa-stethoscope"></i> Flutter Doctor
                                                         </button>
-                                                        <button class="btn btn-outline-primary btn-sm" onclick="flutterFly.executeFlutterCommand('hotRestart')">
-                                                            <i class="fas fa-redo"></i> Hot Restart
+                                                        <button class="btn btn-outline-primary btn-sm" onclick="flutterFly.executeFlutterCommand('getPackages')">
+                                                            <i class="fas fa-download"></i> Get Packages
                                                         </button>
-                                                        <button class="btn btn-outline-primary btn-sm" onclick="flutterFly.executeFlutterCommand('stopApp')">
-                                                            <i class="fas fa-stop"></i> Stop App
+                                                        <button class="btn btn-outline-primary btn-sm" onclick="flutterFly.executeFlutterCommand('upgradePackages')">
+                                                            <i class="fas fa-arrow-up"></i> Upgrade Packages
                                                         </button>
                                                     </div>
                                                 </div>
@@ -354,57 +260,8 @@ export class FlutterPanelController extends ADBBaseController {
                                                         <button class="btn btn-outline-success btn-sm" onclick="flutterFly.executeFlutterCommand('buildAAB')">
                                                             <i class="fas fa-box"></i> Build AAB
                                                         </button>
-                                                        <button class="btn btn-outline-success btn-sm" onclick="flutterFly.executeFlutterCommand('buildIOS')">
-                                                            <i class="fas fa-apple-alt"></i> Build iOS
-                                                        </button>
-                                                        <button class="btn btn-outline-success btn-sm" onclick="flutterFly.executeFlutterCommand('buildWeb')">
-                                                            <i class="fas fa-globe"></i> Build Web
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Maintenance Commands -->
-                                        <div class="col-md-6 mb-3">
-                                            <div class="card command-card h-100">
-                                                <div class="card-body">
-                                                    <h6><i class="fas fa-tools text-warning"></i> Maintenance</h6>
-                                                    <div class="d-grid gap-2">
                                                         <button class="btn btn-outline-warning btn-sm" onclick="flutterFly.executeFlutterCommand('cleanProject')">
                                                             <i class="fas fa-broom"></i> Clean Project
-                                                        </button>
-                                                        <button class="btn btn-outline-warning btn-sm" onclick="flutterFly.executeFlutterCommand('getPackages')">
-                                                            <i class="fas fa-download"></i> Get Packages
-                                                        </button>
-                                                        <button class="btn btn-outline-warning btn-sm" onclick="flutterFly.executeFlutterCommand('upgradePackages')">
-                                                            <i class="fas fa-arrow-up"></i> Upgrade Packages
-                                                        </button>
-                                                        <button class="btn btn-outline-warning btn-sm" onclick="flutterFly.executeFlutterCommand('injectResources')">
-                                                            <i class="fas fa-syringe"></i> Inject Resources
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Quality Commands -->
-                                        <div class="col-md-6 mb-3">
-                                            <div class="card command-card h-100">
-                                                <div class="card-body">
-                                                    <h6><i class="fas fa-shield-alt text-info"></i> Quality</h6>
-                                                    <div class="d-grid gap-2">
-                                                        <button class="btn btn-outline-info btn-sm" onclick="flutterFly.executeFlutterCommand('analyzeProject')">
-                                                            <i class="fas fa-search"></i> Analyze Project
-                                                        </button>
-                                                        <button class="btn btn-outline-info btn-sm" onclick="flutterFly.executeFlutterCommand('formatCode')">
-                                                            <i class="fas fa-magic"></i> Format Code
-                                                        </button>
-                                                        <button class="btn btn-outline-info btn-sm" onclick="flutterFly.executeFlutterCommand('runFlutterDoctor')">
-                                                            <i class="fas fa-stethoscope"></i> Flutter Doctor
-                                                        </button>
-                                                        <button class="btn btn-outline-info btn-sm" onclick="flutterFly.executeFlutterCommand('upgradeFlutterSDK')">
-                                                            <i class="fas fa-arrow-up"></i> Upgrade SDK
                                                         </button>
                                                     </div>
                                                 </div>
@@ -471,50 +328,105 @@ export class FlutterPanelController extends ADBBaseController {
     console.log(`🔗 FlutterPanelController: handleConnectDevice called for ${ip}:${port}`)
     
     try {
-      const terminal = vscode.window.createTerminal('Flutter Fly - ADB Connect');
-      terminal.show();
+      // Use the old working method - show information and let user connect manually
+      const message = `To connect to device ${ip}:${port}, please run this command in your terminal:\n\nadb connect ${ip}:${port}\n\nMake sure ADB is installed and in your PATH.`;
       
-      const connectCommand = `adb connect ${ip}:${port}`;
-      console.log(`📱 FlutterPanelController: Executing command: ${connectCommand}`)
-      terminal.sendText(connectCommand);
+      vscode.window.showInformationMessage(`Device connection info: ${ip}:${port}`);
       
-      // Wait a bit for connection
-      console.log('⏳ FlutterPanelController: Waiting for connection...')
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Show detailed message
+      vscode.window.showInformationMessage(message, 'Copy Command', 'Open Terminal')
+        .then(selection => {
+          if (selection === 'Copy Command') {
+            // Copy the command to clipboard
+            vscode.env.clipboard.writeText(`adb connect ${ip}:${port}`);
+            vscode.window.showInformationMessage('Command copied to clipboard!');
+          } else if (selection === 'Open Terminal') {
+            // Open terminal
+            const terminal = vscode.window.createTerminal('Flutter Fly - ADB Connect');
+            terminal.show();
+            terminal.sendText(`adb connect ${ip}:${port}`);
+          }
+        });
       
-      // Refresh devices
-      console.log('🔄 FlutterPanelController: Refreshing device list...')
-      await this.refreshConnectedDevices();
+      // Update the webview with connection status
+      if (this.currentPanel) {
+        this.currentPanel.webview.postMessage({
+          command: 'showToast',
+          message: `Connection info sent for ${ip}:${port}`,
+          type: 'info'
+        });
+      }
       
-      console.log(`✅ FlutterPanelController: Successfully connected to ${ip}:${port}`)
-      this.showSuccessMessage(`Successfully connected to ${ip}:${port}`);
+      console.log(`✅ FlutterPanelController: Connection info sent for ${ip}:${port}`);
     } catch (error) {
-      console.error(`❌ FlutterPanelController: Failed to connect to ${ip}:${port}:`, error)
-      this.showErrorMessage(`Failed to connect to ${ip}:${port}: ${error}`);
+      console.error(`❌ FlutterPanelController: Failed to handle connection for ${ip}:${port}:`, error)
+      this.showErrorMessage(`Failed to handle connection: ${error}`);
     }
   }
 
   private async handleFlutterCommand(commandId: string) {
     console.log(`⚡ FlutterPanelController: handleFlutterCommand called for command ID: ${commandId}`)
     
-    const command = this.flutterCommands.find(cmd => cmd.id === commandId);
-    if (!command) {
-      console.log(`❌ FlutterPanelController: Command not found for ID: ${commandId}`)
-      return;
-    }
-
-    console.log(`🚀 FlutterPanelController: Executing command: ${command.name} (${command.command})`)
-    
     try {
+      let commandToExecute = '';
+      let commandName = '';
+      
+      // Map command IDs to actual commands
+      switch (commandId) {
+        case 'runFlutterDoctor':
+          commandToExecute = 'flutter doctor';
+          commandName = 'Flutter Doctor';
+          break;
+        case 'getPackages':
+          commandToExecute = 'flutter pub get';
+          commandName = 'Get Packages';
+          break;
+        case 'upgradePackages':
+          commandToExecute = 'flutter pub upgrade';
+          commandName = 'Upgrade Packages';
+          break;
+        case 'cleanProject':
+          commandToExecute = 'flutter clean';
+          commandName = 'Clean Project';
+          break;
+        case 'runApp':
+          commandToExecute = 'flutter run';
+          commandName = 'Run Flutter App';
+          break;
+        case 'buildAPK':
+          commandToExecute = 'flutter build apk';
+          commandName = 'Build APK';
+          break;
+        case 'buildAAB':
+          commandToExecute = 'flutter build appbundle';
+          commandName = 'Build AAB';
+          break;
+        default:
+          console.log(`❌ FlutterPanelController: Unknown command ID: ${commandId}`)
+          this.showErrorMessage(`Unknown command: ${commandId}`);
+          return;
+      }
+
+      console.log(`🚀 FlutterPanelController: Executing command: ${commandName} (${commandToExecute})`)
+      
       const terminal = vscode.window.createTerminal('Flutter Fly - Command');
       terminal.show();
-      terminal.sendText(command.command);
+      terminal.sendText(commandToExecute);
       
-      console.log(`✅ FlutterPanelController: Successfully executed: ${command.name}`)
-      this.showSuccessMessage(`Executed: ${command.name}`);
+      console.log(`✅ FlutterPanelController: Successfully executed: ${commandName}`)
+      this.showSuccessMessage(`Executed: ${commandName}`);
+      
+      // Update webview with success message
+      if (this.currentPanel) {
+        this.currentPanel.webview.postMessage({
+          command: 'terminalOutput',
+          text: `✅ Successfully executed: ${commandName}`,
+          type: 'success'
+        });
+      }
     } catch (error) {
-      console.error(`❌ FlutterPanelController: Failed to execute ${command.name}:`, error)
-      this.showErrorMessage(`Failed to execute ${command.name}: ${error}`);
+      console.error(`❌ FlutterPanelController: Failed to execute command ${commandId}:`, error)
+      this.showErrorMessage(`Failed to execute command: ${error}`);
     }
   }
 
@@ -622,55 +534,7 @@ export class FlutterPanelController extends ADBBaseController {
     console.log('✅ FlutterPanelController: Flutter run command sent to terminal')
   }
 
-  private async buildFlutterApp() {
-    console.log('🏗️ FlutterPanelController: buildFlutterApp called')
-    const buildType = await vscode.window.showQuickPick(['APK', 'AAB', 'iOS'], {
-      placeHolder: 'Select build type'
-    });
-
-    if (!buildType) {
-      console.log('❌ FlutterPanelController: No build type selected')
-      return;
-    }
-
-    console.log(`🏗️ FlutterPanelController: Building ${buildType}`)
-    const terminal = vscode.window.createTerminal('Flutter Fly - Build');
-    terminal.show();
-    
-    if (buildType === 'APK') {
-      terminal.sendText('flutter build apk');
-    } else if (buildType === 'AAB') {
-      terminal.sendText('flutter build appbundle');
-    } else if (buildType === 'iOS') {
-      terminal.sendText('flutter build ios');
-    }
-    
-    console.log(`✅ FlutterPanelController: ${buildType} build command sent to terminal`)
-  }
-
-  private async hotReload() {
-    console.log('🔄 FlutterPanelController: hotReload called')
-    const terminal = vscode.window.createTerminal('Flutter Fly - Hot Reload');
-    terminal.show();
-    terminal.sendText('r');
-    console.log('✅ FlutterPanelController: Hot reload command sent to terminal')
-  }
-
-  private async hotRestart() {
-    console.log('🔄 FlutterPanelController: hotRestart called')
-    const terminal = vscode.window.createTerminal('Flutter Fly - Hot Restart');
-    terminal.show();
-    terminal.sendText('R');
-    console.log('✅ FlutterPanelController: Hot restart command sent to terminal')
-  }
-
-  private async stopApp() {
-    console.log('⏹️ FlutterPanelController: stopApp called')
-    const terminal = vscode.window.createTerminal('Flutter Fly - Stop App');
-    terminal.show();
-    terminal.sendText('q');
-    console.log('✅ FlutterPanelController: Stop app command sent to terminal')
-  }
+  // Removed unused methods: buildFlutterApp, hotReload, hotRestart, stopApp
 
   private async cleanProject() {
     console.log('🧹 FlutterPanelController: cleanProject called')
@@ -720,53 +584,7 @@ export class FlutterPanelController extends ADBBaseController {
     console.log('✅ FlutterPanelController: Build AAB command sent to terminal')
   }
 
-  private async analyzeProject() {
-    console.log('🔍 FlutterPanelController: analyzeProject called')
-    const terminal = vscode.window.createTerminal('Flutter Fly - Analyze Project');
-    terminal.show();
-    terminal.sendText('flutter analyze');
-    console.log('✅ FlutterPanelController: Analyze project command sent to terminal')
-  }
-
-  private async formatCode() {
-    console.log('✨ FlutterPanelController: formatCode called')
-    const terminal = vscode.window.createTerminal('Flutter Fly - Format Code');
-    terminal.show();
-    terminal.sendText('dart format .');
-    console.log('✅ FlutterPanelController: Format code command sent to terminal')
-  }
-
-  private async injectResources() {
-    console.log('💉 FlutterPanelController: injectResources called')
-    const terminal = vscode.window.createTerminal('Flutter Fly - Inject Resources');
-    terminal.show();
-    terminal.sendText('flutter pub run build_runner build');
-    console.log('✅ FlutterPanelController: Inject resources command sent to terminal')
-  }
-
-  private async buildIOS() {
-    console.log('🍎 FlutterPanelController: buildIOS called')
-    const terminal = vscode.window.createTerminal('Flutter Fly - Build iOS');
-    terminal.show();
-    terminal.sendText('flutter build ios');
-    console.log('✅ FlutterPanelController: Build iOS command sent to terminal')
-  }
-
-  private async buildWeb() {
-    console.log('🌐 FlutterPanelController: buildWeb called')
-    const terminal = vscode.window.createTerminal('Flutter Fly - Build Web');
-    terminal.show();
-    terminal.sendText('flutter build web');
-    console.log('✅ FlutterPanelController: Build web command sent to terminal')
-  }
-
-  private async upgradeFlutterSDK() {
-    console.log('⬆️ FlutterPanelController: upgradeFlutterSDK called')
-    const terminal = vscode.window.createTerminal('Flutter Fly - Upgrade Flutter SDK');
-    terminal.show();
-    terminal.sendText('flutter upgrade');
-    console.log('✅ FlutterPanelController: Upgrade Flutter SDK command sent to terminal')
-  }
+  // Removed unused methods: analyzeProject, formatCode, injectResources, buildIOS, buildWeb, upgradeFlutterSDK
 
   private showSuccessMessage(message: string) {
     console.log(`✅ FlutterPanelController: Success message: ${message}`)

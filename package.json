@@ -77,9 +77,11 @@
     "onCommand:flutterFly.showConnectedDevices",
     "onCommand:flutterFly.runFlutterDoctor",
     "onCommand:flutterFly.getPackages",
+    "onCommand:flutterFly.upgradePackages",
+    "onCommand:flutterFly.cleanProject",
+    "onCommand:flutterFly.runFlutterApp",
     "onCommand:flutterFly.buildAPK",
     "onCommand:flutterFly.buildAppBundle",
-    "onCommand:flutterFly.cleanProject",
     "onCommand:flutterFly.killserver",
     "onCommand:flutterFly.enableFirebaseDebug",
     "onCommand:flutterFly.disableFirebaseDebug"
@@ -112,33 +114,7 @@
     "viewsWelcome": [
       {
         "view": "flutter-fly-panel",
-        "contents": "🚀 **Welcome to Flutter Fly!**\n\nYour ultimate Flutter development companion for wireless debugging, building, and running Flutter apps.\n\n**Quick Actions:**",
-        "buttons": [
-          {
-            "title": "🎯 Open Main Panel",
-            "command": "flutterFly.openFlutterPanel"
-          },
-          {
-            "title": "📱 Connect Device",
-            "command": "flutterFly.connectWirelessDevice"
-          },
-          {
-            "title": "🔍 Show Devices",
-            "command": "flutterFly.showConnectedDevices"
-          },
-          {
-            "title": "⚡ Flutter Doctor",
-            "command": "flutterFly.runFlutterDoctor"
-          },
-          {
-            "title": "📦 Get Packages",
-            "command": "flutterFly.getPackages"
-          },
-          {
-            "title": "🧹 Clean Project",
-            "command": "flutterFly.cleanProject"
-          }
-        ],
+        "contents": "Welcome to Flutter Fly!\n\nYour ultimate Flutter development companion for wireless debugging, building, and running Flutter apps.\n\nQuick Actions:\n\n[🎯 Open Main Panel](command:flutterFly.openFlutterPanel)\n[📱 Connect Device](command:flutterFly.connectWirelessDevice)\n[📦 Get Packages](command:flutterFly.getPackages)\n[🧹 Clean Project](command:flutterFly.cleanProject)\n\n[⭐ Rate on Marketplace](https://marketplace.visualstudio.com/items?itemName=jamalihassan0307.flutter-fly)\n[🐙 View on GitHub](https://github.com/jamalihassan0307/flutter-fly)\n[👨‍💻 Developer Portfolio](https://jamalihassan0307.github.io/portfolio.github.io/#!/)\n[💼 LinkedIn](https://www.linkedin.com/in/jamalihassan0307)",
         "when": "workspaceHasFlutterProject"
       }
     ],
@@ -169,6 +145,21 @@
         "category": "Flutter Fly"
       },
       {
+        "command": "flutterFly.upgradePackages",
+        "title": "⬆️ Upgrade Packages",
+        "category": "Flutter Fly"
+      },
+      {
+        "command": "flutterFly.cleanProject",
+        "title": "🧹 Clean Project",
+        "category": "Flutter Fly"
+      },
+      {
+        "command": "flutterFly.runFlutterApp",
+        "title": "🚀 Run Flutter App",
+        "category": "Flutter Fly"
+      },
+      {
         "command": "flutterFly.buildAPK",
         "title": "🏗️ Build APK",
         "category": "Flutter Fly"
@@ -176,11 +167,6 @@
       {
         "command": "flutterFly.buildAppBundle",
         "title": "📱 Build App Bundle (AAB)",
-        "category": "Flutter Fly"
-      },
-      {
-        "command": "flutterFly.cleanProject",
-        "title": "🧹 Clean Project",
         "category": "Flutter Fly"
       },
       {

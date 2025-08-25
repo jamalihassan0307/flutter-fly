@@ -2,7 +2,6 @@
 class FlutterFlyWebview {
     constructor() {
         this.initializeEventListeners();
-        this.populateFlutterCommands();
         this.initializeToast();
     }
 
@@ -17,7 +16,7 @@ class FlutterFlyWebview {
             this.refreshDevices();
         });
 
-        // Quick action buttons
+        // Quick action buttons - only essential commands
         document.getElementById('flutterDoctorBtn').addEventListener('click', () => {
             this.executeFlutterCommand('runFlutterDoctor');
         });
@@ -32,14 +31,6 @@ class FlutterFlyWebview {
 
         document.getElementById('cleanProjectBtn').addEventListener('click', () => {
             this.executeFlutterCommand('cleanProject');
-        });
-
-        document.getElementById('analyzeProjectBtn').addEventListener('click', () => {
-            this.executeFlutterCommand('analyzeProject');
-        });
-
-        document.getElementById('formatCodeBtn').addEventListener('click', () => {
-            this.executeFlutterCommand('formatCode');
         });
 
         // Clear terminal button
@@ -59,105 +50,6 @@ class FlutterFlyWebview {
                 this.connectDevice();
             }
         });
-    }
-
-    populateFlutterCommands() {
-        const commandsGrid = document.getElementById('flutterCommandsGrid');
-        const commands = [
-            {
-                id: 'flutterDoctor',
-                name: 'Flutter Doctor',
-                description: 'Check Flutter installation and dependencies',
-                category: 'Health Check',
-                icon: 'fas fa-stethoscope'
-            },
-            {
-                id: 'getPackages',
-                name: 'Get Packages',
-                description: 'Download and update Flutter packages',
-                category: 'Dependencies',
-                icon: 'fas fa-download'
-            },
-            {
-                id: 'runApp',
-                name: 'Run App',
-                description: 'Run Flutter app on connected device',
-                category: 'Development',
-                icon: 'fas fa-play-circle'
-            },
-            {
-                id: 'buildAPK',
-                name: 'Build APK',
-                description: 'Build Android APK file',
-                category: 'Building',
-                icon: 'fas fa-mobile-alt'
-            },
-            {
-                id: 'buildAAB',
-                name: 'Build AAB',
-                description: 'Build Android App Bundle',
-                category: 'Building',
-                icon: 'fas fa-box'
-            },
-            {
-                id: 'hotReload',
-                name: 'Hot Reload',
-                description: 'Hot reload the running app',
-                category: 'Development',
-                icon: 'fas fa-sync-alt'
-            },
-            {
-                id: 'hotRestart',
-                name: 'Hot Restart',
-                description: 'Hot restart the running app',
-                category: 'Development',
-                icon: 'fas fa-redo'
-            },
-            {
-                id: 'stopApp',
-                name: 'Stop App',
-                description: 'Stop the running Flutter app',
-                category: 'Development',
-                icon: 'fas fa-stop'
-            },
-            {
-                id: 'cleanProject',
-                name: 'Clean Project',
-                description: 'Clean Flutter project build files',
-                category: 'Maintenance',
-                icon: 'fas fa-broom'
-            },
-            {
-                id: 'analyzeProject',
-                name: 'Analyze Project',
-                description: 'Analyze Flutter project for issues',
-                category: 'Quality',
-                icon: 'fas fa-search'
-            }
-        ];
-
-        commands.forEach(command => {
-            const commandCard = this.createCommandCard(command);
-            commandsGrid.appendChild(commandCard);
-        });
-    }
-
-    createCommandCard(command) {
-        const card = document.createElement('div');
-        card.className = 'command-card';
-        card.innerHTML = `
-            <div class="d-flex align-items-start">
-                <div class="flex-grow-1">
-                    <h6><i class="${command.icon} me-2"></i>${command.name}</h6>
-                    <p class="mb-2">${command.description}</p>
-                    <span class="command-category">${command.category}</span>
-                </div>
-                <button class="btn btn-sm btn-outline-primary ms-2" onclick="flutterFly.executeFlutterCommand('${command.id}')">
-                    <i class="fas fa-play"></i>
-                </button>
-            </div>
-        `;
-        return card;
     }
 
     connectDevice() {
@@ -220,6 +112,7 @@ class FlutterFlyWebview {
     }
 
     executeFlutterCommand(commandId) {
+        console.log('Executing Flutter command:', commandId);
         this.sendMessage('runFlutterCommand', { commandId });
         this.addTerminalOutput(`Executing Flutter command: ${commandId}`, 'info');
     }
