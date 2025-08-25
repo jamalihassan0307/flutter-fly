@@ -21,8 +21,23 @@ export class ADBCommandsController extends ADBBaseController {
     this.appStateKeys = appStateKeys
   }
   async onInit() {
-    // Only register essential ADB commands
-    this.registerCommand('flutterFly.killserver', () => this.killADBServer())
+    this.registerCommand('flutterFly.adbwificonnect', () =>
+      this.connectToDevice()
+    )
+      .registerCommand('flutterFly.adbResetPorts', () =>
+        this.resetDevicesPort()
+      )
+      .registerCommand('flutterFly.disconnectEverthing', () =>
+        this.disconnectAnyDevice()
+      )
+      .registerCommand('flutterFly.connectToDeviceFromList', () =>
+        this.connectToDeviceFromList()
+      )
+      .registerCommand('flutterFly.killserver', () => this.killADBServer())
+
+      .registerCommand('flutterFly.installAPKFile', () =>
+        this.pickAPKAndInstall()
+      )
   }
 
   async genericErrorReturn(e: Error) {
@@ -54,7 +69,7 @@ export class ADBCommandsController extends ADBBaseController {
     // The code you place here will be executed every time your command is executed
     vscode.window
       .showInputBox({
-        placeHolder: '192.168.0.1',
+        placeHolder: '192.168.100.25',
         value: ipValue,
         ignoreFocusOut: true,
         prompt:

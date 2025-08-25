@@ -7,15 +7,17 @@ export class FlutterCommandsController extends ADBBaseController {
   }
 
   async onInit() {
-    // Essential Flutter Commands Only
-    this.registerCommand('flutterFly.runFlutterDoctor', () => this.runFlutterDoctor())
-      .registerCommand('flutterFly.getPackages', () => this.getPackages())
-      .registerCommand('flutterFly.buildAPK', () => this.buildAPK())
-      .registerCommand('flutterFly.buildAppBundle', () => this.buildAppBundle())
-      .registerCommand('flutterFly.cleanProject', () => this.cleanProject())
+    // Only register commands that are NOT handled by FlutterPanelController
+    // to avoid conflicts. Keep only essential ADB and build commands.
+    
+    // No commands needed here - all Flutter commands are handled by FlutterPanelController
+    // This controller is kept for future use but doesn't register any commands
+    console.log('🔧 FlutterCommandsController: No commands to register (handled by FlutterPanelController)')
   }
 
-  // Essential Flutter Commands
+  // Keep the methods for potential future use, but don't register them as commands
+  // since they're already handled by FlutterPanelController
+  
   async runFlutterDoctor() {
     try {
       await this.showProgress('Running Flutter Doctor...', async () => {

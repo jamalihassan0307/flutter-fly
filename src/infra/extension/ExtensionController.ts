@@ -10,7 +10,7 @@ export class ExtController implements IExtController {
 
   constructor(context: ExtensionContext) {
     this.context = context
-    // Don't call onInit automatically - let the derived class call it when ready
+    // Removed automatic onInit call to prevent duplicate registration
     // this.onInit(context)
   }
 

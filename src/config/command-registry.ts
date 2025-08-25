@@ -31,7 +31,7 @@ export const FLUTTER_FLY_COMMANDS: FlutterFlyCommand[] = [
     description: 'Display list of connected devices'
   },
 
-  // Flutter Commands
+  // Flutter Development Commands
   {
     id: 'flutterFly.runFlutterDoctor',
     title: '⚡ Flutter Doctor',
@@ -45,6 +45,32 @@ export const FLUTTER_FLY_COMMANDS: FlutterFlyCommand[] = [
     description: 'Get Flutter packages and dependencies'
   },
   {
+    id: 'flutterFly.upgradePackages',
+    title: '⬆️ Upgrade Packages',
+    category: 'Flutter Fly',
+    description: 'Upgrade Flutter packages to latest versions'
+  },
+  {
+    id: 'flutterFly.cleanProject',
+    title: '🧹 Clean Project',
+    category: 'Flutter Fly',
+    description: 'Clean Flutter project build files'
+  },
+  {
+    id: 'flutterFly.analyzeProject',
+    title: '🔍 Analyze Project',
+    category: 'Flutter Fly',
+    description: 'Analyze Flutter project for issues'
+  },
+  {
+    id: 'flutterFly.formatCode',
+    title: '✨ Format Code',
+    category: 'Flutter Fly',
+    description: 'Format Flutter/Dart code'
+  },
+
+  // Building Commands
+  {
     id: 'flutterFly.buildAPK',
     title: '🏗️ Build APK',
     category: 'Flutter Fly',
@@ -57,10 +83,62 @@ export const FLUTTER_FLY_COMMANDS: FlutterFlyCommand[] = [
     description: 'Build Android App Bundle'
   },
   {
-    id: 'flutterFly.cleanProject',
-    title: '🧹 Clean Project',
+    id: 'flutterFly.buildIOS',
+    title: '🍎 Build iOS',
     category: 'Flutter Fly',
-    description: 'Clean Flutter project build files'
+    description: 'Build iOS app'
+  },
+  {
+    id: 'flutterFly.buildWeb',
+    title: '🌐 Build Web',
+    category: 'Flutter Fly',
+    description: 'Build web app'
+  },
+
+  // Running Commands
+  {
+    id: 'flutterFly.runFlutterApp',
+    title: '🚀 Run Flutter App',
+    category: 'Flutter Fly',
+    description: 'Run Flutter app on connected device'
+  },
+  {
+    id: 'flutterFly.buildFlutterApp',
+    title: '🏗️ Build Flutter App',
+    category: 'Flutter Fly',
+    description: 'Build Flutter app with options'
+  },
+  {
+    id: 'flutterFly.hotReload',
+    title: '🔄 Hot Reload',
+    category: 'Flutter Fly',
+    description: 'Hot reload the running app'
+  },
+  {
+    id: 'flutterFly.hotRestart',
+    title: '🔄 Hot Restart',
+    category: 'Flutter Fly',
+    description: 'Hot restart the running app'
+  },
+  {
+    id: 'flutterFly.stopApp',
+    title: '⏹️ Stop App',
+    category: 'Flutter Fly',
+    description: 'Stop the running Flutter app'
+  },
+
+  // Advanced Commands
+  {
+    id: 'flutterFly.injectResources',
+    title: '💉 Inject Resources',
+    category: 'Flutter Fly',
+    description: 'Run build_runner for code generation'
+  },
+  {
+    id: 'flutterFly.upgradeFlutterSDK',
+    title: '⬆️ Upgrade Flutter SDK',
+    category: 'Flutter Fly',
+    description: 'Upgrade Flutter SDK to latest version'
   },
 
   // ADB Commands

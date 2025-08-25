@@ -4,6 +4,68 @@ All notable changes to the "Flutter Fly" extension will be documented in this fi
 
 Check [Keep a Changelog](http://keepachanglog.com/) for recommendations on how to structure this file.
 
+## [1.0.4] - 2025-01-27
+
+### 🎨 Logo Update
+- **New Logo Design**: Updated project logo with fresh, modern design
+- **Visual Refresh**: Enhanced visual identity for better brand recognition
+- **Icon Updates**: Updated extension icon and media assets
+
+### 🔧 Maintenance
+- **Version Bump**: Updated to version 1.0.4 for marketplace release
+- **Documentation Updates**: Updated all documentation files to reflect new version
+- **Asset Refresh**: Updated project media files and branding
+
+---
+
+## [1.0.3] - 2025-08-24
+
+### 🚀 Major Improvements
+- **Real Device Detection**: Replaced demo/fake devices with actual ADB device detection
+- **ADB Integration**: Complete ADB path detection and availability checking
+- **Smart Error Handling**: Intelligent fallbacks when ADB is not available
+- **Enhanced User Guidance**: Step-by-step ADB installation help and documentation links
+
+### ✨ New Features
+- **ADB Availability Check**: Automatic detection of ADB installation status
+- **Installation Help System**: Comprehensive guide for installing ADB when not found
+- **Real-time Device Status**: Shows actual online/offline/unauthorized device states
+- **Smart Connection Logic**: Better device connection handling with proper error messages
+
+### 🔧 Technical Improvements
+- **Command Registration Fix**: Resolved duplicate command registration conflicts
+- **Controller Initialization**: Fixed controller initialization order and lifecycle
+- **Type Safety**: Improved TypeScript type definitions for device management
+- **Error Recovery**: Better error handling and user feedback throughout the system
+
+### 🎨 UI/UX Enhancements
+- **Social Links Restored**: Added back GitHub, LinkedIn, and Portfolio links with hover effects
+- **Developer Info**: Restored "Built with ❤️ by Jam Ali Hassan" branding
+- **Cleaner Command Layout**: Removed unwanted Hot Reload, Hot Restart, and Stop App buttons
+- **Responsive Design**: Improved mobile and tablet compatibility
+- **Better Visual Feedback**: Enhanced button hover effects and transitions
+
+### 🐛 Bug Fixes
+- **Demo Data Removal**: Eliminated fake Samsung Galaxy S21 and emulator devices
+- **Command Conflicts**: Fixed "command already exists" errors during initialization
+- **Extension Startup**: Resolved extension activation failures
+- **Device List**: Fixed empty device list display issues
+- **Panel Functionality**: Made all webview panel buttons functional
+
+### 📱 Device Management
+- **Real Device Parsing**: Parse actual `adb devices` output instead of simulation
+- **Connection Validation**: Proper validation of device connection attempts
+- **Status Monitoring**: Real-time device connection status updates
+- **Error Guidance**: Clear instructions when device connection fails
+
+### 🆘 Help System
+- **ADB Installation Guide**: Complete step-by-step installation instructions
+- **Documentation Links**: Direct links to official Android ADB documentation
+- **PATH Configuration**: Guidance on adding ADB to system PATH
+- **Troubleshooting**: Helpful error messages and recovery suggestions
+
+---
+
 ## [1.0.2] - 2025-08-23
 
 ### ✨ Enhanced

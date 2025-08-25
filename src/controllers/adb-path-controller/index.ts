@@ -25,13 +25,12 @@ export class ADBPathController extends ADBBaseController {
     }
   }
   async onInit() {
-    // No commands needed for simplified extension
-    // await this.registerCommand('flutterFly.setCustomADBPath', () =>
-    //   this.setCustomADBPath()
-    // )
-    // await this.registerCommand('flutterFly.resetCustomADBPath', () =>
-    //   this.resetCustomADBPath()
-    // )
+    await this.registerCommand('flutterFly.setCustomADBPath', () =>
+      this.setCustomADBPath()
+    )
+    await this.registerCommand('flutterFly.resetCustomADBPath', () =>
+      this.resetCustomADBPath()
+    )
   }
 
   setCustomADBPath(): any {

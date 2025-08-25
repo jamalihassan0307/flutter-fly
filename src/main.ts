@@ -18,38 +18,43 @@ import { ConsoleInterface } from './domain/console/console-interface'
 export async function activate(context: vscode.ExtensionContext) {
     console.log('🚀 Flutter Fly Extension Activated!')
     
-    // Check if this is a Flutter project
-    const hasFlutterProject = await checkForFlutterProject()
-    vscode.commands.executeCommand('setContext', 'workspaceHasFlutterProject', hasFlutterProject)
-    
-    // Register all controllers used by plugin
-    const netHelper = new NetHelpers()
-    
     try {
-        // Initialize controllers in sequence to avoid conflicts
-        console.log('🔧 Initializing Flutter Fly controllers...')
+        // Check if this is a Flutter project
+        const hasFlutterProject = await checkForFlutterProject()
+        vscode.commands.executeCommand('setContext', 'workspaceHasFlutterProject', hasFlutterProject)
         
-        // 1. Flutter Panel Controller (registers panel commands)
+        // Initialize core services
+        const netHelper = new NetHelpers()
+        const consoleInterface = new ConsoleInterface()
+        
+        console.log('🔧 Flutter Fly: Initializing controllers...')
+        
+        // Initialize controllers in proper order to avoid conflicts
+        
+        // 1. First, initialize the main Flutter Panel Controller (handles most commands)
+        console.log('📱 Flutter Fly: Initializing Flutter Panel Controller...')
         const flutterPanelController = new FlutterPanelController(context)
         await flutterPanelController.onInit()
         console.log('✅ Flutter Panel Controller initialized')
         
-        // 2. Flutter Commands Controller (registers Flutter commands)
+        // 2. Initialize Flutter Commands Controller (handles build and run commands)
+        console.log('🚀 Flutter Fly: Initializing Flutter Commands Controller...')
         const flutterCommandsController = new FlutterCommandsController(context)
         await flutterCommandsController.onInit()
         console.log('✅ Flutter Commands Controller initialized')
         
-        // 3. ADB and Device Management Controllers
+        // 3. Initialize ADB and Device Management Controllers
+        console.log('📱 Flutter Fly: Initializing ADB Controllers...')
         const firebaseController = new FirebaseController(
             context,
-            new FirebaseManagerChannel(new ConsoleInterface(), context.globalState)
+            new FirebaseManagerChannel(consoleInterface, context.globalState)
         )
         await firebaseController.onInit()
         console.log('✅ Firebase Controller initialized')
         
         const adbCmdController = new ADBCommandsController(
             context,
-            new ADBConnection(new ConsoleInterface(), context.globalState, netHelper)
+            new ADBConnection(consoleInterface, context.globalState, netHelper)
         )
         await adbCmdController.onInit()
         console.log('✅ ADB Commands Controller initialized')
@@ -75,9 +80,15 @@ export async function activate(context: vscode.ExtensionContext) {
                 vscode.commands.executeCommand('flutterFly.openFlutterPanel')
             }
         })
+        
     } catch (error) {
         console.error('❌ Error initializing Flutter Fly controllers:', error)
-        vscode.window.showErrorMessage('Failed to initialize Flutter Fly extension. Check console for details.')
+        vscode.window.showErrorMessage(`Failed to initialize Flutter Fly extension: ${error.message}`)
+        
+        // Show detailed error information
+        if (error.message.includes('already exists')) {
+            vscode.window.showErrorMessage('Command registration conflict detected. Please restart VSCode.')
+        }
     }
 }
 

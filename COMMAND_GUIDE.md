@@ -66,6 +66,10 @@ src/
 │   ├── adb-controller/        # ADB device commands
 │   ├── firebase-controller/   # Firebase commands
 │   └── flutter-panel-controller/ # Panel interface commands
+├── domain/
+│   ├── adb-resolver/          # ADB path detection and management
+│   ├── adb-wrapper/           # ADB command execution
+│   └── console/               # Console interface implementations
 └── main.ts                    # Extension activation
 ```
 
@@ -132,16 +136,25 @@ async formatCode() {
 - Check if the command ID is already registered
 - Ensure controllers are initialized in the correct order
 - Use unique command IDs
+- **Fixed in v1.0.3**: Controller initialization order has been optimized
 
 ### Command Not Found Error
 - Verify the command is in package.json
 - Check activationEvents includes the command
 - Ensure the command is properly registered in a controller
+- **Fixed in v1.0.3**: All commands are now properly registered
 
 ### Sidebar Not Updating
 - Check if the command is in the viewsWelcome buttons array
 - Verify the when condition is correct
 - Ensure the command ID matches exactly
+- **Fixed in v1.0.3**: Sidebar welcome view now uses proper button format
+
+### Extension Won't Start
+- Check console for initialization errors
+- Verify all controllers are properly initialized
+- Ensure no duplicate command registrations
+- **Fixed in v1.0.3**: Controller lifecycle management improved
 
 ## 🔄 Testing Commands
 
@@ -155,7 +168,7 @@ async formatCode() {
 3. **Test your command** using:
    - Command Palette (Ctrl+Shift+P)
    - Sidebar buttons
-   - Keyboard shortcuts (if configured)
+   - Panel interface buttons
 
 ## 📚 Best Practices
 
@@ -165,6 +178,8 @@ async formatCode() {
 4. **Add descriptions** to help users understand command purpose
 5. **Test commands thoroughly** before committing changes
 6. **Update documentation** when adding new commands
+7. **Handle errors gracefully** with user-friendly messages
+8. **Use proper TypeScript types** for better code quality
 
 ## 🆘 Need Help?
 
@@ -172,7 +187,45 @@ async formatCode() {
 - Verify all files are properly saved and compiled
 - Ensure command IDs are unique across the entire extension
 - Test in a clean VSCode window
+- **New in v1.0.3**: Better error logging and debugging information
+
+## 🔧 New in v1.0.4
+
+### **Logo and Visual Updates**
+- **New Logo Design**: Fresh, modern logo design for better brand recognition
+- **Visual Refresh**: Enhanced visual identity and branding
+- **Asset Updates**: Updated extension icons and media files
+
+### **Documentation Updates**
+- **Version Bump**: Updated all documentation to version 1.0.4
+- **Maintenance**: General maintenance and cleanup updates
+
+---
+
+## 🔧 New in v1.0.3
+
+### **Command Registration Improvements**
+- Fixed duplicate command registration conflicts
+- Improved controller initialization order
+- Better error handling during startup
+
+### **ADB Integration**
+- Automatic ADB availability detection
+- Smart fallbacks when ADB is not available
+- Helpful installation guidance for users
+
+### **Device Management**
+- Real device detection (no more fake devices)
+- Actual `adb devices` output parsing
+- Real-time device status updates
+
+### **Error Handling**
+- Comprehensive error recovery
+- User-friendly error messages
+- Step-by-step troubleshooting guides
 
 ---
 
 *This guide makes it easy to maintain and extend the Flutter Fly extension with new commands! 🚀*
+
+*Updated for version 1.0.4 with logo updates and latest improvements.*
