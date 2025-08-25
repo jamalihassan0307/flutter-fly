@@ -25,7 +25,7 @@
   </p>
 
   <p align="center">
-    <a href="https://marketplace.visualstudio.com/items?itemName=jamalihassan0307.flutter-fly">
+    <a href="https://marketplace.visualstudio.com/search?term=flutter%20fly&target=VSCode&category=All%20categories&sortBy=Relevance">
       <img src="https://img.shields.io/badge/VS_Code-1.85.0+-373277?style=for-the-badge&logo=visualstudio&logoColor=white" alt="VS Code"/>
     </a>
     <a href="https://flutter.dev">
@@ -37,13 +37,13 @@
   </p>
 
   <p align="center">
-    <a href="https://marketplace.visualstudio.com/items?itemName=jamalihassan0307.flutter-fly">
-      <img src="https://img.shields.io/badge/version-1.0.0-blue?style=for-the-badge&logo=visualstudiocode&logoColor=white" alt="Version"/>
+    <a href="https://marketplace.visualstudio.com/search?term=flutter%20fly&target=VSCode&category=All%20categories&sortBy=Relevance">
+      <img src="https://img.shields.io/badge/version-1.0.5-blue?style=for-the-badge&logo=visualstudiocode&logoColor=white" alt="Version"/>
     </a>
     <a href="https://flutter.dev">
       <img src="https://img.shields.io/badge/Flutter-Latest-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter"/>
     </a>
-    <a href="https://marketplace.visualstudio.com/items?itemName=jamalihassan0307.flutter-fly">
+    <a href="https://marketplace.visualstudio.com/search?term=flutter%20fly&target=VSCode&category=All%20categories&sortBy=Relevance">
       <img src="https://img.shields.io/badge/VS_Marketplace-Install-blue?style=for-the-badge&logo=visualstudiocode&logoColor=white" alt="Install"/>
     </a>
   </p>
@@ -55,7 +55,7 @@
 
 **The ultimate Flutter development companion for VSCode.** Connect devices wirelessly, build APKs/AABs, run Flutter apps, and manage your entire Flutter workflow from one beautiful interface.
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://marketplace.visualstudio.com/items?itemName=jamalihassan0307.flutter-fly)
+[![Version](https://img.shields.io/badge/version-1.0.5-blue.svg)](https://marketplace.visualstudio.com/search?term=flutter%20fly&target=VSCode&category=All%20categories&sortBy=Relevance)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 ![VS Code Compatibility](https://img.shields.io/badge/vscode-%5E1.85.0-brightgreen.svg)
 
@@ -405,7 +405,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <p>Install the Flutter Fly extension today and experience seamless Flutter development in VSCode!</p>
 
-<a href="https://marketplace.visualstudio.com/items?itemName=jamalihassan0307.flutter-fly" style="display: inline-block; background: #02569B; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; margin: 10px;">Install from Marketplace</a>
+<a href="https://marketplace.visualstudio.com/search?term=flutter%20fly&target=VSCode&category=All%20categories&sortBy=Relevance" style="display: inline-block; background: #02569B; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; margin: 10px;">Install from Marketplace</a>
 
 </div>
 

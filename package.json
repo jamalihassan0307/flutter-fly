@@ -2,7 +2,7 @@
   "name": "flutter-fly",
   "displayName": "Flutter Fly: Wireless Debug & Run",
   "description": "The ultimate Flutter development companion for VSCode. Connect devices wirelessly, build APKs/AABs, run Flutter apps, and manage your entire Flutter workflow from one beautiful interface.",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "publisher": "jamalihassan0307",
   "repository": "https://github.com/jamalihassan0307/flutter-fly",
   "homepage": "https://github.com/jamalihassan0307/flutter-fly",
@@ -114,7 +114,7 @@
     "viewsWelcome": [
       {
         "view": "flutter-fly-panel",
-        "contents": "Welcome to Flutter Fly!\n\nYour ultimate Flutter development companion for wireless debugging, building, and running Flutter apps.\n\nQuick Actions:\n\n[🎯 Open Main Panel](command:flutterFly.openFlutterPanel)\n[📱 Connect Device](command:flutterFly.connectWirelessDevice)\n[📦 Get Packages](command:flutterFly.getPackages)\n[🧹 Clean Project](command:flutterFly.cleanProject)\n\n[⭐ Rate on Marketplace](https://marketplace.visualstudio.com/items?itemName=jamalihassan0307.flutter-fly)\n[🐙 View on GitHub](https://github.com/jamalihassan0307/flutter-fly)\n[👨‍💻 Developer Portfolio](https://jamalihassan0307.github.io/portfolio.github.io/#!/)\n[💼 LinkedIn](https://www.linkedin.com/in/jamalihassan0307)",
+        "contents": "Welcome to Flutter Fly!\n\nYour ultimate Flutter development companion for wireless debugging, building, and running Flutter apps.\n\nQuick Actions:\n\n[🎯 Open Main Panel](command:flutterFly.openFlutterPanel)\n[📱 Connect Device](command:flutterFly.connectWirelessDevice)\n[📦 Get Packages](command:flutterFly.getPackages)\n[🧹 Clean Project](command:flutterFly.cleanProject)\n\n[⭐ Rate on Marketplace](https://marketplace.visualstudio.com/search?term=flutter%20fly&target=VSCode&category=All%20categories&sortBy=Relevance)\n[🐙 View on GitHub](https://github.com/jamalihassan0307/flutter-fly)\n[👨‍💻 Developer Portfolio](https://jamalihassan0307.github.io/portfolio.github.io/#!/)\n[💼 LinkedIn](https://www.linkedin.com/in/jamalihassan0307)",
         "when": "workspaceHasFlutterProject"
       }
     ],

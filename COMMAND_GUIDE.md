@@ -187,7 +187,20 @@ async formatCode() {
 - Verify all files are properly saved and compiled
 - Ensure command IDs are unique across the entire extension
 - Test in a clean VSCode window
-- **New in v1.0.3**: Better error logging and debugging information
+- **New in v1.0.5**: Better error logging and debugging information
+
+## 🔧 New in v1.0.5
+
+### **Logo and Visual Updates**
+- **New Logo Design**: Fresh, modern logo design for better brand recognition
+- **Visual Refresh**: Enhanced visual identity and branding
+- **Asset Updates**: Updated extension icons and media files
+
+### **Documentation Updates**
+- **Version Bump**: Updated all documentation to version 1.0.5
+- **Maintenance**: General maintenance and cleanup updates
+
+---
 
 ## 🔧 New in v1.0.4
 
@@ -228,4 +241,4 @@ async formatCode() {
 
 *This guide makes it easy to maintain and extend the Flutter Fly extension with new commands! 🚀*
 
-*Updated for version 1.0.4 with logo updates and latest improvements.*
+*Updated for version 1.0.5 with logo updates and latest improvements.*

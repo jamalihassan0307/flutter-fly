@@ -4,6 +4,32 @@ All notable changes to the "Flutter Fly" extension will be documented in this fi
 
 Check [Keep a Changelog](http://keepachanglog.com/) for recommendations on how to structure this file.
 
+## [1.0.5] - 2025-08-25
+
+### 🚀 Major Improvements
+- **Webview JavaScript Fix**: Fixed JavaScript loading in the Flutter Fly webview panel
+- **Button Functionality**: Restored all panel button functionality for Flutter commands
+- **Device Connection**: Enhanced device connection with proper ADB path resolution
+- **Terminal Integration**: Commands now execute in new terminals with proper feedback
+
+### 🔧 Technical Improvements
+- **Script Loading**: Improved script path resolution and loading in webview
+- **Debugging Support**: Added comprehensive debugging for webview script loading
+- **Error Handling**: Enhanced error handling for ADB commands and device connections
+- **Path Resolution**: Better ADB path resolution with fallbacks for different environments
+
+### 🎨 UI/UX Enhancements
+- **Panel Responsiveness**: Improved panel responsiveness and button interactions
+- **Status Messages**: Enhanced status message display with better visual feedback
+- **Terminal Integration**: Commands now open in dedicated terminals for better visibility
+- **Error Feedback**: Clearer error messages and recovery suggestions
+
+### 🐛 Bug Fixes
+- **JavaScript Loading**: Fixed issue where flutter-fly.js wasn't loading properly
+- **Command Execution**: Fixed panel buttons not executing their corresponding commands
+- **Device Connection**: Resolved device connection issues with proper path handling
+- **Terminal Integration**: Fixed commands not running in visible terminals
+
 ## [1.0.4] - 2025-01-27
 
 ### 🎨 Logo Update
