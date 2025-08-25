@@ -1,6 +1,7 @@
 // Flutter Fly Webview JavaScript
 class FlutterFlyWebview {
     constructor() {
+        this.isExecuting = false; // Prevent duplicate execution
         this.initializeEventListeners();
         this.initializeToast();
     }
@@ -8,51 +9,49 @@ class FlutterFlyWebview {
     initializeEventListeners() {
         // Connect device button
         document.getElementById('connectBtn').addEventListener('click', () => {
-            this.connectDevice();
+            if (!this.isExecuting) {
+                this.connectDevice();
+            }
         });
 
         // Refresh devices button
         document.getElementById('refreshDevicesBtn').addEventListener('click', () => {
-            this.refreshDevices();
+            if (!this.isExecuting) {
+                this.refreshDevices();
+            }
         });
 
-        // Quick action buttons - only essential commands
-        document.getElementById('flutterDoctorBtn').addEventListener('click', () => {
-            this.executeFlutterCommand('runFlutterDoctor');
-        });
+        // Quick action buttons now have onclick handlers in HTML
 
-        document.getElementById('getPackagesBtn').addEventListener('click', () => {
-            this.executeFlutterCommand('getPackages');
-        });
-
-        document.getElementById('upgradePackagesBtn').addEventListener('click', () => {
-            this.executeFlutterCommand('upgradePackages');
-        });
-
-        document.getElementById('cleanProjectBtn').addEventListener('click', () => {
-            this.executeFlutterCommand('cleanProject');
-        });
-
-        // Clear terminal button
-        document.getElementById('clearTerminalBtn').addEventListener('click', () => {
-            this.clearTerminal();
+        // Status message handling
+        document.getElementById('clearStatusBtn').addEventListener('click', () => {
+            this.clearStatusMessages();
         });
 
         // Enter key support for connection form
         document.getElementById('deviceIP').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                this.connectDevice();
+                if (!this.isExecuting) {
+                    this.connectDevice();
+                }
             }
         });
 
         document.getElementById('devicePort').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                this.connectDevice();
+                if (!this.isExecuting) {
+                    this.connectDevice();
+                }
             }
         });
     }
 
     connectDevice() {
+        if (this.isExecuting) {
+            console.log('Connection already in progress, skipping');
+            return;
+        }
+        
         const ip = document.getElementById('deviceIP').value.trim();
         const port = document.getElementById('devicePort').value.trim();
 
@@ -71,6 +70,8 @@ class FlutterFlyWebview {
             return;
         }
 
+        this.isExecuting = true;
+
         // Show loading state
         const connectBtn = document.getElementById('connectBtn');
         const originalText = connectBtn.innerHTML;
@@ -80,10 +81,11 @@ class FlutterFlyWebview {
         // Send message to extension
         this.sendMessage('connectDevice', { ip, port });
 
-        // Reset button after a delay
+        // Reset button and execution flag after a delay
         setTimeout(() => {
             connectBtn.innerHTML = originalText;
             connectBtn.disabled = false;
+            this.isExecuting = false;
         }, 3000);
     }
 
@@ -112,9 +114,20 @@ class FlutterFlyWebview {
     }
 
     executeFlutterCommand(commandId) {
+        if (this.isExecuting) {
+            console.log('Command already executing, skipping:', commandId);
+            return;
+        }
+        
+        this.isExecuting = true;
         console.log('Executing Flutter command:', commandId);
         this.sendMessage('runFlutterCommand', { commandId });
-        this.addTerminalOutput(`Executing Flutter command: ${commandId}`, 'info');
+        this.addStatusMessage(`Executing Flutter command: ${commandId}`, 'info');
+        
+        // Reset execution flag after a delay
+        setTimeout(() => {
+            this.isExecuting = false;
+        }, 2000);
     }
 
     updateDevicesList(devices) {
@@ -153,12 +166,13 @@ class FlutterFlyWebview {
     disconnectDevice(deviceId) {
         if (confirm(`Are you sure you want to disconnect ${deviceId}?`)) {
             this.sendMessage('disconnectDevice', { deviceId });
-            this.addTerminalOutput(`Disconnecting device: ${deviceId}`, 'info');
+            this.addStatusMessage(`Disconnecting device: ${deviceId}`, 'info');
         }
     }
 
-    addTerminalOutput(message, type = 'info') {
-        const terminal = document.getElementById('terminalOutput');
+    // Status message functionality
+    addStatusMessage(message, type = 'info') {
+        const statusContainer = document.getElementById('statusMessages');
         const timestamp = new Date().toLocaleTimeString();
         const typeIcon = {
             'info': 'fas fa-info-circle text-info',
@@ -167,29 +181,36 @@ class FlutterFlyWebview {
             'error': 'fas fa-times-circle text-danger'
         };
 
-        const outputLine = document.createElement('div');
-        outputLine.className = 'mb-2';
-        outputLine.innerHTML = `
-            <span class="text-muted">[${timestamp}]</span>
+        const statusLine = document.createElement('div');
+        statusLine.className = 'mb-2 p-2 border-start border-3';
+        statusLine.style.borderLeftColor = type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : type === 'warning' ? '#ffc107' : '#17a2b8';
+        statusLine.innerHTML = `
+            <small class="text-muted">[${timestamp}]</small>
             <i class="${typeIcon[type] || typeIcon.info} me-2"></i>
             <span class="${type === 'error' ? 'text-danger' : type === 'warning' ? 'text-warning' : type === 'success' ? 'text-success' : ''}">${message}</span>
         `;
 
-        terminal.appendChild(outputLine);
-        terminal.scrollTop = terminal.scrollHeight;
+        // Remove the placeholder message if it exists
+        const placeholder = statusContainer.querySelector('.text-muted.text-center');
+        if (placeholder) {
+            placeholder.remove();
+        }
+
+        statusContainer.appendChild(statusLine);
+        statusContainer.scrollTop = statusContainer.scrollHeight;
 
         // Auto-clear old messages if too many
-        if (terminal.children.length > 50) {
-            terminal.removeChild(terminal.firstChild);
+        if (statusContainer.children.length > 20) {
+            statusContainer.removeChild(statusContainer.firstChild);
         }
     }
 
-    clearTerminal() {
-        const terminal = document.getElementById('terminalOutput');
-        terminal.innerHTML = `
+    clearStatusMessages() {
+        const statusContainer = document.getElementById('statusMessages');
+        statusContainer.innerHTML = `
             <div class="text-muted text-center py-3">
-                <i class="fas fa-terminal fa-2x mb-2"></i>
-                <p>Terminal cleared</p>
+                <i class="fas fa-bell fa-2x mb-2"></i>
+                <p>Status messages cleared</p>
             </div>
         `;
     }
@@ -230,8 +251,8 @@ class FlutterFlyWebview {
             case 'updateDevices':
                 this.updateDevicesList(message.devices);
                 break;
-            case 'terminalOutput':
-                this.addTerminalOutput(message.text, message.type);
+            case 'addStatusMessage':
+                this.addStatusMessage(message.message, message.type);
                 break;
             case 'showToast':
                 this.showToast(message.message, message.type);
@@ -248,11 +269,11 @@ window.addEventListener('message', event => {
     flutterFly.handleMessage(event.data);
 });
 
-// Add some sample terminal output on load
+// Add some sample status messages on load
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
-        flutterFly.addTerminalOutput('Flutter Fly webview loaded successfully!', 'success');
-        flutterFly.addTerminalOutput('Ready to connect devices and run Flutter commands', 'info');
+        flutterFly.addStatusMessage('Flutter Fly webview loaded successfully!', 'success');
+        flutterFly.addStatusMessage('Ready to connect devices and run Flutter commands', 'info');
     }, 1000);
 });
 
@@ -278,11 +299,7 @@ document.addEventListener('keydown', (e) => {
         flutterFly.refreshDevices();
     }
     
-    // Ctrl/Cmd + L to clear terminal
-    if ((e.ctrlKey || e.metaKey) && e.key === 'l') {
-        e.preventDefault();
-        flutterFly.clearTerminal();
-    }
+    // Ctrl/Cmd + L removed - terminal functionality removed
 });
 
 // Add some visual feedback for interactions
