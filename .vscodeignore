@@ -8,10 +8,3 @@ vsc-extension-quickstart.md
 **/.eslintrc.json
 **/*.map
 **/*.ts
-node_modules/**
-*.vsix
-coverage/**
-test/**
-*.log
-.DS_Store
-Thumbs.db
