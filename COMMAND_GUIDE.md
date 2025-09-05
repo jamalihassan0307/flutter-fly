@@ -189,6 +189,27 @@ async formatCode() {
 - Test in a clean VSCode window
 - **New in v1.0.5**: Better error logging and debugging information
 
+## 🔧 New in v1.0.6
+
+### **Enhanced User Interface**
+- **Beautiful Panel Interface**: Completely redesigned webview panel with modern UI
+- **Improved Sidebar**: Better organized sidebar with enhanced quick actions
+- **Better Visual Hierarchy**: Cleaner layout with improved button organization
+- **Responsive Design**: Mobile-friendly responsive layout with Bootstrap 5
+- **Social Integration**: GitHub, LinkedIn, and Portfolio links with hover effects
+
+### **Technical Improvements**
+- **Command Registration**: Fixed command registration issues for packaged extensions
+- **Activation Events**: Improved extension activation with better event handling
+- **Error Handling**: Enhanced error handling and user feedback
+- **Debug Logging**: Added comprehensive logging for better debugging
+- **Extension Stability**: Improved overall extension stability and reliability
+
+### **Bug Fixes**
+- **Packaging Issues**: Fixed extension packaging issues that prevented commands from working
+- **Webview Assets**: Fixed webview asset loading issues in packaged extensions
+- **Activation Problems**: Resolved extension activation problems when installed from package
+
 ## 🔧 New in v1.0.5
 
 ### **Logo and Visual Updates**

@@ -67,7 +67,7 @@ export class FlutterCommandsController extends ADBBaseController {
       })
       // logPackageInstallation('Flutter packages (upgrade)', 'completed', 'All packages upgraded successfully')
       // // logCommandExecution('flutter pub upgrade', 'completed', 'Packages upgraded successfully')
-      vscode.window.showInformationMessage('⬆️ Flutter packages upgraded!')
+      vscode.window.showInformationMessage('⬆ Flutter packages upgraded!')
     } catch (e) {
       const errorMessage = e instanceof Error ? e.message : String(e)
       // logPackageInstallation('Flutter packages (upgrade)', 'failed', errorMessage)
@@ -85,14 +85,14 @@ export class FlutterCommandsController extends ADBBaseController {
         return
       }
 
-      // // logCommandExecution(`flutter build apk --${buildMode}`, 'started')
+      // // logCommandExecution(flutter build apk --${buildMode}, 'started')
       await this.showProgress(`Building APK in ${buildMode} mode...`, async () => {
         const terminal = vscode.window.createTerminal('Flutter Build APK')
         terminal.show()
         terminal.sendText(`flutter build apk --${buildMode}`)
       })
-      // // logCommandExecution(`flutter build apk --${buildMode}`, 'completed', `APK built successfully in ${buildMode} mode`)
-      vscode.window.showInformationMessage(`✅ APK built successfully in ${buildMode} mode!`)
+      // // logCommandExecution(flutter build apk --${buildMode}, 'completed', APK built successfully in ${buildMode} mode)
+      vscode.window.showInformationMessage(`✅ APK built successfully in ${buildMode} mode!`  )
     } catch (e) {
       const errorMessage = e instanceof Error ? e.message : String(e)
       // // logCommandExecution('flutter build apk', 'failed', undefined, errorMessage)
@@ -109,13 +109,13 @@ export class FlutterCommandsController extends ADBBaseController {
         return
       }
 
-      // // logCommandExecution(`flutter build appbundle --${buildMode}`, 'started')
+      // // logCommandExecution(flutter build appbundle --${buildMode}, 'started')
       await this.showProgress(`Building App Bundle (AAB) in ${buildMode} mode...`, async () => {
         const terminal = vscode.window.createTerminal('Flutter Build AAB')
         terminal.show()
         terminal.sendText(`flutter build appbundle --${buildMode}`)
       })
-      // logCommandExecution(`flutter build appbundle --${buildMode}`, 'completed', `App Bundle built successfully in ${buildMode} mode`)
+      // logCommandExecution(flutter build appbundle --${buildMode}, 'completed', App Bundle built successfully in ${buildMode} mode)
       vscode.window.showInformationMessage(`✅ App Bundle (AAB) built successfully in ${buildMode} mode!`)
     } catch (e) {
       const errorMessage = e instanceof Error ? e.message : String(e)

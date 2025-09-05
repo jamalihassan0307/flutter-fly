@@ -4,6 +4,39 @@ All notable changes to the "Flutter Fly" extension will be documented in this fi
 
 Check [Keep a Changelog](http://keepachanglog.com/) for recommendations on how to structure this file.
 
+## [1.0.6] - 2025-01-27
+
+### 🎨 Major UI/UX Improvements
+- **Enhanced Panel Interface**: Completely redesigned webview panel with modern, attractive UI
+- **Improved Sidebar**: Better organized sidebar with enhanced quick actions and visual hierarchy
+- **Better Visual Design**: Cleaner layout with improved button organization and spacing
+- **Responsive Layout**: Mobile-friendly responsive design with Bootstrap 5 integration
+- **Social Integration**: Added GitHub, LinkedIn, and Portfolio links with beautiful hover effects
+
+### 🔧 Technical Improvements
+- **Command Registration**: Fixed command registration issues for packaged extensions
+- **Activation Events**: Improved extension activation with better event handling
+- **Error Handling**: Enhanced error handling and user feedback throughout the system
+- **Debug Logging**: Added comprehensive logging for better debugging and troubleshooting
+- **Extension Stability**: Improved overall extension stability and reliability
+
+### 🚀 New Features
+- **Enhanced Welcome View**: Improved sidebar welcome view with better button layout
+- **Better Command Organization**: Reorganized commands for easier access and better UX
+- **Improved Status Messages**: Enhanced status message display with better visual feedback
+- **Better Error Recovery**: Improved error recovery and user guidance
+
+### 🐛 Bug Fixes
+- **Packaging Issues**: Fixed extension packaging issues that prevented commands from working
+- **Command Registration**: Resolved command registration conflicts in packaged extensions
+- **Webview Assets**: Fixed webview asset loading issues in packaged extensions
+- **Activation Problems**: Resolved extension activation problems when installed from package
+
+### 📱 Device Management
+- **Better Device Detection**: Improved device detection and connection handling
+- **Enhanced ADB Integration**: Better ADB path resolution and command execution
+- **Improved Error Messages**: More helpful error messages and recovery suggestions
+
 ## [1.0.5] - 2025-08-25
 
 ### 🚀 Major Improvements
