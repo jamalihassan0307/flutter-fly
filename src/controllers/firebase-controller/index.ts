@@ -56,11 +56,13 @@ export class FirebaseController extends ADBBaseController {
           'Enter the "PACKAGE.NAME" from your APP to enable. (Last name will be filled in next time, make sure your device is connected)'
       })
 
-      vscode.window.showInformationMessage(
-        await this.firebaseInstance.enableFirebaseDebugView(packageName)
-      )
+      if (packageName) {
+        vscode.window.showInformationMessage(
+          await this.firebaseInstance.enableFirebaseDebugView(packageName)
+        )
+      }
     } catch (e) {
-      this.genericErrorReturn(e)
+      this.genericErrorReturn(e instanceof Error ? e : new Error(String(e)))
     }
   }
   async disableFirebaseDebugView() {
@@ -69,7 +71,7 @@ export class FirebaseController extends ADBBaseController {
         await this.firebaseInstance.disableFirebaseDebugView()
       )
     } catch (e) {
-      this.genericErrorReturn(e)
+      this.genericErrorReturn(e instanceof Error ? e : new Error(String(e)))
     }
   }
 }

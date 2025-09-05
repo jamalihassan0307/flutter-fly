@@ -123,13 +123,14 @@ export class FlutterPanelController extends ADBBaseController {
           }
         } catch (error) {
           console.error('❌ FlutterPanelController: Error handling message:', error)
-          this.showErrorMessage(`Error handling message: ${error.message}`);
+          const errorMessage = error instanceof Error ? error.message : String(error)
+          this.showErrorMessage(`Error handling message: ${errorMessage}`);
           
           // Send error to webview
           if (this.currentPanel) {
             this.currentPanel.webview.postMessage({
               command: 'addStatusMessage',
-              message: `❌ Error: ${error.message}`,
+              message: `❌ Error: ${errorMessage}`,
               type: 'error'
             });
           }
@@ -470,7 +471,7 @@ export class FlutterPanelController extends ADBBaseController {
         }
       } catch (adbError) {
         // Handle ADB not found or connection errors
-        if (adbError.message.includes('ADB not found')) {
+        if (adbError instanceof Error && adbError.message.includes('ADB not found')) {
           const result = await vscode.window.showErrorMessage(
             'ADB not found. Do you want to set a custom ADB path?',
             'Set ADB Path',
@@ -494,13 +495,14 @@ export class FlutterPanelController extends ADBBaseController {
       
     } catch (error) {
       console.error(`❌ FlutterPanelController: Failed to handle connection for ${ip}:${port}:`, error)
-      this.showErrorMessage(`Failed to connect: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      this.showErrorMessage(`Failed to connect: ${errorMessage}`);
       
       // Update webview with error message
       if (this.currentPanel) {
         this.currentPanel.webview.postMessage({
           command: 'addStatusMessage',
-          message: `❌ Failed to connect: ${error.message}`,
+          message: `❌ Failed to connect: ${errorMessage}`,
           type: 'error'
         });
       }
@@ -587,11 +589,12 @@ export class FlutterPanelController extends ADBBaseController {
         }
       } catch (terminalError) {
         console.error(`❌ FlutterPanelController: Terminal error:`, terminalError);
-        throw new Error(`Failed to create terminal: ${terminalError.message}`);
+        const errorMessage = terminalError instanceof Error ? terminalError.message : String(terminalError)
+        throw new Error(`Failed to create terminal: ${errorMessage}`);
       }
     } catch (error) {
       console.error(`❌ FlutterPanelController: Failed to execute command ${commandId}:`, error)
-      const errorMessage = error.message || 'Unknown error occurred';
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.showErrorMessage(`Failed to execute command: ${errorMessage}`);
       
       // Update webview with error message
@@ -639,12 +642,13 @@ export class FlutterPanelController extends ADBBaseController {
       await this.refreshConnectedDevices();
     } catch (error) {
       console.error(`❌ FlutterPanelController: Failed to disconnect device:`, error)
-      this.showErrorMessage(`Failed to disconnect device: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      this.showErrorMessage(`Failed to disconnect device: ${errorMessage}`);
       
       if (this.currentPanel) {
         this.currentPanel.webview.postMessage({
           command: 'addStatusMessage',
-          message: `❌ Failed to disconnect device: ${error.message}`,
+          message: `❌ Failed to disconnect device: ${errorMessage}`,
           type: 'error'
         });
       }
@@ -683,7 +687,7 @@ export class FlutterPanelController extends ADBBaseController {
         console.log(`📱 FlutterPanelController: Found ${this.connectedDevices.length} connected devices`);
       } catch (adbError) {
         // Handle ADB not found error gracefully
-        if (adbError.message.includes('ADB not found')) {
+        if (adbError instanceof Error && adbError.message.includes('ADB not found')) {
           console.warn('ADB not found when refreshing devices. Using stored device list.');
           
           // Show a warning in the status messages
@@ -712,7 +716,8 @@ export class FlutterPanelController extends ADBBaseController {
       console.log('✅ FlutterPanelController: Device list refreshed successfully');
     } catch (error) {
       console.error('❌ FlutterPanelController: Failed to refresh devices:', error);
-      this.showErrorMessage(`Failed to refresh devices: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      this.showErrorMessage(`Failed to refresh devices: ${errorMessage}`);
       
       // Fallback to empty device list
       this.connectedDevices = [];

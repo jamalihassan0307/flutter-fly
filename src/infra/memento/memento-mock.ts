@@ -1,6 +1,6 @@
 import { Memento } from 'vscode'
 export class MementoMock implements Memento {
-  _keys = []
+  _keys: string[] = []
   constructor() {
     this._keys = []
   }

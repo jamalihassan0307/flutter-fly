@@ -18,7 +18,7 @@ export class FirebaseManagerChannel extends ConsoleInterfaceChannel {
   }
 
   public async enableFirebaseDebugView(appPackageID: string): Promise<string> {
-    let result: string = null
+    let result: string | null = null
 
     const output = (
       await this.resolverInstance.sendADBCommand(
@@ -36,7 +36,7 @@ export class FirebaseManagerChannel extends ConsoleInterfaceChannel {
     return result ?? 'Wrong response: ' + output
   }
   public async disableFirebaseDebugView(): Promise<string> {
-    let finalResult: string = null
+    let finalResult: string | null = null
 
     const output: string = (
       await this.resolverInstance.sendADBCommand(

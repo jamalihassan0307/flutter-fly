@@ -7,8 +7,8 @@ export class IPHelpers {
   /**
    * Returns ip extracted from given text else not found  return null
    */
-  static extractIPRegex(ipAddress: string): string {
-    let returned = null
+  static extractIPRegex(ipAddress: string): string | null {
+    let returned: string | null = null
     const matches = /([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})/gim.exec(
       ipAddress
     )

@@ -6,7 +6,7 @@ import { ADBBaseController } from '../adb-controller/ADBBaseController'
 import { ADBPathManager } from '../../domain/adb-path-manager/index'
 
 export class ADBPathController extends ADBBaseController {
-  appStateKeys: typeof appStateKeys
+  appStateKeys: typeof appStateKeys = appStateKeys
   pathManagerInstance: ADBPathManager
 
   constructor(
@@ -60,16 +60,16 @@ export class ADBPathController extends ADBBaseController {
         }
       })
     } catch (error) {
-      this.genericErrorReturn(error)
+      this.genericErrorReturn(error instanceof Error ? error : new Error(String(error)))
     }
   }
 
   resetCustomADBPath(): any {
     try {
-      this.pathManagerInstance.setFilePath(undefined)
+      this.pathManagerInstance.setFilePath(undefined as any)
       vscode.window.showInformationMessage('Custom ADB path removed')
     } catch (error) {
-      this.genericErrorReturn(error)
+      this.genericErrorReturn(error instanceof Error ? error : new Error(String(error)))
     }
   }
 }

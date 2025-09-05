@@ -8,7 +8,7 @@ export class ConsoleInterfaceMock implements IConsoleInterface {
   public interceptor = (input, output) => {
     return output
   }
-  private _callback: ConsoleCallback
+  private _callback: ConsoleCallback | null
   private _returnStack: Array<Buffer> = []
   public returnInfinity = true
 

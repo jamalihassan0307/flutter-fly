@@ -38,9 +38,12 @@ export class ADBConnection extends ConsoleInterfaceChannel {
     ipAddress: string,
     portAddress: string
   ): Promise<string> {
-    let finalResult = null
+    let finalResult: string | null = null
 
     const deviceIP = IPHelpers.extractIPRegex(ipAddress)
+    if (!deviceIP) {
+      throw new ADBInterfaceException('Invalid IP address format')
+    }
     const resultString = (
       await this.resolverInstance.sendADBCommand(
         adbCommands.CONNECT_IP_AND_PORT(deviceIP, portAddress)
@@ -70,7 +73,7 @@ export class ADBConnection extends ConsoleInterfaceChannel {
     return finalResult
   }
   public async ResetPorts(port: string): Promise<string> {
-    let finalResult = null
+    let finalResult: string | null = null
     try {
       const consoleReturn = await this.resolverInstance.sendADBCommand(
         adbCommands.RESET_PORTS(port)
@@ -80,10 +83,10 @@ export class ADBConnection extends ConsoleInterfaceChannel {
         finalResult = adbMessages.DEVICES_IN_TCP_MODE()
       }
     } catch (e) {
-      if (e.message.includes(adbReturns.NO_DEVICES_FOUND())) {
+      if (e instanceof Error && e.message.includes(adbReturns.NO_DEVICES_FOUND())) {
         finalResult = adbMessages.NO_DEVICES_FOUND()
       } else {
-        throw new ADBInterfaceException(e.message)
+        throw new ADBInterfaceException(e instanceof Error ? e.message : String(e))
       }
     }
     if (finalResult == null) {
@@ -93,7 +96,7 @@ export class ADBConnection extends ConsoleInterfaceChannel {
   }
 
   public async DisconnectFromAllDevices(): Promise<string> {
-    let finalResult = null
+    let finalResult: string | null = null
     try {
       const result = await this.resolverInstance.sendADBCommand(
         adbCommands.ADB_DISCONNECT_ALL()
@@ -103,7 +106,7 @@ export class ADBConnection extends ConsoleInterfaceChannel {
         finalResult = 'Disconnected from all devices'
       }
     } catch (e) {
-      throw new ADBInterfaceError(e.toString())
+      throw new ADBInterfaceError(e instanceof Error ? e.toString() : String(e))
     }
     if (finalResult == null) {
       throw new ADBInterfaceException('Error while reset TCPIP Ports')
@@ -136,7 +139,7 @@ export class ADBConnection extends ConsoleInterfaceChannel {
         return foundedIPs
       }
     } catch (e) {
-      throw new ADBInterfaceException(e.message)
+      throw new ADBInterfaceException(e instanceof Error ? e.message : String(e))
     }
     if (!devicesArray || (devicesArray && devicesArray.length <= 0)) {
       throw new ADBInterfaceException('List from devices are empty.')
@@ -145,7 +148,7 @@ export class ADBConnection extends ConsoleInterfaceChannel {
   }
 
   public async KillADBServer(): Promise<string> {
-    let returned = null
+    let returned: string | null = null
     try {
       const result = await this.resolverInstance.sendADBCommand(
         adbCommands.ADB_KILL_SERVER()
@@ -159,7 +162,7 @@ export class ADBConnection extends ConsoleInterfaceChannel {
       if (e instanceof ADBInterfaceError) {
         throw e
       } else {
-        throw new ADBInterfaceException(e.message)
+        throw new ADBInterfaceException(e instanceof Error ? e.message : String(e))
       }
     }
     if (returned == null) {
@@ -168,8 +171,8 @@ export class ADBConnection extends ConsoleInterfaceChannel {
     return returned
   }
 
-  public async InstallApkOnDevice(apkFilePath): Promise<string> {
-    let resultString = null
+  public async InstallApkOnDevice(apkFilePath: string): Promise<string> {
+    let resultString: string | null = null
     try {
       const adbReturn = await this.resolverInstance.sendADBCommand(
         adbCommands.ADB_INSTALL_APK(apkFilePath)
@@ -186,7 +189,7 @@ export class ADBConnection extends ConsoleInterfaceChannel {
       if (e instanceof ADBInterfaceError) {
         throw e
       } else {
-        throw new ADBInterfaceException(e.message)
+        throw new ADBInterfaceException(e instanceof Error ? e.message : String(e))
       }
     }
     if (resultString == null) {

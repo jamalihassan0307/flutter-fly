@@ -83,10 +83,10 @@ export async function activate(context: vscode.ExtensionContext) {
         
     } catch (error) {
         console.error('❌ Error initializing Flutter Fly controllers:', error)
-        vscode.window.showErrorMessage(`Failed to initialize Flutter Fly extension: ${error.message}`)
+        vscode.window.showErrorMessage(`Failed to initialize Flutter Fly extension: ${error instanceof Error ? error.message : String(error)}`)
         
         // Show detailed error information
-        if (error.message.includes('already exists')) {
+        if (error instanceof Error && error.message.includes('already exists')) {
             vscode.window.showErrorMessage('Command registration conflict detected. Please restart VSCode.')
         }
     }

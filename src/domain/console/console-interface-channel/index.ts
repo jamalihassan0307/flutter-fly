@@ -8,9 +8,9 @@ export class ConsoleInterfaceChannel {
   }
   sendCommandSync(
     consoleCommand: string,
-    options: ExecSyncOptions = null
+    options: ExecSyncOptions | null = null
   ): Buffer {
-    return this.consoleInstance.execConsoleSync(consoleCommand, options)
+    return this.consoleInstance.execConsoleSync(consoleCommand, options || undefined)
   }
 }
 

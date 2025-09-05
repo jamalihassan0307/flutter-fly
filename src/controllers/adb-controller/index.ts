@@ -54,12 +54,14 @@ export class ADBCommandsController extends ADBBaseController {
             'Enter the Port from your device to be used. (Last port used will be filled in next time)'
         })
         .then(async port => {
-          await vscode.window.showInformationMessage(
-            await this.adbConnInstance.ResetPorts(port)
-          )
+          if (port) {
+            await vscode.window.showInformationMessage(
+              await this.adbConnInstance.ResetPorts(port)
+            )
+          }
         })
     } catch (e) {
-      this.genericErrorReturn(e)
+      this.genericErrorReturn(e instanceof Error ? e : new Error(String(e)))
     }
   }
 
@@ -85,7 +87,9 @@ export class ADBCommandsController extends ADBBaseController {
               'Enter the Port from your device to be used. (Last port used will be filled in next time)'
           })
           .then(async port => {
-            await this.connectToAdbDevice(this.context, ipAddress, port)
+            if (ipAddress && port) {
+              await this.connectToAdbDevice(this.context, ipAddress, port)
+            }
           })
       })
     // Display a message box to the user
@@ -107,7 +111,7 @@ export class ADBCommandsController extends ADBBaseController {
         await this.adbConnInstance.ConnectToDevice(deviceIP, port)
       )
     } catch (e) {
-      this.genericErrorReturn(e)
+      this.genericErrorReturn(e instanceof Error ? e : new Error(String(e)))
     }
   }
 
@@ -117,7 +121,7 @@ export class ADBCommandsController extends ADBBaseController {
         await this.adbConnInstance.DisconnectFromAllDevices()
       )
     } catch (e) {
-      this.genericErrorReturn(e)
+      this.genericErrorReturn(e instanceof Error ? e : new Error(String(e)))
     }
   }
   async killADBServer() {
@@ -129,7 +133,7 @@ export class ADBCommandsController extends ADBBaseController {
         vscode.window.showErrorMessage('Fail to Kill:' + adbInterfaceResult)
       }
     } catch (e) {
-      this.genericErrorReturn(e)
+      this.genericErrorReturn(e instanceof Error ? e : new Error(String(e)))
     }
   }
   async pickAPKAndInstall() {
@@ -150,7 +154,7 @@ export class ADBCommandsController extends ADBBaseController {
         vscode.window.showErrorMessage('Fail to Kill:' + adbInterfaceResult)
       }
     } catch (e) {
-      this.genericErrorReturn(e)
+      this.genericErrorReturn(e instanceof Error ? e : new Error(String(e)))
     }
   }
 
@@ -164,11 +168,13 @@ export class ADBCommandsController extends ADBBaseController {
       },
       openLabel: 'Select APK'
     })
-    let filename: string = null
-    for (const obj of arrayFounded) {
-      if (obj.scheme == 'file') {
-        filename = obj.path
-        if (filename.startsWith('/')) filename = filename.substring(1)
+    let filename: string | null = null
+    if (arrayFounded) {
+      for (const obj of arrayFounded) {
+        if (obj.scheme == 'file') {
+          filename = obj.path
+          if (filename.startsWith('/')) filename = filename.substring(1)
+        }
       }
     }
     if (!filename) throw new ADBInterfaceException('Invalid APK file selected.')
@@ -181,11 +187,17 @@ export class ADBCommandsController extends ADBBaseController {
     try {
       vscode.window.showInformationMessage('Searching')
       const ipAddressList = await this.getIPAddressList()
+      if (!ipAddressList) {
+        throw new Error('No IP addresses found')
+      }
       let selectedIP = await vscode.window.showQuickPick(ipAddressList, {
         ignoreFocusOut: true,
         placeHolder: 'Select the IP address of the device to connect to...'
       })
-      selectedIP = IPHelpers.extractIPRegex(selectedIP)
+      if (selectedIP) {
+        const extractedIP = IPHelpers.extractIPRegex(selectedIP)
+        selectedIP = extractedIP || selectedIP
+      }
       if (selectedIP != null) {
         vscode.window
           .showInputBox({
@@ -198,13 +210,15 @@ export class ADBCommandsController extends ADBBaseController {
           .then(async port => {
             // wait disconnect from adb device
             await this.adbConnInstance.DisconnectFromAllDevices()
-            await this.connectToAdbDevice(this.context, selectedIP, port)
+            if (selectedIP && port) {
+              await this.connectToAdbDevice(this.context, selectedIP, port)
+            }
           })
       } else {
         throw new Error('Device IP Address not selected.')
       }
     } catch (e) {
-      this.genericErrorReturn(e)
+      this.genericErrorReturn(e instanceof Error ? e : new Error(String(e)))
     }
   }
 
@@ -218,7 +232,7 @@ export class ADBCommandsController extends ADBBaseController {
       }
       return connectedDevices
     } catch (e) {
-      this.genericErrorReturn(e)
+      this.genericErrorReturn(e instanceof Error ? e : new Error(String(e)))
     }
   }
 }
