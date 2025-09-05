@@ -391,7 +391,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- **Original Author:** [Vinicios de Lima Clarindo](https://github.com/vinicioslc)
 - **Transformed by:** [Jam Ali Hassan](https://github.com/jamalihassan0307)
 - **Contributors:** All the amazing developers who contributed
 - **Community:** Flutter and Android development community
