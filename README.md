@@ -2,6 +2,10 @@
   <kbd>
     <img src="https://github.com/jamalihassan0307/Projects-Assets/blob/main/globel%20assets/profile/image.jpg?raw=true" width="250" alt="Jamalihassan0307"/>
   </kbd>
+
+  <p align="center">
+    <img src="https://github.com/jamalihassan0307/flutter-fly/blob/main/gif/demo.gif?raw=true" alt="Flutter Fly Demo" width="800" autoplay loop/>
+  </p>
   
   <h1>🚀 Flutter Fly 🚀</h1>
   <p><i>The ultimate Flutter development companion for VSCode</i></p>
