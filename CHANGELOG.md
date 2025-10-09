@@ -4,6 +4,30 @@ All notable changes to the "Flutter Fly" extension will be documented in this fi
 
 Check [Keep a Changelog](http://keepachanglog.com/) for recommendations on how to structure this file.
 
+## [1.0.8] - 2025-10-09
+
+### 🎯 Size Optimization
+- **Bundle Size**: Reduced extension package size significantly
+- **Asset Compression**: Implemented GIF and image compression
+- **Dependency Cleanup**: Removed unnecessary dependencies
+- **Build Configuration**: Optimized webpack bundling setup
+- **File Structure**: Reorganized for better performance
+- **Load Time**: Improved extension loading speed
+- **Package Efficiency**: Enhanced overall package structure
+
+### 🔧 Technical Improvements
+- **Bundle Configuration**: Added webpack for better performance
+- **Asset Pipeline**: Improved asset handling and compression
+- **Build Process**: Enhanced build pipeline for smaller output
+- **Loading Performance**: Faster extension activation time
+- **Resource Usage**: Reduced memory and disk footprint
+
+## [1.0.7] - 2025-10-09
+
+### 🎨 UI/UX Improvements
+- **Demo GIF Added**: Added new demo GIF showcasing the extension features
+- **Documentation Updates**: Updated documentation with new GIF demonstrations
+
 ## [1.0.6] - 2025-01-27
 
 ### 🎨 Major UI/UX Improvements
