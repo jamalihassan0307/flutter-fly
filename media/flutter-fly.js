@@ -341,6 +341,7 @@ class FlutterFlyWebview {
                 window.vscode.postMessage({
                     command: command,
                     ...data
+                    
                 });
                 console.log('✅ Message sent successfully');
             } else {

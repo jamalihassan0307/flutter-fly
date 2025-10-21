@@ -941,22 +941,22 @@ export class FlutterPanelController extends ADBBaseController {
   }
 
   private getTroubleshootingContent(panel: vscode.WebviewPanel): string {
-    // Create URIs for all screenshot images
-    const screenshotPath = path.join(this.context.extensionPath, 'screenshots');
+    // Use GitHub raw URLs for screenshots to ensure they load in published extension
+    const baseUrl = 'https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots';
     const mediaPath = path.join(this.context.extensionPath, 'media');
     
     const screenshots = {
-      openSettings: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'open_setting_page.jpg'))),
-      openAbout: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'open_about.jpg'))),
-      openSystemManagement: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'open_system_management.jpg'))),
-      openSoftwareInfo: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'open_softwere_information.jpg'))),
-      clickBuildNumber: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'clik_on_build_number.jpg'))),
-      stepToDeveloper: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, '1_step_to_develper.jpg'))),
-      developerOption: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'develper_option.jpg'))),
-      developerEnabled: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'develper_setting_enabled.jpg'))),
-      usbWirelessButton: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'usb_wireless_button.jpg'))),
-      usbWirelessEnabled: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'usb_wireless_enabled.jpg'))),
-      finalStep: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'Screenshot_20251021_070602.jpg')))
+      openSettings: `${baseUrl}/open_setting_page.jpg`,
+      openAbout: `${baseUrl}/open_about.jpg`,
+      openSystemManagement: `${baseUrl}/open_system_management.jpg`,
+      openSoftwareInfo: `${baseUrl}/open_softwere_information.jpg`,
+      clickBuildNumber: `${baseUrl}/clik_on_build_number.jpg`,
+      stepToDeveloper: `${baseUrl}/1_step_to_develper.jpg`,
+      developerOption: `${baseUrl}/develper_option.jpg`,
+      developerEnabled: `${baseUrl}/develper_setting_enabled.jpg`,
+      usbWirelessButton: `${baseUrl}/usb_wireless_button.jpg`,
+      usbWirelessEnabled: `${baseUrl}/usb_wireless_enabled.jpg`,
+      finalStep: `${baseUrl}/Screenshot_20251021_070602.jpg`
     };
     
     const styleUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(mediaPath, 'flutter-fly.css')));
@@ -1072,13 +1072,19 @@ export class FlutterPanelController extends ADBBaseController {
                     <p class="mb-0">The error "ADB returned null value" usually means device fingerprint is missing. First connect with USB cable, then enable wireless debugging following the steps below.</p>
                 </div>
 
-                <!-- Steps Grid Layout -->
+                <!-- Steps Grid Layout - Two Sections in Rows -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h3 class="text-white text-center mb-4">
+                            <i class="fas fa-mobile-alt"></i> Section 1: Enable Developer Settings
+                        </h3>
+                    </div>
+                </div>
+
+                <!-- Section 1: Enable Developer Settings (Steps 1-6) -->
                 <div class="row">
-                    <!-- Column 1: Device Settings Navigation -->
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <h4 class="text-white mb-3"><i class="fas fa-cog"></i> Device Settings Navigation</h4>
-                        
-                        <!-- Step 1: Open Settings -->
+                    <!-- Step 1: Open Settings -->
+                    <div class="col-lg-4 col-md-6 mb-3">
                         <div class="step-card">
                             <div class="step-header">
                                 <div class="step-number">1</div>
@@ -1089,8 +1095,10 @@ export class FlutterPanelController extends ADBBaseController {
                                 <img src="${screenshots.openSettings}" alt="Open Settings" class="screenshot-img">
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Step 2: About Phone -->
+                    <!-- Step 2: About Phone -->
+                    <div class="col-lg-4 col-md-6 mb-3">
                         <div class="step-card">
                             <div class="step-header">
                                 <div class="step-number">2</div>
@@ -1101,23 +1109,13 @@ export class FlutterPanelController extends ADBBaseController {
                                 <img src="${screenshots.openAbout}" alt="About Phone" class="screenshot-img">
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Step 3: System Management -->
+                    <!-- Step 3: Software Information -->
+                    <div class="col-lg-4 col-md-6 mb-3">
                         <div class="step-card">
                             <div class="step-header">
                                 <div class="step-number">3</div>
-                                <div>Open System Management</div>
-                            </div>
-                            <div class="step-content">
-                                <p><strong>Look for "System Management" or similar option.</strong></p>
-                                <img src="${screenshots.openSystemManagement}" alt="System Management" class="screenshot-img">
-                            </div>
-                        </div>
-
-                        <!-- Step 4: Software Information -->
-                        <div class="step-card">
-                            <div class="step-header">
-                                <div class="step-number">4</div>
                                 <div>Software Information</div>
                             </div>
                             <div class="step-content">
@@ -1126,15 +1124,14 @@ export class FlutterPanelController extends ADBBaseController {
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Column 2: Enable Developer Options -->
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <h4 class="text-white mb-3"><i class="fas fa-code"></i> Enable Developer Options</h4>
-                        
-                        <!-- Step 5: Build Number -->
+                <div class="row">
+                    <!-- Step 4: Enable Developer Options -->
+                    <div class="col-lg-4 col-md-6 mb-3">
                         <div class="step-card">
                             <div class="step-header">
-                                <div class="step-number">5</div>
+                                <div class="step-number">4</div>
                                 <div>Enable Developer Options</div>
                             </div>
                             <div class="step-content">
@@ -1145,11 +1142,13 @@ export class FlutterPanelController extends ADBBaseController {
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Step 6: Developer Options Enabled -->
+                    <!-- Step 5: Developer Options Available -->
+                    <div class="col-lg-4 col-md-6 mb-3">
                         <div class="step-card">
                             <div class="step-header">
-                                <div class="step-number">6</div>
+                                <div class="step-number">5</div>
                                 <div>Developer Options Available</div>
                             </div>
                             <div class="step-content">
@@ -1157,28 +1156,29 @@ export class FlutterPanelController extends ADBBaseController {
                                 <img src="${screenshots.stepToDeveloper}" alt="Developer Steps" class="screenshot-img">
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Step 7: Open Developer Options -->
+                    <!-- Step 6: Open Developer Options -->
+                    <div class="col-lg-4 col-md-6 mb-3">
                         <div class="step-card">
                             <div class="step-header">
-                                <div class="step-number">7</div>
+                                <div class="step-number">6</div>
                                 <div>Open Developer Options</div>
                             </div>
                             <div class="step-content">
-                                <p><strong>Go back to main settings and tap on "Developer Options".</strong></p>
+                                <p><strong>Go to main settings and tap on "Developer Options".</strong></p>
                                 <img src="${screenshots.developerOption}" alt="Developer Options" class="screenshot-img">
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Column 3: Configure Debugging -->
-                    <div class="col-lg-4 col-md-12 mb-4">
-                        <h4 class="text-white mb-3"><i class="fas fa-wifi"></i> Configure Debugging</h4>
-                        
-                        <!-- Step 8: Enable Developer Settings -->
+                <div class="row">
+                    <!-- Step 7: Enable Developer Settings -->
+                    <div class="col-lg-4 col-md-6 mb-3">
                         <div class="step-card">
                             <div class="step-header">
-                                <div class="step-number">8</div>
+                                <div class="step-number">7</div>
                                 <div>Enable Developer Settings</div>
                             </div>
                             <div class="step-content">
@@ -1186,41 +1186,105 @@ export class FlutterPanelController extends ADBBaseController {
                                 <img src="${screenshots.developerEnabled}" alt="Developer Enabled" class="screenshot-img">
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Step 9: USB Debugging -->
+                <!-- Section 2 Header -->
+                <div class="row mt-5 mb-4">
+                    <div class="col-12">
+                        <h3 class="text-white text-center mb-4">
+                            <i class="fas fa-wifi"></i> Section 2: Enable USB & Wireless Options
+                        </h3>
+                    </div>
+                </div>
+
+                <!-- Section 2: Enable USB & Wireless Options (Steps 8-11) -->
+                <div class="row">
+                    <!-- Step 8: Open System Management -->
+                    <div class="col-lg-4 col-md-6 mb-3">
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-number">8</div>
+                                <div>Open System Management</div>
+                            </div>
+                            <div class="step-content">
+                                <p><strong>Look for "System Management" or similar option in settings.</strong></p>
+                                <img src="${screenshots.openSystemManagement}" alt="System Management" class="screenshot-img">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 9: Open Developer Options -->
+                    <div class="col-lg-4 col-md-6 mb-3">
                         <div class="step-card">
                             <div class="step-header">
                                 <div class="step-number">9</div>
-                                <div>Enable USB/Wireless Debugging</div>
+                                <div>Open Developer Options</div>
                             </div>
                             <div class="step-content">
-                                <p><strong>Find and enable both "USB Debugging" and "Wireless Debugging" options.</strong></p>
-                                <img src="${screenshots.usbWirelessButton}" alt="USB Wireless Button" class="screenshot-img">
-                                <img src="${screenshots.usbWirelessEnabled}" alt="USB Wireless Enabled" class="screenshot-img">
+                                <p><strong>Navigate to "Developer Options" in the system settings.</strong></p>
+                                <img src="${screenshots.developerOption}" alt="Developer Options" class="screenshot-img">
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Step 10: Connect and Test -->
+                    <!-- Step 10: Enable USB Debugging -->
+                    <div class="col-lg-4 col-md-6 mb-3">
                         <div class="step-card">
                             <div class="step-header">
                                 <div class="step-number">10</div>
+                                <div>Enable USB Debugging</div>
+                            </div>
+                            <div class="step-content">
+                                <p><strong>Find and enable "USB Debugging" option.</strong></p>
+                                <img src="${screenshots.usbWirelessButton}" alt="USB Wireless Button" class="screenshot-img">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Step 11: Enable Wireless Debugging -->
+                    <div class="col-lg-4 col-md-6 mb-3">
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-number">11</div>
+                                <div>Enable Wireless Debugging</div>
+                            </div>
+                            <div class="step-content">
+                                <p><strong>Find and enable "Wireless Debugging" option.</strong></p>
+                                <img src="${screenshots.usbWirelessEnabled}" alt="USB Wireless Enabled" class="screenshot-img">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 12: Connect with USB First -->
+                    <div class="col-lg-4 col-md-6 mb-3">
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-number">12</div>
                                 <div>Connect with USB First</div>
                             </div>
                             <div class="step-content">
                                 <p><strong>Connect your device with USB cable first, then run Flutter app to establish fingerprint.</strong></p>
                                 <img src="${screenshots.finalStep}" alt="Final Step" class="screenshot-img">
-                                <div class="alert alert-success mt-3">
-                                    <h6><i class="fas fa-lightbulb"></i> Important Steps:</h6>
-                                    <ol class="mb-0">
-                                        <li>Connect device via USB cable</li>
-                                        <li>Run <code>flutter run</code> command once</li>
-                                        <li>Accept any fingerprint prompts on device</li>
-                                        <li>After successful USB connection, you can use wireless debugging</li>
-                                        <li>Get your device IP from wireless debugging settings</li>
-                                        <li>Use the IP in Flutter Fly panel for wireless connection</li>
-                                    </ol>
-                                </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Important Instructions -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="alert alert-success">
+                            <h6><i class="fas fa-lightbulb"></i> Important Steps:</h6>
+                            <ol class="mb-0">
+                                <li>Connect device via USB cable</li>
+                                <li>Run <code>flutter run</code> command once</li>
+                                <li>Accept any fingerprint prompts on device</li>
+                                <li>After successful USB connection, you can use wireless debugging</li>
+                                <li>Get your device IP from wireless debugging settings</li>
+                                <li>Use the IP in Flutter Fly panel for wireless connection</li>
+                            </ol>
                         </div>
                     </div>
                 </div>
