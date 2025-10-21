@@ -4,6 +4,42 @@ All notable changes to the "Flutter Fly" extension will be documented in this fi
 
 Check [Keep a Changelog](http://keepachanglog.com/) for recommendations on how to structure this file.
 
+## [1.1.0] - 2025-10-21
+
+### 🎆 Major New Feature
+- **Device Setup Troubleshooting Guide**: Comprehensive step-by-step guide for enabling wireless debugging
+- **Automatic Error Detection**: Guide opens automatically when "ADB returned null value" error occurs
+- **Visual Step-by-Step Instructions**: 10 detailed steps with screenshots for enabling developer options
+- **3-Column Grid Layout**: Organized presentation in Device Settings Navigation, Enable Developer Options, and Configure Debugging sections
+- **New Tab Integration**: Opens in dedicated tab instead of sidebar for better user experience
+- **Multi-Access Points**: Available via main panel button, command palette, sidebar, and auto-trigger
+
+### 🚀 Enhanced User Experience
+- **Professional Integration**: Properly registered VS Code command with icon support
+- **Device Fingerprint Resolution**: Helps users resolve wireless connection issues
+- **Interactive Guide**: Click-through interface with "Test Connection" and "Back to Panel" buttons
+- **Mobile Responsive**: Optimized for different screen sizes with responsive design
+- **Beautiful Animations**: Smooth transitions and hover effects
+
+### 🔧 Technical Improvements
+- **Command Registration**: Added `flutterFly.showTroubleshootingGuide` command
+- **Error Handling Enhancement**: Better detection of ADB fingerprint issues
+- **CSS Optimization**: Enhanced styling for troubleshooting interface
+- **JavaScript Integration**: Improved webview communication
+- **Package.json Updates**: Cleaned up activation events and added command palette integration
+
+### 📱 Screenshots Integration
+- **Complete Visual Guide**: All 11 setup screenshots integrated
+- **Step-by-Step Process**: From opening settings to enabling wireless debugging
+- **Device Compatibility**: Works across different Android device types
+- **Clear Instructions**: Each step includes detailed explanations
+
+### 🔍 New Command Access
+- **Command Palette**: "Flutter Fly: Device Setup Guide"
+- **Main Panel**: "Setup Guide" button in device management section
+- **Sidebar Welcome**: Quick access link in Flutter Fly sidebar
+- **Auto-trigger**: Automatically shows when connection fails
+
 ## [1.0.8] - 2025-10-09
 
 ### 🎯 Size Optimization

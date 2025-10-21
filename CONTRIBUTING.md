@@ -89,7 +89,19 @@ When ready to publish:
    npm run vscode:prepublish
    ```
 
-## 🔧 Current Development Status (v1.0.8)
+## 🔧 Current Development Status (v1.1.0)
+
+### **Recently Completed Updates**
+- ✅ **Device Setup Troubleshooting Guide** - Comprehensive visual guide for enabling wireless debugging
+- ✅ **Automatic Error Detection** - Guide opens automatically when ADB connection fails
+- ✅ **3-Column Grid Layout** - Organized step-by-step presentation for better user experience
+- ✅ **Multiple Access Points** - Available via main panel, command palette, sidebar, and auto-trigger
+- ✅ **Screenshot Integration** - All 11 setup screenshots properly integrated with responsive design
+- ✅ **Command Registration** - New `flutterFly.showTroubleshootingGuide` command properly registered
+- ✅ **Version Bump** - Updated to version 1.1.0 for marketplace release
+- ✅ **Documentation Updates** - All files updated with new troubleshooting guide features
+
+## 🔧 Previous Development Status (v1.0.8)
 
 ### **Recently Completed Updates**
 - ✅ **Size Optimization** - Reduced package size by implementing bundle optimization
@@ -191,4 +203,4 @@ When ready to publish:
 
 *Transformed from Wireless ADB to Flutter Fly by Jam Ali Hassan*
 
-*Current version: 1.0.8 - Enhanced UI/UX with improved panel interface and sidebar, all major issues resolved!*
+*Current version: 1.1.0 - Enhanced with comprehensive device setup troubleshooting guide, all major features complete!*

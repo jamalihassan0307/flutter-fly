@@ -40,7 +40,7 @@
 
   <p align="center">
     <a href="https://marketplace.visualstudio.com/search?term=flutter%20fly&target=VSCode&category=All%20categories&sortBy=Relevance">
-      <img src="https://img.shields.io/badge/version-1.0.8-blue?style=for-the-badge&logo=visualstudiocode&logoColor=white" alt="Version"/>
+      <img src="https://img.shields.io/badge/version-1.1.0-blue?style=for-the-badge&logo=visualstudiocode&logoColor=white" alt="Version"/>
     </a>
     <a href="https://flutter.dev">
       <img src="https://img.shields.io/badge/Flutter-Latest-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter"/>
@@ -57,7 +57,7 @@
 
 **The ultimate Flutter development companion for VSCode.** Connect devices wirelessly, build APKs/AABs, run Flutter apps, and manage your entire Flutter workflow from one beautiful interface.
 
-[![Version](https://img.shields.io/badge/version-1.0.8-blue.svg)](https://marketplace.visualstudio.com/search?term=flutter%20fly&target=VSCode&category=All%20categories&sortBy=Relevance)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://marketplace.visualstudio.com/search?term=flutter%20fly&target=VSCode&category=All%20categories&sortBy=Relevance)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 ![VS Code Compatibility](https://img.shields.io/badge/vscode-%5E1.85.0-brightgreen.svg)
 
@@ -117,7 +117,15 @@ Flutter Fly is a powerful VSCode extension that transforms your Flutter developm
 
 ## ✨ Key Features
 
-### 🎨 **Enhanced User Interface (v1.0.7)**
+### � **Device Setup Troubleshooting Guide (v1.1.0)**
+- **Visual Step-by-Step Guide** - Complete setup guide with 10 detailed steps and screenshots
+- **Automatic Error Detection** - Opens automatically when "ADB returned null value" error occurs
+- **3-Column Grid Layout** - Organized into Device Settings Navigation, Enable Developer Options, and Configure Debugging
+- **Multiple Access Points** - Available via main panel, command palette, sidebar, and auto-trigger
+- **Interactive Interface** - Click-through guide with test connection and navigation buttons
+- **Mobile Responsive Design** - Optimized for different screen sizes with smooth animations
+
+### 🍨 **Enhanced User Interface (v1.0.8)**
 - **Beautiful Panel Interface** - Redesigned webview panel with modern UI
 - **Improved Sidebar** - Enhanced sidebar with better organization and quick actions
 - **Better Visual Hierarchy** - Cleaner layout with improved button organization
@@ -182,7 +190,8 @@ Flutter Fly is a powerful VSCode extension that transforms your Flutter developm
 ### **Project Setup & Health**
 | Command | Description | Use Case |
 |---------|-------------|----------|
-| `Flutter Fly:🚀 Run Flutter Doctor` | Check Flutter environment health | Environment setup |
+| `Flutter Fly:� Device Setup Guide` | Complete device setup troubleshooting guide | Connection issues |
+| `Flutter Fly:�🚀 Run Flutter Doctor` | Check Flutter environment health | Environment setup |
 | `Flutter Fly:🚀 Upgrade Flutter SDK` | Upgrade Flutter to latest version | SDK maintenance |
 | `Flutter Fly:🚀 Get Packages` | Install/update Flutter dependencies | Dependency management |
 
@@ -361,7 +370,71 @@ We use conventional commits with emojis:
 
 ---
 
-## 🆘 Troubleshooting
+## � Device Setup Troubleshooting
+
+### 🔧 **New in v1.1.0: Complete Device Setup Guide**
+
+Flutter Fly now includes a comprehensive troubleshooting guide that automatically appears when you encounter connection issues!
+
+<div align="center">
+  <table style="width:100%">
+    <tr>
+      <td align="center">
+        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/open_setting_page.jpg" alt="Open Settings" style="width:200px"/>
+        <br>
+        <strong>Step 1: Open Device Settings</strong>
+      </td>
+      <td align="center">
+        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/clik_on_build_number.jpg" alt="Enable Developer Options" style="width:200px"/>
+        <br>
+        <strong>Step 5: Tap Build Number 7 Times</strong>
+      </td>
+      <td align="center">
+        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/usb_wireless_enabled.jpg" alt="Enable Wireless Debugging" style="width:200px"/>
+        <br>
+        <strong>Step 9: Enable Wireless Debugging</strong>
+      </td>
+    </tr>
+  </table>
+</div>
+
+### 🎯 **How to Access the Guide**
+
+1. **Automatic Trigger**: Opens when "ADB returned null value" error occurs
+2. **Main Panel**: Click "Setup Guide" button in device management section
+3. **Command Palette**: Search for "Flutter Fly: Device Setup Guide"
+4. **Sidebar**: Click "Device Setup Guide" in Flutter Fly sidebar
+
+### 📱 **What the Guide Covers**
+
+**Column 1: Device Settings Navigation**
+- Open Device Settings
+- Navigate to About Phone/Device  
+- Open System Management
+- Access Software Information
+
+**Column 2: Enable Developer Options**
+- Tap Build Number 7 times
+- Access Developer Options
+- Enable Developer Settings
+
+**Column 3: Configure Debugging**
+- Enable USB Debugging
+- Enable Wireless Debugging
+- Connect via USB first
+- Switch to wireless connection
+
+### ⚡ **Quick Fix for Connection Issues**
+
+If you see "ADB returned null value" error:
+1. **Connect device via USB cable first**
+2. **Run any Flutter command once** (like `flutter run`)
+3. **Accept fingerprint prompt on device**
+4. **Now wireless debugging will work!**
+
+---
+
+## �🆘 Troubleshooting
 
 ### **Common Issues**
 
