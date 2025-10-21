@@ -2,8 +2,8 @@
   "name": "flutter-fly",
   "displayName": "Flutter Fly: Wireless Debug & Run",
   "description": "The ultimate Flutter development companion for VSCode. Connect devices wirelessly, build APKs/AABs, run Flutter apps, and manage your entire Flutter workflow from one beautiful interface.",
-  "version": "1.1.0",
-  "publisher": "jamalihassan0307",
+  "version": "1.1.1",
+  "publisher": "7jsscmp4zaio626xj6rxx77zhgeosa4yry5vhbr3hu7gcgt4k73q",
   "repository": "https://github.com/jamalihassan0307/flutter-fly",
   "homepage": "https://github.com/jamalihassan0307/flutter-fly",
   "engines": {

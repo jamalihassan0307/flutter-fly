@@ -4,6 +4,30 @@ All notable changes to the "Flutter Fly" extension will be documented in this fi
 
 Check [Keep a Changelog](http://keepachanglog.com/) for recommendations on how to structure this file.
 
+## [1.1.1] - 2025-10-22
+
+### 📸 Documentation & Visual Updates
+- **README Enhancement**: Updated README.md with complete device setup troubleshooting section
+- **Screenshot Integration**: Added all 12 device setup screenshots with correct GitHub raw URLs
+- **Setup Guide GIF**: Integrated new setup guide demonstration GIF in demo section
+- **Visual Guide Layout**: Improved 3-column grid layout for step-by-step device setup instructions
+- **Resource Showcase**: Added additional resource images (important steps, panel interface, panel features)
+- **Path Corrections**: Fixed all screenshot URLs to match actual file names in repository
+- **Demo Section Enhancement**: Added device setup guide demonstration to main feature showcase
+- **Documentation Consistency**: Ensured all documentation reflects the latest troubleshooting features
+
+### 🔧 Technical Improvements
+- **URL Standardization**: All image URLs now use consistent GitHub raw URL format
+- **File Organization**: Properly organized screenshot files with descriptive naming
+- **Layout Optimization**: Enhanced responsive design for troubleshooting guide display
+- **User Experience**: Improved visual hierarchy and information presentation
+
+### 📱 Enhanced Troubleshooting Guide
+- **Complete Visual Documentation**: Full 12-step visual guide with actual device screenshots
+- **Proper Image Mapping**: Corrected all image file references to match actual repository files
+- **Comprehensive Coverage**: From opening device settings to successful wireless connection
+- **Better Organization**: Logical flow from basic settings to advanced debugging configuration
+
 ## [1.1.0] - 2025-10-21
 
 ### 🎆 Major New Feature

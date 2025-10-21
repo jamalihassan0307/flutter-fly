@@ -78,6 +78,13 @@
     </tr>
     <tr>
       <td align="center">
+        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/gif/setup_guide.gif" alt="Setup Guide" style="width:100%"/>
+        <br>
+        <strong>Device Setup Guide</strong>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
         <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/refs/heads/main//gif/apk-installation.gif?raw=true" alt="APK Installation" style="width:100%"/>
         <br>
         <strong>APK Installation</strong>
@@ -108,16 +115,6 @@
 
 Flutter Fly now includes a comprehensive troubleshooting guide that helps you set up your Android device for wireless debugging. Follow these visual steps to get your device connected!
 
-<div align="center">
-  <h3>✨ Setup Guide Demo ✨</h3>
-  
-  <p align="center">
-    <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/gif/setup_guide.gif" alt="Setup Guide Demo" width="800" autoplay loop/>
-    <br>
-    <strong>Interactive Device Setup Guide</strong>
-  </p>
-</div>
-
 ### 📸 **Visual Step-by-Step Guide**
 
 <div align="center">
@@ -129,19 +126,19 @@ Flutter Fly now includes a comprehensive troubleshooting guide that helps you se
         <strong>Step 1: Open Device Settings</strong>
       </td>
       <td align="center">
-        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/about_phone.jpg" alt="About Phone" style="width:200px"/>
+        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/open_about.jpg" alt="About Phone" style="width:200px"/>
         <br>
         <strong>Step 2: Go to About Phone</strong>
       </td>
       <td align="center">
-        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/system_management.jpg" alt="System Management" style="width:200px"/>
+        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/open_system_management.jpg" alt="System Management" style="width:200px"/>
         <br>
         <strong>Step 3: Open System Management</strong>
       </td>
     </tr>
     <tr>
       <td align="center">
-        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/software_information.jpg" alt="Software Information" style="width:200px"/>
+        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/open_softwere_information.jpg" alt="Software Information" style="width:200px"/>
         <br>
         <strong>Step 4: Software Information</strong>
       </td>
@@ -151,19 +148,19 @@ Flutter Fly now includes a comprehensive troubleshooting guide that helps you se
         <strong>Step 5: Tap Build Number 7 Times</strong>
       </td>
       <td align="center">
-        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/developer_option.jpg" alt="Developer Options" style="width:200px"/>
+        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/1_step_to_develper.jpg" alt="Developer Options" style="width:200px"/>
         <br>
         <strong>Step 6: Access Developer Options</strong>
       </td>
     </tr>
     <tr>
       <td align="center">
-        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/developer_option_enabled.jpg" alt="Enable Developer Options" style="width:200px"/>
+        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/develper_option.jpg" alt="Enable Developer Options" style="width:200px"/>
         <br>
         <strong>Step 7: Enable Developer Options</strong>
       </td>
       <td align="center">
-        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/usb_debug_enabled.jpg" alt="USB Debugging" style="width:200px"/>
+        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/develper_setting_enabled.jpg" alt="USB Debugging" style="width:200px"/>
         <br>
         <strong>Step 8: Enable USB Debugging</strong>
       </td>
@@ -175,17 +172,17 @@ Flutter Fly now includes a comprehensive troubleshooting guide that helps you se
     </tr>
     <tr>
       <td align="center">
-        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/usb_connection_firsttime.jpg" alt="USB First Time" style="width:200px"/>
+        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/usb_wireless_button.jpg" alt="USB First Time" style="width:200px"/>
         <br>
         <strong>Step 10: Connect USB First Time</strong>
       </td>
       <td align="center">
-        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/wireless_connect.jpg" alt="Wireless Connection" style="width:200px"/>
+        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/Screenshot_20251021_070602.jpg" alt="Wireless Connection" style="width:200px"/>
         <br>
         <strong>Step 11: Wireless Connection</strong>
       </td>
       <td align="center">
-        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/test_connection_success.jpg" alt="Test Connection" style="width:200px"/>
+        <img src="https://raw.githubusercontent.com/jamalihassan0307/flutter-fly/main/screenshots/usb_wireless_enabled.jpg" alt="Test Connection" style="width:200px"/>
         <br>
         <strong>Step 12: Test Connection Success</strong>
       </td>

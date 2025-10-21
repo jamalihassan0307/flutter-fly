@@ -262,4 +262,4 @@ async formatCode() {
 
 *This guide makes it easy to maintain and extend the Flutter Fly extension with new commands! 🚀*
 
-*Updated for version 1.0.5 with logo updates and latest improvements.*
+*Updated for version 1.1.1 with enhanced documentation and troubleshooting guide improvements.*
