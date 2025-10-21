@@ -195,66 +195,8 @@ Flutter Fly is a powerful VSCode extension that transforms your Flutter developm
 | `Flutter Fly:🚀 Upgrade Flutter SDK` | Upgrade Flutter to latest version | SDK maintenance |
 | `Flutter Fly:🚀 Get Packages` | Install/update Flutter dependencies | Dependency management |
 
-### **Building and Compiling**
-| Command | Description | Use Case |
-|---------|-------------|----------|
-| `Flutter Fly:🚀 Build APK` | Build APK with mode selection | App distribution |
-| `Flutter Fly:🚀 Build App Bundle (AAB)` | Build Google Play Store AAB | Store deployment |
-| `Flutter Fly:🚀 Build iOS` | Build iOS app (if supported) | iOS development |
-| `Flutter Fly:🚀 Build Web` | Build web app (if supported) | Web development |
-
-### **Running and Debugging**
-| Command | Description | Use Case |
-|---------|-------------|----------|
-| `Flutter Fly:🚀 Run on Connected Device` | Launch app on device | Development |
-| `Flutter Fly:🚀 Run in Debug Mode` | Run with debugging enabled | Debugging |
-| `Flutter Fly:🚀 Run in Profile Mode` | Run for performance testing | Performance |
-| `Flutter Fly:🚀 Run in Release Mode` | Run production build | Testing |
-
-### **Hot Reload / Restart**
-| Command | Description | Use Case |
-|---------|-------------|----------|
-| `Flutter Fly:🚀 Hot Reload` | Update code without restart | Quick development |
-| `Flutter Fly:🚀 Hot Restart` | Complete app restart | Major changes |
-
-### **Device & Emulator Management**
-| Command | Description | Use Case |
-|---------|-------------|----------|
-| `Flutter Fly:🚀 Connect Android Device` | Connect device wirelessly | Device setup |
-| `Flutter Fly:🚀 Open Android Emulator` | Launch Android emulator | Emulator testing |
-| `Flutter Fly:🚀 Open iOS Simulator` | Launch iOS simulator (Mac only) | iOS testing |
-
-### **Utility & Cleanup**
-| Command | Description | Use Case |
-|---------|-------------|----------|
-| `Flutter Fly:🚀 Clean Project` | Clean build artifacts | Troubleshooting |
-| `Flutter Fly:🚀 Inject Resources` | Run build_runner | Code generation |
-| `Flutter Fly:🚀 Format Code` | Format Dart/Flutter code | Code quality |
-| `Flutter Fly:🚀 Analyze Project` | Analyze code for issues | Code review |
-
 ---
 
-## 🎯 Flutter Developer Workflow
-
-### **Development Setup**
-1. **Connect your device** using Flutter Fly
-2. **Run Flutter app** with one command
-3. **Hot reload** works seamlessly over WiFi
-4. **Build APKs/AABs** directly from VSCode
-
-### **Testing & Debugging**
-1. **Build APK:** Use Flutter Fly build commands
-2. **Install via extension** - no need to copy files
-3. **Test on device** with real-time feedback
-4. **Debug with Firebase** analytics
-
-### **Production Deployment**
-1. **Build release AAB:** Use Flutter Fly build commands
-2. **Install via extension** for testing
-3. **Verify functionality** on device
-4. **Deploy to store** when ready
-
----
 
 ## 🔧 Configuration
 
@@ -266,109 +208,11 @@ Configure custom paths for Flutter and ADB:
 3. **Select your executable**
 4. **Verify connection** works
 
-### **Default Locations**
-The extension automatically detects:
 
-- **Flutter:** System PATH or Flutter SDK location
-- **ADB:** Android SDK platform-tools directory
-- **Platform-specific paths** for Windows, macOS, and Linux
 
 ---
 
-## 🧪 Testing
 
-Run the test suite to ensure everything works:
-
-```bash
-# Run all tests
-npm test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Run tests with coverage
-npm run test -- --coverage
-```
-
----
-
-## 🚀 Development
-
-### **Prerequisites**
-- Node.js 14+
-- npm or yarn
-- VSCode
-
-### **Setup**
-```bash
-# Clone the repository
-git clone https://github.com/jamalihassan0307/flutter-fly.git
-
-# Install dependencies
-npm install
-
-# Compile TypeScript
-npm run compile
-
-# Watch for changes
-npm run watch
-```
-
-### **Testing in VSCode**
-1. **Press F5** to launch extension development host
-2. **Test commands** in the new VSCode window
-3. **Debug issues** with breakpoints
-4. **Hot reload** changes automatically
-
----
-
-## 🤝 Contributing
-
-We welcome contributions! Here's how to get started:
-
-1. **Fork the repository**
-2. **Create a feature branch:** `git checkout -b feature/amazing-feature`
-3. **Make your changes**
-4. **Run tests:** `npm test`
-5. **Commit with conventional commits:** `npm run cm`
-6. **Push and create a Pull Request**
-
-### **Commit Guidelines**
-We use conventional commits with emojis:
-- ✨ `feat:` New features
-- 🐛 `fix:` Bug fixes
-- 📝 `docs:` Documentation updates
-- 🧪 `test:` Test improvements
-- 🔧 `chore:` Maintenance tasks
-
----
-
-## 📊 Project Status
-
-[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fjamalihassan0307%2Fflutter-fly%2Fbadge%3Fref%3Dmain&style=flat-square)](https://actions-badge.atrox.dev/jamalihassan0307/flutter-fly/goto?ref=main)
-![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/jamalihassan0307.flutter-fly?style=flat-square)
-![GitHub](https://img.shields.io/github/license/jamalihassan0307/flutter-fly?style=flat-square)
-![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/jamalihassan0307.flutter-fly?style=flat-square)
-![Visual Studio Marketplace Rating (Stars)](https://img.shields.io/visual-studio-marketplace/stars/jamalihassan0307.flutter-fly?style=flat-square)
-
-### **Code Quality**
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jamalihassan0307_flutter-fly&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=jamalihassan0307_flutter-fly)
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=jamalihassan0307_flutter-fly&metric=ncloc)](https://sonarcloud.io/dashboard?id=jamalihassan0307_flutter-fly)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=jamalihassan0307_flutter-fly&metric=bugs)](https://sonarcloud.io/dashboard?id=jamalihassan0307_flutter-fly)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jamalihassan0307_flutter-fly&metric=security_rating)](https://sonarcloud.io/dashboard?id=jamalihassan0307_flutter-fly)
-
----
-
-## 📱 Supported Platforms
-
-- ✅ **Windows** - Fully tested and supported
-- ✅ **macOS** - Compatible with latest versions
-- ✅ **Linux** - Works on major distributions
-- ✅ **Android** - All versions with WiFi debugging
-- ✅ **iOS** - Simulator support on macOS
-- ✅ **Web** - Flutter web development support
-
----
 
 ## � Device Setup Troubleshooting
 
