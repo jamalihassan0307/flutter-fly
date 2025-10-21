@@ -42,6 +42,17 @@ class FlutterFlyWebview {
                 console.error('❌ refreshDevicesBtn element not found!');
             }
     
+            // Troubleshooting guide button
+            const setupGuideBtn = document.querySelector('button[onclick*="showTroubleshootingGuide"]');
+            if (setupGuideBtn) {
+                console.log('✅ Found setup guide button');
+                setupGuideBtn.removeAttribute('onclick');
+                setupGuideBtn.addEventListener('click', () => {
+                    console.log('🔧 Setup guide button clicked');
+                    this.showTroubleshootingGuide();
+                });
+            }
+
             // Add click handlers for all command buttons
             const commandButtons = document.querySelectorAll('button[onclick*="flutterFly.executeFlutterCommand"]');
             console.log(`Found ${commandButtons.length} command buttons`);
@@ -267,6 +278,12 @@ class FlutterFlyWebview {
             this.sendMessage('disconnectDevice', { deviceId });
             this.addStatusMessage(`Disconnecting device: ${deviceId}`, 'info');
         }
+    }
+
+    showTroubleshootingGuide() {
+        console.log('🔧 Showing troubleshooting guide');
+        this.sendMessage('showTroubleshootingGuide', {});
+        this.addStatusMessage('Opening device setup guide...', 'info');
     }
 
     // Status message functionality

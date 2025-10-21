@@ -37,6 +37,7 @@ export class FlutterPanelController extends ADBBaseController {
     this.registerCommand('flutterFly.openFlutterPanel', () => this.openFlutterPanel())
       .registerCommand('flutterFly.connectWirelessDevice', () => this.connectWirelessDevice())
       .registerCommand('flutterFly.showConnectedDevices', () => this.showConnectedDevices())
+      .registerCommand('flutterFly.showTroubleshootingGuide', () => this.showTroubleshootingGuide())
       .registerCommand('flutterFly.runFlutterDoctor', () => this.flutterDoctor())
       .registerCommand('flutterFly.getPackages', () => this.getPackages())
       .registerCommand('flutterFly.upgradePackages', () => this.upgradePackages())
@@ -116,6 +117,10 @@ export class FlutterPanelController extends ADBBaseController {
             case 'disconnectDevice':
               console.log('❌ FlutterPanelController: Disconnecting device...')
               await this.handleDisconnectDevice(message.deviceId);
+              break;
+            case 'showTroubleshootingGuide':
+              console.log('🔧 FlutterPanelController: Showing troubleshooting guide...')
+              await this.showTroubleshootingGuide();
               break;
             default:
               console.warn('⚠️ FlutterPanelController: Unknown message command:', message.command)
@@ -237,8 +242,11 @@ export class FlutterPanelController extends ADBBaseController {
                                         <p>No devices connected</p>
                                     </div>
                                 </div>
-                                <button class="btn btn-outline-primary btn-sm w-100" id="refreshDevicesBtn">
+                                <button class="btn btn-outline-primary btn-sm w-100 mb-2" id="refreshDevicesBtn">
                                     <i class="fas fa-sync-alt"></i> Refresh Devices
+                                </button>
+                                <button class="btn btn-outline-warning btn-sm w-100" onclick="showTroubleshootingGuide()">
+                                    <i class="fas fa-tools"></i> Setup Guide
                                 </button>
                             </div>
                         </div>
@@ -389,6 +397,27 @@ export class FlutterPanelController extends ADBBaseController {
                     document.body.classList.add('no-vscode-api');
                 }
                 
+                // Create global flutterFly object for command execution
+                window.flutterFly = {
+                    executeFlutterCommand: function(commandId) {
+                        if (window.vscode) {
+                            window.vscode.postMessage({
+                                command: 'runFlutterCommand',
+                                commandId: commandId
+                            });
+                        }
+                    }
+                };
+                
+                // Make global functions available
+                window.showTroubleshootingGuide = function() {
+                    if (window.vscode) {
+                        window.vscode.postMessage({
+                            command: 'showTroubleshootingGuide'
+                        });
+                    }
+                };
+                
                 // Add status message directly
                 const statusContainer = document.getElementById('statusMessages');
                 if (statusContainer) {
@@ -483,6 +512,10 @@ export class FlutterPanelController extends ADBBaseController {
           }
           
           throw new Error('ADB not found. Please install Android SDK or set a custom ADB path.');
+        } else if (adbError instanceof Error && (adbError.message.includes('null') || adbError.message.includes('fingerprint'))) {
+          // Show troubleshooting guide for device fingerprint issues
+          this.showTroubleshootingGuide();
+          throw new Error('ADB returned null value - Device fingerprint missing. Please follow the troubleshooting guide.');
         } else {
           throw adbError;
         }
@@ -496,6 +529,12 @@ export class FlutterPanelController extends ADBBaseController {
     } catch (error) {
       console.error(`❌ FlutterPanelController: Failed to handle connection for ${ip}:${port}:`, error)
       const errorMessage = error instanceof Error ? error.message : String(error)
+      
+      // Show troubleshooting guide for specific ADB errors
+      if (errorMessage.includes('ADB returned null value') || errorMessage.includes('fingerprint')) {
+        this.showTroubleshootingGuide();
+      }
+      
       this.showErrorMessage(`Failed to connect: ${errorMessage}`);
       
       // Update webview with error message
@@ -860,6 +899,397 @@ export class FlutterPanelController extends ADBBaseController {
   private showErrorMessage(message: string) {
     console.error(`❌ FlutterPanelController: Error message: ${message}`)
     vscode.window.showErrorMessage(message);
+  }
+
+  private async showTroubleshootingGuide() {
+    console.log('🔧 FlutterPanelController: Showing troubleshooting guide');
+    
+    const troubleshootingPanel = vscode.window.createWebviewPanel(
+      'flutterFlyTroubleshooting',
+      '🔧 Flutter Fly - Device Setup Guide',
+      vscode.ViewColumn.One,
+      {
+        enableScripts: true,
+        retainContextWhenHidden: true,
+        localResourceRoots: [
+          vscode.Uri.joinPath(this.context.extensionUri, 'screenshots'),
+          vscode.Uri.joinPath(this.context.extensionUri, 'media')
+        ]
+      }
+    );
+
+    troubleshootingPanel.webview.html = this.getTroubleshootingContent(troubleshootingPanel);
+
+    troubleshootingPanel.webview.onDidReceiveMessage(
+      async (message) => {
+        switch (message.command) {
+          case 'backToPanel':
+            troubleshootingPanel.dispose();
+            if (this.currentPanel) {
+              this.currentPanel.reveal();
+            } else {
+              this.openFlutterPanel();
+            }
+            break;
+          case 'testConnection':
+            troubleshootingPanel.dispose();
+            await this.connectWirelessDevice();
+            break;
+        }
+      }
+    );
+  }
+
+  private getTroubleshootingContent(panel: vscode.WebviewPanel): string {
+    // Create URIs for all screenshot images
+    const screenshotPath = path.join(this.context.extensionPath, 'screenshots');
+    const mediaPath = path.join(this.context.extensionPath, 'media');
+    
+    const screenshots = {
+      openSettings: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'open_setting_page.jpg'))),
+      openAbout: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'open_about.jpg'))),
+      openSystemManagement: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'open_system_management.jpg'))),
+      openSoftwareInfo: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'open_softwere_information.jpg'))),
+      clickBuildNumber: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'clik_on_build_number.jpg'))),
+      stepToDeveloper: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, '1_step_to_develper.jpg'))),
+      developerOption: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'develper_option.jpg'))),
+      developerEnabled: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'develper_setting_enabled.jpg'))),
+      usbWirelessButton: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'usb_wireless_button.jpg'))),
+      usbWirelessEnabled: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'usb_wireless_enabled.jpg'))),
+      finalStep: panel.webview.asWebviewUri(vscode.Uri.file(path.join(screenshotPath, 'Screenshot_20251021_070602.jpg')))
+    };
+    
+    const styleUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(mediaPath, 'flutter-fly.css')));
+
+    return `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Flutter Fly - Device Setup Guide</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+        <link href="${styleUri}" rel="stylesheet">
+        <style>
+            .troubleshooting-container {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                padding: 20px;
+            }
+            .step-card {
+                background: rgba(255, 255, 255, 0.95);
+                border-radius: 15px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                margin-bottom: 20px;
+                overflow: hidden;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .step-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            }
+            .step-header {
+                background: linear-gradient(135deg, #ff6b6b, #ffa500);
+                color: white;
+                padding: 15px 20px;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .step-content {
+                padding: 20px;
+            }
+            .screenshot-img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                margin: 10px 0;
+                transition: transform 0.3s ease;
+            }
+            .screenshot-img:hover {
+                transform: scale(1.05);
+            }
+            .step-number {
+                background: rgba(255, 255, 255, 0.3);
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            .alert-custom {
+                background: linear-gradient(135deg, #ff9a9e, #fecfef);
+                border: none;
+                color: #333;
+                border-radius: 15px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+            .btn-custom {
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                border: none;
+                color: white;
+                border-radius: 25px;
+                padding: 12px 30px;
+                font-weight: bold;
+                transition: all 0.3s ease;
+            }
+            .btn-custom:hover {
+                background: linear-gradient(135deg, #764ba2, #667eea);
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            }
+            .action-buttons {
+                position: sticky;
+                bottom: 20px;
+                background: rgba(255, 255, 255, 0.95);
+                padding: 15px;
+                border-radius: 15px;
+                box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+                margin-top: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="troubleshooting-container">
+            <div class="container">
+                <!-- Header -->
+                <div class="text-center mb-4">
+                    <h1 class="display-4 text-white mb-3">
+                        <i class="fas fa-tools"></i> Device Setup Guide
+                    </h1>
+                    <p class="lead text-white-50">Follow these steps to enable wireless debugging</p>
+                </div>
+
+                <!-- Error Alert -->
+                <div class="alert alert-custom mb-4">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Connection Issue Detected</h5>
+                    <p class="mb-0">The error "ADB returned null value" usually means device fingerprint is missing. First connect with USB cable, then enable wireless debugging following the steps below.</p>
+                </div>
+
+                <!-- Steps Grid Layout -->
+                <div class="row">
+                    <!-- Column 1: Device Settings Navigation -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <h4 class="text-white mb-3"><i class="fas fa-cog"></i> Device Settings Navigation</h4>
+                        
+                        <!-- Step 1: Open Settings -->
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-number">1</div>
+                                <div>Open Device Settings</div>
+                            </div>
+                            <div class="step-content">
+                                <p><strong>Open your device settings and look for the settings icon.</strong></p>
+                                <img src="${screenshots.openSettings}" alt="Open Settings" class="screenshot-img">
+                            </div>
+                        </div>
+
+                        <!-- Step 2: About Phone -->
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-number">2</div>
+                                <div>Navigate to About Phone/Device</div>
+                            </div>
+                            <div class="step-content">
+                                <p><strong>Find and tap on "About Phone" or "About Device" in settings.</strong></p>
+                                <img src="${screenshots.openAbout}" alt="About Phone" class="screenshot-img">
+                            </div>
+                        </div>
+
+                        <!-- Step 3: System Management -->
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-number">3</div>
+                                <div>Open System Management</div>
+                            </div>
+                            <div class="step-content">
+                                <p><strong>Look for "System Management" or similar option.</strong></p>
+                                <img src="${screenshots.openSystemManagement}" alt="System Management" class="screenshot-img">
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Software Information -->
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-number">4</div>
+                                <div>Software Information</div>
+                            </div>
+                            <div class="step-content">
+                                <p><strong>Tap on "Software Information" or "Software Details".</strong></p>
+                                <img src="${screenshots.openSoftwareInfo}" alt="Software Information" class="screenshot-img">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Enable Developer Options -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <h4 class="text-white mb-3"><i class="fas fa-code"></i> Enable Developer Options</h4>
+                        
+                        <!-- Step 5: Build Number -->
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-number">5</div>
+                                <div>Enable Developer Options</div>
+                            </div>
+                            <div class="step-content">
+                                <p><strong>Find "Build Number" and tap it 7 times rapidly to enable Developer Options.</strong></p>
+                                <img src="${screenshots.clickBuildNumber}" alt="Click Build Number" class="screenshot-img">
+                                <div class="alert alert-info mt-3">
+                                    <i class="fas fa-info-circle"></i> <strong>Tip:</strong> You'll see a message saying "You are now X steps away from being a developer" as you tap.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 6: Developer Options Enabled -->
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-number">6</div>
+                                <div>Developer Options Available</div>
+                            </div>
+                            <div class="step-content">
+                                <p><strong>After tapping 7 times, you'll see "Developer Options" is now available in settings.</strong></p>
+                                <img src="${screenshots.stepToDeveloper}" alt="Developer Steps" class="screenshot-img">
+                            </div>
+                        </div>
+
+                        <!-- Step 7: Open Developer Options -->
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-number">7</div>
+                                <div>Open Developer Options</div>
+                            </div>
+                            <div class="step-content">
+                                <p><strong>Go back to main settings and tap on "Developer Options".</strong></p>
+                                <img src="${screenshots.developerOption}" alt="Developer Options" class="screenshot-img">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 3: Configure Debugging -->
+                    <div class="col-lg-4 col-md-12 mb-4">
+                        <h4 class="text-white mb-3"><i class="fas fa-wifi"></i> Configure Debugging</h4>
+                        
+                        <!-- Step 8: Enable Developer Settings -->
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-number">8</div>
+                                <div>Enable Developer Settings</div>
+                            </div>
+                            <div class="step-content">
+                                <p><strong>Turn on the Developer Options toggle at the top.</strong></p>
+                                <img src="${screenshots.developerEnabled}" alt="Developer Enabled" class="screenshot-img">
+                            </div>
+                        </div>
+
+                        <!-- Step 9: USB Debugging -->
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-number">9</div>
+                                <div>Enable USB/Wireless Debugging</div>
+                            </div>
+                            <div class="step-content">
+                                <p><strong>Find and enable both "USB Debugging" and "Wireless Debugging" options.</strong></p>
+                                <img src="${screenshots.usbWirelessButton}" alt="USB Wireless Button" class="screenshot-img">
+                                <img src="${screenshots.usbWirelessEnabled}" alt="USB Wireless Enabled" class="screenshot-img">
+                            </div>
+                        </div>
+
+                        <!-- Step 10: Connect and Test -->
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-number">10</div>
+                                <div>Connect with USB First</div>
+                            </div>
+                            <div class="step-content">
+                                <p><strong>Connect your device with USB cable first, then run Flutter app to establish fingerprint.</strong></p>
+                                <img src="${screenshots.finalStep}" alt="Final Step" class="screenshot-img">
+                                <div class="alert alert-success mt-3">
+                                    <h6><i class="fas fa-lightbulb"></i> Important Steps:</h6>
+                                    <ol class="mb-0">
+                                        <li>Connect device via USB cable</li>
+                                        <li>Run <code>flutter run</code> command once</li>
+                                        <li>Accept any fingerprint prompts on device</li>
+                                        <li>After successful USB connection, you can use wireless debugging</li>
+                                        <li>Get your device IP from wireless debugging settings</li>
+                                        <li>Use the IP in Flutter Fly panel for wireless connection</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons text-center">
+                    <button class="btn btn-custom me-3" onclick="testConnection()">
+                        <i class="fas fa-wifi"></i> Test Wireless Connection
+                    </button>
+                    <button class="btn btn-outline-secondary" onclick="backToPanel()">
+                        <i class="fas fa-arrow-left"></i> Back to Panel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            const vscode = acquireVsCodeApi();
+
+            function testConnection() {
+                vscode.postMessage({
+                    command: 'testConnection'
+                });
+            }
+
+            function backToPanel() {
+                vscode.postMessage({
+                    command: 'backToPanel'
+                });
+            }
+            
+            function showTroubleshootingGuide() {
+                if (window.vscode) {
+                    window.vscode.postMessage({
+                        command: 'showTroubleshootingGuide'
+                    });
+                } else {
+                    console.error('VSCode API not available');
+                }
+            }
+
+            // Smooth scrolling for better UX
+            document.querySelectorAll('.step-card').forEach((card, index) => {
+                card.style.animationDelay = (index * 0.1) + 's';
+                card.style.animation = 'fadeInUp 0.6s ease forwards';
+            });
+
+            // Add CSS animation
+            const style = document.createElement('style');
+            style.textContent = \`
+                @keyframes fadeInUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                .step-card {
+                    opacity: 0;
+                }
+            \`;
+            document.head.appendChild(style);
+        </script>
+    </body>
+    </html>`;
   }
 
   private isFlutterProject(workspacePath: string): boolean {
