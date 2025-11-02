@@ -70,6 +70,57 @@ Linux:
 - Context menu items only visible in Flutter projects
 - Command palette filters commands based on workspace type
 
+### 4. Dark Mode Support
+**Files:** 
+- `media/flutter-fly.css` - Added CSS variables for theming
+- `src/controllers/flutter-panel-controller/FlutterPanelController.ts` - Added dark mode toggle
+
+**Features:**
+- Complete dark mode theming for all UI components
+- Toggle button in both main panel and troubleshooting guide
+- Persistent preference using localStorage
+- CSS variables for easy customization
+- Smooth color transitions
+- Dark mode for troubleshooting guide steps
+
+**Dark Mode Theme:**
+- Dark purple gradient backgrounds
+- Dark card backgrounds (#1e1e1e)
+- Light text colors (#cccccc)
+- Adjusts shadows and borders for dark theme
+- Preserves readability in all modes
+
+**How to Use:**
+- Click "Dark Mode" / "Light Mode" button in panel header
+- Setting persists across sessions
+- Applies to main panel and troubleshooting guide
+
+### 5. Enhanced Responsive Layout
+**Files:**
+- `media/flutter-fly.css` - Added responsive breakpoints
+- Bootstrap grid system already optimizes layout
+
+**Features:**
+- Sidebar (Device Management) and Main Content automatically stack on small screens
+- Social links stack vertically on mobile
+- Adjusted font sizes for better readability
+- Touch-friendly button sizes
+- Responsive troubleshooting guide
+
+**Layout Behavior:**
+- **Desktop (> 768px):** Side-by-side layout
+  - Left: Device Management (33% width)
+  - Right: Flutter Commands (67% width)
+- **Tablet/Mobile (< 768px):** Stacked layout
+  - Device Management appears first (full width)
+  - Flutter Commands appears below (full width)
+- Bootstrap `col-md-*` classes automatically handle this
+
+**Breakpoints:**
+- Desktop (> 768px): Side-by-side layout
+- Tablet (768px - 992px): Optimized spacing
+- Mobile (< 768px): Stacked columns, full-width buttons
+
 ## 📝 Code Changes Summary
 
 ### New Files Created:
@@ -79,6 +130,8 @@ Linux:
 1. `src/main.ts` - Added StatusBar initialization, ADB auto-detection, and project watcher
 2. `src/domain/adb-resolver/adb-path.ts` - Added common paths function
 3. `src/domain/adb-resolver/index.ts` - Added auto-detection method
+4. `src/controllers/flutter-panel-controller/FlutterPanelController.ts` - Added dark mode toggles and responsive improvements
+5. `media/flutter-fly.css` - Added CSS variables, dark mode styles, and responsive breakpoints
 
 ### Compilation Status:
 ✅ All TypeScript compiles successfully
@@ -109,6 +162,8 @@ Linux:
 3. **Smart Context**: Commands only available when relevant
 4. **Real-time Updates**: Dynamic detection as project changes
 5. **Less Clutter**: UI adapts to project type automatically
+6. **Dark Mode**: Professional dark theme for comfortable night-time development
+7. **Responsive**: Works perfectly on any screen size with automatic layout adjustment
 
 ## 🔄 Next Steps (Optional Future Enhancements)
 

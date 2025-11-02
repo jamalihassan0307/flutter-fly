@@ -996,18 +996,31 @@ export class FlutterPanelController extends ADBBaseController {
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
         <link href="${styleUri}" rel="stylesheet">
         <style>
+            :root {
+                --trouble-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                --trouble-card: rgba(255, 255, 255, 0.95);
+                --trouble-text: #333333;
+                --trouble-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            }
+            body.dark-mode {
+                --trouble-bg: linear-gradient(135deg, #2d1b69 0%, #4a266f 100%);
+                --trouble-card: rgba(30, 30, 30, 0.95);
+                --trouble-text: #cccccc;
+                --trouble-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            }
             .troubleshooting-container {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                background: var(--trouble-bg);
                 min-height: 100vh;
                 padding: 20px;
             }
             .step-card {
-                background: rgba(255, 255, 255, 0.95);
+                background: var(--trouble-card);
                 border-radius: 15px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                box-shadow: var(--trouble-shadow);
                 margin-bottom: 20px;
                 overflow: hidden;
                 transition: transform 0.3s ease, box-shadow 0.3s ease;
+                color: var(--trouble-text);
             }
             .step-card:hover {
                 transform: translateY(-5px);
@@ -1054,6 +1067,10 @@ export class FlutterPanelController extends ADBBaseController {
                 border-radius: 15px;
                 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             }
+            body.dark-mode .alert-custom {
+                background: rgba(52, 73, 85, 0.5);
+                color: var(--trouble-text);
+            }
             .btn-custom {
                 background: linear-gradient(135deg, #667eea, #764ba2);
                 border: none;
@@ -1072,7 +1089,7 @@ export class FlutterPanelController extends ADBBaseController {
             .action-buttons {
                 position: sticky;
                 bottom: 20px;
-                background: rgba(255, 255, 255, 0.95);
+                background: var(--trouble-card);
                 padding: 15px;
                 border-radius: 15px;
                 box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
@@ -1089,6 +1106,13 @@ export class FlutterPanelController extends ADBBaseController {
                         <i class="fas fa-tools"></i> Device Setup Guide
                     </h1>
                     <p class="lead text-white-50">Follow these steps to enable wireless debugging</p>
+                    
+                    <!-- Dark Mode Toggle -->
+                    <div class="mt-2">
+                        <button class="btn btn-outline-light btn-sm" id="darkModeToggleTrouble" title="Toggle Dark Mode">
+                            <i class="fas fa-moon"></i> Dark Mode
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Error Alert -->
@@ -1351,6 +1375,29 @@ export class FlutterPanelController extends ADBBaseController {
                     console.error('VSCode API not available');
                 }
             }
+            
+            // Load dark mode preference and setup toggle
+            window.addEventListener('DOMContentLoaded', () => {
+                const isDarkMode = localStorage.getItem('flutterFlyDarkMode') === 'true';
+                if (isDarkMode) {
+                    document.body.classList.add('dark-mode');
+                }
+                
+                // Setup dark mode toggle
+                const darkModeToggle = document.getElementById('darkModeToggleTrouble');
+                if (darkModeToggle) {
+                    if (isDarkMode) {
+                        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+                    }
+                    
+                    darkModeToggle.addEventListener('click', function() {
+                        document.body.classList.toggle('dark-mode');
+                        const isDark = document.body.classList.contains('dark-mode');
+                        localStorage.setItem('flutterFlyDarkMode', isDark);
+                        this.innerHTML = isDark ? '<i class="fas fa-sun"></i> Light Mode' : '<i class="fas fa-moon"></i> Dark Mode';
+                    });
+                }
+            });
 
             // Smooth scrolling for better UX
             document.querySelectorAll('.step-card').forEach((card, index) => {
