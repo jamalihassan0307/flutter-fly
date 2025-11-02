@@ -1,5 +1,9 @@
 # Flutter Fly Extension - Upgrade Summary
 
+**Version:** 1.1.2  
+**Release Date:** 2025-01-22  
+**Status:** ✅ All upgrades completed and tested
+
 ## ✅ Completed Upgrades
 
 ### 1. Status Bar Integration

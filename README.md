@@ -40,7 +40,7 @@
 
   <p align="center">
     <a href="https://marketplace.visualstudio.com/search?term=flutter%20fly&target=VSCode&category=All%20categories&sortBy=Relevance">
-      <img src="https://img.shields.io/badge/version-1.1.0-blue?style=for-the-badge&logo=visualstudiocode&logoColor=white" alt="Version"/>
+      <img src="https://img.shields.io/badge/version-1.1.2-blue?style=for-the-badge&logo=visualstudiocode&logoColor=white" alt="Version"/>
     </a>
     <a href="https://flutter.dev">
       <img src="https://img.shields.io/badge/Flutter-Latest-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter"/>
@@ -57,7 +57,7 @@
 
 **The ultimate Flutter development companion for VSCode.** Connect devices wirelessly, build APKs/AABs, run Flutter apps, and manage your entire Flutter workflow from one beautiful interface.
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://marketplace.visualstudio.com/search?term=flutter%20fly&target=VSCode&category=All%20categories&sortBy=Relevance)
+[![Version](https://img.shields.io/badge/version-1.1.2-blue.svg)](https://marketplace.visualstudio.com/search?term=flutter%20fly&target=VSCode&category=All%20categories&sortBy=Relevance)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 ![VS Code Compatibility](https://img.shields.io/badge/vscode-%5E1.85.0-brightgreen.svg)
 

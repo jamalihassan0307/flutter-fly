@@ -2,7 +2,43 @@
 
 All notable changes to the "Flutter Fly" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachanglog.com/) for recommendations on how to structure this file.
+
+## [1.1.2] - 2025-11-02
+
+### 🚀 Major New Features
+- **Status Bar Integration**: Real-time device connection status displayed in VS Code status bar
+- **ADB Auto-Detection**: Automatically searches and detects ADB installation paths across Windows, macOS, and Linux
+- **Dynamic Flutter Project Detection**: Watches workspace for Flutter projects and enables/disables commands automatically
+- **Dark Mode Support**: Complete dark theme with toggle buttons in main panel and troubleshooting guide
+- **Enhanced Three-Column Layout**: Professional layout with Device Management, Flutter Commands, and Quick Actions
+
+### ✨ UI/UX Enhancements
+- **Professional Dark Theme**: Beautiful dark purple gradient backgrounds with proper contrast
+- **CSS Variables**: Flexible theming system using CSS variables for easy customization
+- **Responsive Layout**: Automatic column stacking based on screen size
+  - Desktop (>992px): Three columns side-by-side
+  - Tablet (768-992px): Two columns with Quick Actions below
+  - Mobile (<768px): Fully stacked layout
+- **Persistent Preferences**: Dark mode setting saved in localStorage
+
+### 🔧 Technical Improvements
+- **StatusBar Controller**: New dedicated controller for status bar functionality
+- **File Watcher**: Monitors pubspec.yaml for dynamic project detection
+- **Enhanced ADB Detection**: Searches 6+ common installation paths per platform
+- **Better Error Messages**: More helpful guidance when ADB or devices not found
+- **Real-time Updates**: Status bar refreshes every 30 seconds automatically
+
+### 🎯 User Benefits
+- **Better Visibility**: Device status always visible in status bar
+- **Easier Setup**: No manual ADB path configuration required
+- **Smart Context**: Commands automatically adapt to project type
+- **Modern UI**: Professional dark mode for comfortable development
+- **Improved Workflow**: Three-column layout optimizes screen space
+
+### 📱 Responsive Design
+- **Automatic Layout**: Bootstrap grid system handles all screen sizes
+- **Touch-Friendly**: Optimized button sizes for mobile devices
+- **Flexible Columns**: Smart stacking based on available width
 
 ## [1.1.1] - 2025-10-22
 

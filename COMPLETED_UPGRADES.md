@@ -45,9 +45,10 @@ All requested upgrades have been successfully completed and tested. The extensio
 ## Key Features
 
 ### Layout Behavior
-- **Desktop (>768px):** Device Management on left, Flutter Commands on right
-- **Mobile (<768px):** Both sections stack vertically
-- Bootstrap handles this automatically
+- **Desktop (>992px):** Three-column layout (Device Management | Flutter Commands | Quick Actions)
+- **Tablet (768-992px):** Two columns with Quick Actions below
+- **Mobile (<768px):** All sections stack vertically
+- Bootstrap `col-lg-*` and `col-md-*` classes handle this automatically
 
 ### Dark Mode
 - Click moon icon to enable dark mode

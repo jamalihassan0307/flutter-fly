@@ -89,9 +89,23 @@ When ready to publish:
    npm run vscode:prepublish
    ```
 
-## 🔧 Current Development Status (v1.1.1)
+## 🔧 Current Development Status (v1.1.2)
 
 ### **Recently Completed Updates**
+- ✅ **Status Bar Integration** - Real-time device connection status in VS Code status bar with quick actions
+- ✅ **ADB Auto-Detection** - Automatic ADB path detection across Windows, macOS, and Linux
+- ✅ **Dynamic Project Detection** - Automatic Flutter project detection with file watcher
+- ✅ **Dark Mode Support** - Complete dark theme with toggle buttons in both panels
+- ✅ **Three-Column Layout** - Professional layout with Device | Commands | Quick Actions
+- ✅ **Enhanced Responsive Design** - Automatic layout adaptation for all screen sizes
+- ✅ **CSS Variables** - Flexible theming system for easy customization
+- ✅ **Better Error Handling** - Improved guidance when ADB or devices not found
+- ✅ **Persistent Preferences** - Dark mode setting saved in localStorage
+- ✅ **Version Bump** - Updated to version 1.1.2 for marketplace release
+
+## 🔧 Previous Development Status (v1.1.1)
+
+### **Previously Completed Updates**
 - ✅ **README Enhancement** - Complete documentation update with visual troubleshooting guide
 - ✅ **Screenshot Integration** - All 12 device setup screenshots properly integrated with correct URLs
 - ✅ **Setup Guide Demo** - Added comprehensive setup guide GIF to main demo section
@@ -100,7 +114,6 @@ When ready to publish:
 - ✅ **URL Standardization** - Fixed all image URLs to use consistent GitHub raw URL format
 - ✅ **File Path Corrections** - Updated all screenshot references to match actual repository files
 - ✅ **Documentation Consistency** - Ensured all files reflect latest troubleshooting features
-- ✅ **Version Bump** - Updated to version 1.1.1 for marketplace release
 
 ## 🔧 Previous Development Status (v1.1.0)
 
@@ -216,4 +229,4 @@ When ready to publish:
 
 *Transformed from Wireless ADB to Flutter Fly by Jam Ali Hassan*
 
-*Current version: 1.1.1 - Enhanced with complete visual documentation and improved troubleshooting guide presentation!*
+*Current version: 1.1.2 - Enhanced with StatusBar integration, ADB auto-detection, dynamic project detection, dark mode, and three-column layout!*
