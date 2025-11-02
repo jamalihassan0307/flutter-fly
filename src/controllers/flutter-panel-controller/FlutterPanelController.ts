@@ -206,6 +206,13 @@ export class FlutterPanelController extends ADBBaseController {
                             <i class="fas fa-code"></i> Built with ❤️ by <strong>Jam Ali Hassan</strong>
                         </small>
                     </div>
+                    
+                    <!-- Dark Mode Toggle -->
+                    <div class="mt-2">
+                        <button class="btn btn-outline-light btn-sm" id="darkModeToggle" title="Toggle Dark Mode">
+                            <i class="fas fa-moon"></i> Dark Mode
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -417,6 +424,24 @@ export class FlutterPanelController extends ADBBaseController {
                         });
                     }
                 };
+                
+                // Dark Mode Toggle
+                const darkModeToggle = document.getElementById('darkModeToggle');
+                if (darkModeToggle) {
+                    // Load saved preference
+                    const isDarkMode = localStorage.getItem('flutterFlyDarkMode') === 'true';
+                    if (isDarkMode) {
+                        document.body.classList.add('dark-mode');
+                        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+                    }
+                    
+                    darkModeToggle.addEventListener('click', function() {
+                        document.body.classList.toggle('dark-mode');
+                        const isDark = document.body.classList.contains('dark-mode');
+                        localStorage.setItem('flutterFlyDarkMode', isDark);
+                        this.innerHTML = isDark ? '<i class="fas fa-sun"></i> Light Mode' : '<i class="fas fa-moon"></i> Dark Mode';
+                    });
+                }
                 
                 // Add status message directly
                 const statusContainer = document.getElementById('statusMessages');

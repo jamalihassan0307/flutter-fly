@@ -1,36 +1,88 @@
-/* Flutter Fly Panel Styles */
+/* Flutter Fly Panel Styles - CSS Variables for Dark Mode */
+:root {
+    --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-card: rgba(255, 255, 255, 0.95);
+    --bg-device: #f8f9fa;
+    --text-primary: #333333;
+    --text-muted: #6c757d;
+    --border-color: #dee2e6;
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode Variables */
+body.dark-mode {
+    --bg-primary: linear-gradient(135deg, #2d1b69 0%, #4a266f 100%);
+    --bg-card: rgba(30, 30, 30, 0.95);
+    --bg-device: #252526;
+    --text-primary: #cccccc;
+    --text-muted: #858585;
+    --border-color: #3e3e42;
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--bg-primary);
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    color: var(--text-primary);
+}
+
+/* Apply dark mode to all elements */
+body.dark-mode .sidebar,
+body.dark-mode .main-content {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+body.dark-mode .card,
+body.dark-mode .device-card {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+body.dark-mode .form-control {
+    background: var(--bg-device);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+body.dark-mode .device-item {
+    background: var(--bg-device);
+    border-color: var(--border-color) !important;
+}
+
+body.dark-mode .text-muted {
+    color: var(--text-muted) !important;
 }
 
 .header-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--bg-primary);
     padding: 2rem 0;
     margin-bottom: 2rem;
 }
 
 .sidebar {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--bg-card);
     border-radius: 10px;
     margin: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow);
 }
 
 .main-content {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--bg-card);
     border-radius: 10px;
     margin: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow);
 }
 
 .device-card, .card {
     border: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow);
     border-radius: 8px;
+    background: var(--bg-card);
+    color: var(--text-primary);
 }
 
 .card-header {
@@ -69,8 +121,8 @@ body {
 }
 
 .device-item {
-    background: #f8f9fa;
-    border: 1px solid #dee2e6 !important;
+    background: var(--bg-device);
+    border: 1px solid var(--border-color) !important;
 }
 
 .devices-list {
@@ -129,19 +181,20 @@ body {
 
 /* Troubleshooting Guide Styles */
 .troubleshooting-container {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--bg-primary);
     min-height: 100vh;
     padding: 20px;
 }
 
 .step-card {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--bg-card);
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow);
     margin-bottom: 20px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     height: fit-content;
+    color: var(--text-primary);
 }
 
 .step-card:hover {
@@ -217,12 +270,13 @@ body {
 .action-buttons {
     position: sticky;
     bottom: 20px;
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--bg-card);
     padding: 15px;
     border-radius: 15px;
     box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
     margin-top: 30px;
     backdrop-filter: blur(10px);
+    color: var(--text-primary);
 }
 
 @keyframes fadeInUp {
@@ -265,6 +319,15 @@ body {
         font-size: 2rem;
     }
     
+    .lead {
+        font-size: 0.9rem;
+    }
+    
+    .social-links .btn {
+        margin: 0.25rem 0;
+        width: 100%;
+    }
+    
     .troubleshooting-container {
         padding: 10px;
     }
@@ -275,6 +338,7 @@ body {
     
     .step-header {
         padding: 10px 15px;
+        font-size: 0.9rem;
     }
     
     .action-buttons {
@@ -297,5 +361,15 @@ body {
     /* Adjust for tablet view */
     .troubleshooting-container .col-lg-4.col-md-12 {
         margin-top: 0;
+    }
+    
+    /* Ensure proper stacking on smaller screens */
+    .header-section h1 {
+        font-size: 2.5rem;
+    }
+    
+    .connection-form input,
+    .connection-form button {
+        font-size: 0.9rem;
     }
 }
