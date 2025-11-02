@@ -218,7 +218,7 @@ export class FlutterPanelController extends ADBBaseController {
 
             <div class="row">
                 <!-- Left Sidebar - Device Management -->
-                <div class="col-md-4 sidebar">
+                <div class="col-lg-3 col-md-4 sidebar">
                     <div class="card device-card">
                         <div class="card-header bg-primary text-white">
                             <h5><i class="fas fa-mobile-alt"></i> Device Management</h5>
@@ -258,33 +258,10 @@ export class FlutterPanelController extends ADBBaseController {
                             </div>
                         </div>
                     </div>
-
-                    <!-- Quick Actions -->
-                    <div class="card mt-3">
-                        <div class="card-header bg-info text-white">
-                            <h6><i class="fas fa-bolt"></i> Quick Actions</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="d-grid gap-2">
-                                <button class="btn btn-outline-info btn-sm" onclick="flutterFly.executeFlutterCommand('runFlutterDoctor')">
-                                    <i class="fas fa-stethoscope"></i> Flutter Doctor
-                                </button>
-                                <button class="btn btn-outline-info btn-sm" onclick="flutterFly.executeFlutterCommand('getPackages')">
-                                    <i class="fas fa-download"></i> Get Packages
-                                </button>
-                                <button class="btn btn-outline-info btn-sm" onclick="flutterFly.executeFlutterCommand('upgradePackages')">
-                                    <i class="fas fa-arrow-up"></i> Upgrade Packages
-                                </button>
-                                <button class="btn btn-outline-info btn-sm" onclick="flutterFly.executeFlutterCommand('cleanProject')">
-                                    <i class="fas fa-broom"></i> Clean Project
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Main Content - Flutter Commands -->
-                <div class="col-md-8 main-content">
+                <div class="col-lg-6 col-md-8 main-content">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -362,6 +339,31 @@ export class FlutterPanelController extends ADBBaseController {
                               </div>
                           </div>
                       </div>
+                </div>
+
+                <!-- Right Sidebar - Quick Actions -->
+                <div class="col-lg-3 col-md-12 sidebar">
+                    <div class="card">
+                        <div class="card-header bg-info text-white">
+                            <h6><i class="fas fa-bolt"></i> Quick Actions</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-info btn-sm" onclick="flutterFly.executeFlutterCommand('runFlutterDoctor')">
+                                    <i class="fas fa-stethoscope"></i> Flutter Doctor
+                                </button>
+                                <button class="btn btn-outline-info btn-sm" onclick="flutterFly.executeFlutterCommand('getPackages')">
+                                    <i class="fas fa-download"></i> Get Packages
+                                </button>
+                                <button class="btn btn-outline-info btn-sm" onclick="flutterFly.executeFlutterCommand('upgradePackages')">
+                                    <i class="fas fa-arrow-up"></i> Upgrade Packages
+                                </button>
+                                <button class="btn btn-outline-info btn-sm" onclick="flutterFly.executeFlutterCommand('cleanProject')">
+                                    <i class="fas fa-broom"></i> Clean Project
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

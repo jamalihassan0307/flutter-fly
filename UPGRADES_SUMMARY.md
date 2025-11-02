@@ -108,18 +108,24 @@ Linux:
 - Responsive troubleshooting guide
 
 **Layout Behavior:**
-- **Desktop (> 768px):** Side-by-side layout
+- **Desktop (> 992px):** Three-column layout
+  - Left: Device Management (25% width)
+  - Center: Flutter Commands (50% width)
+  - Right: Quick Actions (25% width)
+- **Tablet (768px-992px):** Two-column layout
   - Left: Device Management (33% width)
   - Right: Flutter Commands (67% width)
-- **Tablet/Mobile (< 768px):** Stacked layout
-  - Device Management appears first (full width)
-  - Flutter Commands appears below (full width)
-- Bootstrap `col-md-*` classes automatically handle this
+  - Below: Quick Actions (full width)
+- **Mobile (< 768px):** Stacked layout
+  - Device Management (full width)
+  - Flutter Commands (full width)
+  - Quick Actions (full width)
+- Bootstrap `col-lg-*` and `col-md-*` classes automatically handle this
 
 **Breakpoints:**
-- Desktop (> 768px): Side-by-side layout
-- Tablet (768px - 992px): Optimized spacing
-- Mobile (< 768px): Stacked columns, full-width buttons
+- Large Desktop (> 992px): Three-column layout (Device | Commands | Quick Actions)
+- Medium/Tablet (768px - 992px): Two-column layout with Quick Actions below
+- Small/Mobile (< 768px): Fully stacked, all sections full width
 
 ## 📝 Code Changes Summary
 
